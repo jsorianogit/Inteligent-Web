@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="logos"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="709"
+		 pageHeight="501"
+		 columnWidth="709"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="sContrato" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["425027840"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2007-12-28"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT 
+c.bImagen, c.sContrato, 
+c.sNombre, c.sPiePagina, 
+c.sEmail,c.sWeb,
+c.sSlogan,c.sFirmasElectronicas,
+c.lImprimeExtraordinario,
+c2.mDescripcion, c2.mCliente, c2.bImagen AS bImagenPEP,
+DATE_FORMAT($P{dIdFecha},"%d/%m/%Y") as dIdFecha
+FROM  contratos c2 
+INNER JOIN configuracion c 
+ON (c.sContrato = c2.sContrato) Where c2.sContrato = $P{sContrato}]]></queryString>
+
+	<field name="bImagen" class="java.io.InputStream"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sPiePagina" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="sSlogan" class="java.lang.String"/>
+	<field name="sFirmasElectronicas" class="java.lang.String"/>
+	<field name="lImprimeExtraordinario" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagenPEP" class="java.io.InputStream"/>
+	<field name="dIdFecha" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="142"  isSplitAllowed="true" >
+				<rectangle radius="10" >
+					<reportElement
+						x="1"
+						y="1"
+						width="707"
+						height="79"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<image  vAlign="Middle" hAlign="Center" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="5"
+						width="95"
+						height="65"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{bImagenPEP}]]></imageExpression>
+				</image>
+				<image  vAlign="Middle" hAlign="Center" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="597"
+						y="6"
+						width="95"
+						height="65"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{bImagen}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="140"
+						y="5"
+						width="456"
+						height="45"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mCliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="354"
+						y="60"
+						width="151"
+						height="17"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sContrato}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="308"
+						y="60"
+						width="45"
+						height="17"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Contrato:]]></text>
+				</staticText>
+				<rectangle radius="13" >
+					<reportElement
+						x="0"
+						y="96"
+						width="708"
+						height="35"
+						key="rectangle-2"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</rectangle>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="28"
+						y="102"
+						width="663"
+						height="11"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="28"
+						y="89"
+						width="74"
+						height="10"
+						backcolor="#CCCCFF"
+						key="staticText-3"/>
+					<box topBorder="1Point" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Reporte de Insumos]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptBusquedaComentarios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA["ot-12.b.1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sTexto" class="java.lang.String">
+		<defaultValueExpression><![CDATA["a"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\adal2404\\Documents\\Delphi for PHP Projects\\Reportes\\concentradoSuministros\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select
+b.sDescripcion,r.sNumeroOrden,r.dIdFecha
+                  from reportefotografico b
+                  INNER JOIN reportediario r ON (
+                    r.sContrato = b.sContrato
+                    And r.sNumeroReporte = b.sNumeroReporte
+                  )
+                  Where
+                    b.sContrato = $P{sContrato}
+                    And b.sDescripcion LIKE concat('%', $P{sTexto} ,'%')
+                    order by r.sNumeroOrden,
+                    r.dIdFecha]]>
+	</queryString>
+	<field name="sDescripcion" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<field name="dIdFecha" class="java.sql.Date"/>
+	<group name="Fecha">
+		<groupExpression><![CDATA[$F{dIdFecha}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<rectangle radius="0">
+					<reportElement x="0" y="12" width="562" height="20" backcolor="#CCCCFF"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</rectangle>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement mode="Opaque" x="103" y="6" width="39" height="20"/>
+					<box>
+						<topPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dIdFecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="191" y="6" width="132" height="20"/>
+					<box>
+						<topPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sNumeroOrden}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="31" y="6" width="72" height="20"/>
+					<box>
+						<topPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Comentarios del Dia:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="142" y="6" width="49" height="20"/>
+					<box>
+						<topPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[ De la Orden:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="4"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="38"/>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Listado">
+					<subreportParameterExpression><![CDATA[new String("Listado de comentarios encontrados")]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptRDTitulo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="562" height="15"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sDescripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

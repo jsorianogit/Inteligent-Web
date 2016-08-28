@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAvancesObrayOrden" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA["424109803"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String">
+		<defaultValueExpression><![CDATA["COCUITE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String">
+		<defaultValueExpression><![CDATA["A"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2011-07-03"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+            dAvProgAnteriorOrden,
+            dAvProgActualOrden,
+            dAvProgAnteriorOrden+dAvProgActualOrden as dAvProgAcumuladoOrden,
+            dAvRealAnteriorOrden,
+            dAvRealActualOrden,
+            dAvRealActualOrden+dAvRealAnteriorOrden  as dAvRealAcumuladoOrden,
+
+            dAvProgAnteriorContrato,
+	  dAvProgActualContrato,
+            dAvProgActualContrato+dAvProgAnteriorContrato as dAvProgAcumuladoContrato,
+	  dAvRealAnteriorContrato,
+	  dAvRealActualContrato,
+            dAvRealAnteriorContrato+dAvRealActualContrato as dAvRealAcumuladoContrato,
+(select lStatus from reportediario where sContrato=$P{sContrato} and dIdFecha=$P{dIdFecha}  and sIdConvenio=$P{sIdConvenio} and lStatus='Pendiente' limit 1) as lStatus
+           from
+	        reportediario
+           Where
+            sContrato =   $P{sContrato}
+            and sNumeroOrden= $P{sNumeroOrden}
+            And sIdTurno =  $P{sIdTurno}
+            AND dIdFecha= $P{dIdFecha}
+            AND lStatus <> 'Pendiente']]>
+	</queryString>
+	<field name="dAvProgAnteriorOrden" class="java.math.BigDecimal"/>
+	<field name="dAvProgActualOrden" class="java.math.BigDecimal"/>
+	<field name="dAvProgAcumuladoOrden" class="java.math.BigDecimal"/>
+	<field name="dAvRealAnteriorOrden" class="java.math.BigDecimal"/>
+	<field name="dAvRealActualOrden" class="java.math.BigDecimal"/>
+	<field name="dAvRealAcumuladoOrden" class="java.math.BigDecimal"/>
+	<field name="dAvProgAnteriorContrato" class="java.math.BigDecimal"/>
+	<field name="dAvProgActualContrato" class="java.math.BigDecimal"/>
+	<field name="dAvProgAcumuladoContrato" class="java.math.BigDecimal"/>
+	<field name="dAvRealAnteriorContrato" class="java.math.BigDecimal"/>
+	<field name="dAvRealActualContrato" class="java.math.BigDecimal"/>
+	<field name="dAvRealAcumuladoContrato" class="java.math.BigDecimal"/>
+	<field name="lStatus" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="75" splitType="Stretch">
+			<textField pattern="###0.0000">
+				<reportElement x="150" y="29" width="45" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvRealAnteriorOrden}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="195" y="42" width="46" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvProgActualOrden}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="241" y="42" width="48" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvProgAcumuladoOrden}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="150" y="42" width="45" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvProgAnteriorOrden}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="195" y="29" width="46" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvRealActualOrden}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="241" y="29" width="48" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvRealAcumuladoOrden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="150" y="16" width="45" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ANTERIOR"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="195" y="16" width="46" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ACTUAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="241" y="16" width="48" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ACUMULADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="66" y="42" width="84" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCE PROGRAMADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="66" y="29" width="84" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCE REAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="150" y="3" width="139" height="13" forecolor="#000000" backcolor="#FFFF99"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sNumeroOrden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="478" y="16" width="48" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ACUMULADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="303" y="29" width="84" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCE REAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="432" y="16" width="46" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ACTUAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="387" y="16" width="45" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ANTERIOR"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="303" y="42" width="84" height="13" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCE PROGRAMADO"]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="387" y="42" width="45" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvProgAnteriorContrato}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="432" y="42" width="46" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvProgActualContrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="387" y="3" width="139" height="13" forecolor="#000000" backcolor="#FFFF99"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCES DE LA OBRA"]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="478" y="42" width="48" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvProgAcumuladoContrato}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="478" y="29" width="48" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvRealAcumuladoContrato}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="387" y="29" width="45" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvRealAnteriorContrato}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="432" y="29" width="46" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dAvRealActualContrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="55" width="612" height="20" backcolor="#CCFFCC">
+					<printWhenExpression><![CDATA[$F{lStatus}!=null && $F{lStatus}.equals("Pendiente")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Existen reportes diarios de otras ordenes de trabajo sin validar/autorizar, por tal "+
+"No se puede reflejar el avance real y los tiempos muertos realies del contrato"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="387" y="29" width="139" height="13" backcolor="#000000">
+					<printWhenExpression><![CDATA[$F{lStatus}!=null && $F{lStatus}.equals("Pendiente")]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

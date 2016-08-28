@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="index"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="578"
+		 columnSpacing="0"
+		 leftMargin="4"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="sContrato" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["428237820"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iCedulaProcedencia" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\wamp\\www\\html\\reportes\\ordenDeCambio\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[Select
+  o.*,
+  c.mDescripcion,
+  c.bImagen,c.bImagen AS bImagen2,c.bImagen as bImagen3, c.bImagen as bImagen4,
+  c2.sNombre,
+  c2.sDireccion1,
+  c2.sDireccion2,
+  c2.sDireccion3,
+  c2.bImagen as bImagenCIA
+From
+  ordendecambio o
+  inner join contratos c on (o.sContrato = c.sContrato)
+  inner join configuracion c2 on (o.sContrato = c2.sContrato)
+  Where o.sContrato=$P{sContrato} and o.iCedulaProcedencia=$P{iCedulaProcedencia};]]></queryString>
+
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="iCedulaProcedencia" class="java.lang.Integer"/>
+	<field name="mCedulaMotivo" class="java.lang.String"/>
+	<field name="mCedulaProblematica" class="java.lang.String"/>
+	<field name="mCedulaCambioPropuesto" class="java.lang.String"/>
+	<field name="dCedulaMontoRequerido" class="java.lang.String"/>
+	<field name="iCedulaDiasPlazo" class="java.lang.String"/>
+	<field name="iCedulaDiasProrroga" class="java.lang.String"/>
+	<field name="sCedulaSoporte" class="java.lang.String"/>
+	<field name="lCedulaProcede" class="java.lang.String"/>
+	<field name="lCedulaNoProcede" class="java.lang.String"/>
+	<field name="mCedulaAccionesPropuestas" class="java.lang.String"/>
+	<field name="sCedulaAreaResponsable" class="java.lang.String"/>
+	<field name="sCedulaAntefirman" class="java.lang.String"/>
+	<field name="dNotificacionFecha" class="java.sql.Date"/>
+	<field name="mNotificacionDescripcion" class="java.lang.String"/>
+	<field name="sNotificacionProcede" class="java.lang.String"/>
+	<field name="sNotificacionRequierePrecios" class="java.lang.String"/>
+	<field name="sNotificacionExtiendeTiempo" class="java.lang.String"/>
+	<field name="iNotificacionEntregaPropuesta" class="java.lang.Integer"/>
+	<field name="sNotificacionPlanosAdjuntos" class="java.lang.String"/>
+	<field name="sNotificacionOtroRequerimiento" class="java.lang.String"/>
+	<field name="mNotificacionSupervisor" class="java.lang.String"/>
+	<field name="mNotificacionResidente" class="java.lang.String"/>
+	<field name="sNotificacionAntefirman" class="java.lang.String"/>
+	<field name="sNotificacionOficio" class="java.lang.String"/>
+	<field name="lNotificacionSinComentarios" class="java.lang.String"/>
+	<field name="lNotificacionConComentarios" class="java.lang.String"/>
+	<field name="lNotificacionConPropuesta" class="java.lang.String"/>
+	<field name="lNotificacionSinPropuesta" class="java.lang.String"/>
+	<field name="mNotificacionContratista" class="java.lang.String"/>
+	<field name="dNotificacionFechaFirma" class="java.sql.Date"/>
+	<field name="mDictamenDescripcion" class="java.lang.String"/>
+	<field name="mDictamenFundamento" class="java.lang.String"/>
+	<field name="mDictamenAntecedentes" class="java.lang.String"/>
+	<field name="mDictamenJustificacion" class="java.lang.String"/>
+	<field name="mDictamenVerificacionPresupuestal" class="java.lang.String"/>
+	<field name="mDictamenResidente" class="java.lang.String"/>
+	<field name="sDictamenAntefirman" class="java.lang.String"/>
+	<field name="sOrdenOficio" class="java.lang.String"/>
+	<field name="sOrdenCambio" class="java.lang.String"/>
+	<field name="dOrdenFecha" class="java.sql.Date"/>
+	<field name="dOrdenMonto" class="java.math.BigDecimal"/>
+	<field name="iOrdenPlazo" class="java.lang.Integer"/>
+	<field name="mOrdenOtros" class="java.lang.String"/>
+	<field name="sOrdenOficios" class="java.lang.String"/>
+	<field name="sOrdenIngenieria" class="java.lang.String"/>
+	<field name="sOrdenNotasBitacora" class="java.lang.String"/>
+	<field name="sOrdenModificacionProgramas" class="java.lang.String"/>
+	<field name="sOrdenPreciosExtraordinarios" class="java.lang.String"/>
+	<field name="sOrdenSancionesdeCampo" class="java.lang.String"/>
+	<field name="sOrdenAnalisisdePrecios" class="java.lang.String"/>
+	<field name="sOrdenNotificacionesdeCambio" class="java.lang.String"/>
+	<field name="mOrdenSupervisor" class="java.lang.String"/>
+	<field name="mOrdenResidente" class="java.lang.String"/>
+	<field name="sOrdenAntefirman" class="java.lang.String"/>
+	<field name="dOrdenFechaFirma" class="java.sql.Date"/>
+	<field name="mOrdenContratista" class="java.lang.String"/>
+	<field name="lStatus" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="bImagen" class="java.lang.Object"/>
+	<field name="bImagen2" class="java.lang.Object"/>
+	<field name="bImagen3" class="java.lang.Object"/>
+	<field name="bImagen4" class="java.lang.Object"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sDireccion1" class="java.lang.String"/>
+	<field name="sDireccion2" class="java.lang.String"/>
+	<field name="sDireccion3" class="java.lang.String"/>
+	<field name="bImagenCIA" class="java.lang.Object"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="28"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="1"
+						width="577"
+						height="5"
+						key="subreport-1"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="iCedulaProcedencia">
+						<subreportParameterExpression><![CDATA[$P{iCedulaProcedencia}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ordenDeCambio.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="7"
+						width="578"
+						height="0"
+						key="element-1"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="8"
+						width="577"
+						height="5"
+						key="subreport-2"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="iCedulaProcedencia">
+						<subreportParameterExpression><![CDATA[$P{iCedulaProcedencia}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ordenDeCambioHoja2.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="14"
+						width="578"
+						height="0"
+						key="element-2"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="15"
+						width="577"
+						height="5"
+						key="subreport-3"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="iCedulaProcedencia">
+						<subreportParameterExpression><![CDATA[$P{iCedulaProcedencia}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ordenDeCambioHoja3.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="21"
+						width="578"
+						height="0"
+						key="element-3"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="22"
+						width="577"
+						height="5"
+						key="subreport-4"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="iCedulaProcedencia">
+						<subreportParameterExpression><![CDATA[$P{iCedulaProcedencia}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ordenDeCambioHoja4.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

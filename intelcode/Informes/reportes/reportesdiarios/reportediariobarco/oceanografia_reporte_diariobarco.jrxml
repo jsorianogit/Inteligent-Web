@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="oceanografia_reporte_diariobarco" pageWidth="612" pageHeight="792" columnWidth="608" leftMargin="2" rightMargin="2" topMargin="11" bottomMargin="11">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="7"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("428231822")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaInicial" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("2012-03-16")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaFinal" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("2012-03-16")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Fecha" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new String("2012-03-16")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("2012-03-16")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("A")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[new String("BARCO")]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaVigencia" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("2012-03-16")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from contratos
+where sContrato = $P{sContrato}]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sCodigo" class="java.lang.String"/>
+	<field name="sMascara" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagen" class="java.lang.Object"/>
+	<field name="sIdActivo" class="java.lang.String"/>
+	<field name="sIdResidencia" class="java.lang.String"/>
+	<field name="sUbicacion" class="java.lang.String"/>
+	<field name="mComentarios" class="java.lang.String"/>
+	<field name="sCentroGestor" class="java.lang.String"/>
+	<field name="sCentroBeneficio" class="java.lang.String"/>
+	<field name="sPosicionFinanciera" class="java.lang.String"/>
+	<field name="sElementoPEP" class="java.lang.String"/>
+	<field name="sCentroCosto" class="java.lang.String"/>
+	<field name="sFondo" class="java.lang.String"/>
+	<field name="sCuentaMayor" class="java.lang.String"/>
+	<field name="sTipoObra" class="java.lang.String"/>
+	<field name="sPoliza" class="java.lang.String"/>
+	<field name="lStatus" class="java.lang.String"/>
+	<field name="sLicitacion" class="java.lang.String"/>
+	<field name="sTitulo" class="java.lang.String"/>
+	<field name="sCliente" class="java.lang.String"/>
+	<field name="lCobraPersonal" class="java.lang.String"/>
+	<field name="lCobraEquipo" class="java.lang.String"/>
+	<field name="sIdAnexo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="15" splitType="Stretch">
+			<subreport>
+				<reportElement mode="Opaque" x="0" y="0" width="200" height="15"/>
+				<subreportParameter name="FechaInicio">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_titulo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="18"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FechaInicio">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_condiciones.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="20"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_partidas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="17">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="17"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_movimientos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="20"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_resumenmovimientos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="17">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="17"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_arribosembarcaciones.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="18">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="18"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_arribosvuelos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="16"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_existencias.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="18">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="18"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_existencias_otros.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="18">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="18"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_existencias_diario.jasper"]]></subreportExpression>
+			</subreport>
+			<break type="Column">
+				<reportElement x="0" y="17" width="100" height="1"/>
+			</break>
+		</band>
+		<band height="17">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="17"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_notas.jasper"]]></subreportExpression>
+			</subreport>
+			<break type="Column">
+				<reportElement x="0" y="16" width="100" height="1"/>
+			</break>
+		</band>
+		<band height="18">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="18"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{Fecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_tripulacion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="14">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha">
+					<subreportParameterExpression><![CDATA[$P{FechaVigencia}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_reporte_diariobarco_resumenpersonal.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="98">
+			<subreport>
+				<reportElement x="0" y="15" width="200" height="20"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicio">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_generadores_firmas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,2 @@
+[05-Sep-2011 19:26:06] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/opt/apache/htdocs/inteligentwebfnUtilerias.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /opt/apache/htdocs/inteligentweb/intelcode/Modulos/include/formulario.inc.php on line 38
+[26-Nov-2012 23:35:53 America/Chicago] PHP Warning:  Module 'zip' already loaded in Unknown on line 0

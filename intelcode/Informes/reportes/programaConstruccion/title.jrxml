@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="title"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="538"
+		 pageHeight="792"
+		 columnWidth="538"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="2" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="sContrato" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["425027849"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["JAGUARIN"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select c.bImagen as cImagen,co.bImagen as coImagen,c.*,o.*,co.* from
+contratos c
+inner join ordenesdetrabajo o
+  on (c.sContrato=o.sContrato)
+inner join configuracion co
+  on (co.sContrato=o.sContrato)
+where co.sContrato=$P{sContrato} and o.sNumeroOrden=$P{sNumeroOrden}
+group by co.sContrato]]></queryString>
+
+	<field name="cImagen" class="java.io.InputStream"/>
+	<field name="coImagen" class="java.io.InputStream"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sCodigo" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagen" class="java.io.InputStream"/>
+	<field name="sIdActivo" class="java.lang.String"/>
+	<field name="sIdResidencia" class="java.lang.String"/>
+	<field name="sUbicacion" class="java.lang.String"/>
+	<field name="mComentarios" class="java.lang.String"/>
+	<field name="sCentroGestor" class="java.lang.String"/>
+	<field name="sCentroBeneficio" class="java.lang.String"/>
+	<field name="sPosicionFinanciera" class="java.lang.String"/>
+	<field name="sElementoPEP" class="java.lang.String"/>
+	<field name="sCentroCosto" class="java.lang.String"/>
+	<field name="sFondo" class="java.lang.String"/>
+	<field name="sCuentaMayor" class="java.lang.String"/>
+	<field name="sTipoObra" class="java.lang.String"/>
+	<field name="sPoliza" class="java.lang.String"/>
+	<field name="lStatus" class="java.lang.String"/>
+	<field name="sLicitacion" class="java.lang.String"/>
+	<field name="sTitulo" class="java.lang.String"/>
+	<field name="sCliente" class="java.lang.String"/>
+	<field name="sIdFolio" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<field name="sDescripcionCorta" class="java.lang.String"/>
+	<field name="sIdTipoOrden" class="java.lang.String"/>
+	<field name="sApoyo" class="java.lang.String"/>
+	<field name="sIdPlataforma" class="java.lang.String"/>
+	<field name="sIdPernocta" class="java.lang.String"/>
+	<field name="dFiProgramado" class="java.sql.Date"/>
+	<field name="dFfProgramado" class="java.sql.Date"/>
+	<field name="cIdStatus" class="java.lang.String"/>
+	<field name="sFormato" class="java.lang.String"/>
+	<field name="iConsecutivo" class="java.lang.Integer"/>
+	<field name="iConsecutivoTierra" class="java.lang.Integer"/>
+	<field name="iJornada" class="java.lang.Integer"/>
+	<field name="lGeneraAnexo" class="java.lang.String"/>
+	<field name="lGeneraConsumibles" class="java.lang.String"/>
+	<field name="lGeneraPersonal" class="java.lang.String"/>
+	<field name="lGeneraEquipo" class="java.lang.String"/>
+	<field name="sDepsolicitante" class="java.lang.String"/>
+	<field name="dFechaInicioT" class="java.sql.Date"/>
+	<field name="dFechaSitioM" class="java.sql.Date"/>
+	<field name="sEquipo" class="java.lang.String"/>
+	<field name="sPozo" class="java.lang.String"/>
+	<field name="dFechaElaboracion" class="java.sql.Date"/>
+	<field name="sPuestoPep" class="java.lang.String"/>
+	<field name="sFirmantePep" class="java.lang.String"/>
+	<field name="sPuestocia" class="java.lang.String"/>
+	<field name="sFirmantecia" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sNombreCorto" class="java.lang.String"/>
+	<field name="sRfc" class="java.lang.String"/>
+	<field name="sDireccion1" class="java.lang.String"/>
+	<field name="sDireccion2" class="java.lang.String"/>
+	<field name="sDireccion3" class="java.lang.String"/>
+	<field name="sSlogan" class="java.lang.String"/>
+	<field name="sPiePagina" class="java.lang.String"/>
+	<field name="sTelefono" class="java.lang.String"/>
+	<field name="sFax" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="lLicencia" class="java.lang.String"/>
+	<field name="cStatusProceso" class="java.lang.String"/>
+	<field name="cStatusSuspendida" class="java.lang.String"/>
+	<field name="cStatusTerminada" class="java.lang.String"/>
+	<field name="sIdDepartamento" class="java.lang.String"/>
+	<field name="sIdEmbarcacion" class="java.lang.String"/>
+	<field name="iRedondeoMaterial" class="java.lang.Integer"/>
+	<field name="iRedondeoEquipo" class="java.lang.Integer"/>
+	<field name="iRedondeoPersonal" class="java.lang.Integer"/>
+	<field name="iRedondeoEmbarcacion" class="java.lang.Integer"/>
+	<field name="sRangoAjusteMenor" class="java.lang.String"/>
+	<field name="sRangoAjusteMayor" class="java.lang.String"/>
+	<field name="sTipoContrato" class="java.lang.String"/>
+	<field name="sRangoEstimacion" class="java.lang.String"/>
+	<field name="sTipoPartida" class="java.lang.String"/>
+	<field name="lCalculaFecha" class="java.lang.String"/>
+	<field name="sTipoOperacion" class="java.lang.String"/>
+	<field name="sTipoAlcance" class="java.lang.String"/>
+	<field name="sTipoCIA" class="java.lang.String"/>
+	<field name="lAutomatico" class="java.lang.String"/>
+	<field name="iIncremento" class="java.lang.Integer"/>
+	<field name="sDuracion" class="java.lang.String"/>
+	<field name="sReporteDiario" class="java.lang.String"/>
+	<field name="sGerencial" class="java.lang.String"/>
+	<field name="sIsometricos" class="java.lang.String"/>
+	<field name="sHost" class="java.lang.String"/>
+	<field name="sFolder" class="java.lang.String"/>
+	<field name="sViewIsometrico" class="java.lang.String"/>
+	<field name="iFirmas" class="java.lang.String"/>
+	<field name="lExporta" class="java.lang.String"/>
+	<field name="sTipoSeguridad" class="java.lang.String"/>
+	<field name="sFirmasElectronicas" class="java.lang.String"/>
+	<field name="sTipsInicial" class="java.lang.String"/>
+	<field name="lComentariosReporte" class="java.lang.String"/>
+	<field name="sFotografias" class="java.lang.String"/>
+	<field name="lIncluyeGrafica" class="java.lang.String"/>
+	<field name="lIncluyeAvanceOrdenes" class="java.lang.String"/>
+	<field name="lIncluyeAvanceContrato" class="java.lang.String"/>
+	<field name="iMeses" class="java.lang.Integer"/>
+	<field name="lDistribucion" class="java.lang.String"/>
+	<field name="sFasePrincipal" class="java.lang.String"/>
+	<field name="dRetencion" class="java.math.BigDecimal"/>
+	<field name="dPenaConvencional" class="java.lang.Double"/>
+	<field name="sBaseCalculo" class="java.lang.String"/>
+	<field name="sImporteRetencion" class="java.lang.String"/>
+	<field name="sTipoAjusteCosto" class="java.lang.String"/>
+	<field name="sAvanceInicial" class="java.lang.String"/>
+	<field name="sAvanceAnterior" class="java.lang.String"/>
+	<field name="lImprimeExtraordinario" class="java.lang.String"/>
+	<field name="sAvanceBitacora" class="java.lang.String"/>
+	<field name="sClaveTierra" class="java.lang.String"/>
+	<field name="sClaveSeguridad" class="java.lang.String"/>
+	<field name="sImprimePEP" class="java.lang.String"/>
+	<field name="sOrdenExtraordinaria" class="java.lang.String"/>
+	<field name="sIdFase" class="java.lang.String"/>
+	<field name="iLongActividad" class="java.lang.Integer"/>
+	<field name="lCalculoPonderado" class="java.lang.String"/>
+	<field name="sBaseGeneracion" class="java.lang.String"/>
+	<field name="sTipoGeneracion" class="java.lang.String"/>
+	<field name="sSeguridadGenerador" class="java.lang.String"/>
+	<field name="sTipoEstimacion" class="java.lang.String"/>
+	<field name="sTerminoPenalizacion" class="java.lang.String"/>
+	<field name="sIdConvenio" class="java.lang.String"/>
+	<field name="sPartidaEfectiva" class="java.lang.String"/>
+	<field name="sOrdenPerEq" class="java.lang.String"/>
+	<field name="iReportesSinValid" class="java.lang.Integer"/>
+	<field name="sClaveDevolucion" class="java.lang.String"/>
+	<field name="sDevolucion" class="java.lang.String"/>
+	<field name="sMedida" class="java.lang.String"/>
+	<field name="txtValidaMaterial" class="java.lang.String"/>
+	<field name="txtMaterialAutomatico" class="java.lang.String"/>
+	<field name="sIdAnexo" class="java.lang.String"/>
+	<field name="sPaquete" class="java.lang.String"/>
+	<field name="sProteccion" class="java.lang.String"/>
+	<field name="iJLunes" class="java.math.BigDecimal"/>
+	<field name="iJMartes" class="java.math.BigDecimal"/>
+	<field name="iJMiercoles" class="java.math.BigDecimal"/>
+	<field name="iJJueves" class="java.math.BigDecimal"/>
+	<field name="iJViernes" class="java.math.BigDecimal"/>
+	<field name="iJSabado" class="java.math.BigDecimal"/>
+	<field name="iJDomingo" class="java.math.BigDecimal"/>
+	<field name="lAsistencia" class="java.lang.String"/>
+	<field name="sIdGuardia" class="java.lang.String"/>
+	<field name="sFalta" class="java.lang.String"/>
+	<field name="sEquipoSeguridad" class="java.lang.String"/>
+	<field name="sCampPerf" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="199"  isSplitAllowed="true" >
+				<image  scaleImage="RetainShape" vAlign="Middle" hAlign="Center" onErrorType="Blank" isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="34"
+						y="1"
+						width="78"
+						height="71"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch" pen="1Point"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{cImagen}]]></imageExpression>
+				</image>
+				<image  scaleImage="RetainShape" vAlign="Middle" hAlign="Center" onErrorType="Blank" isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="446"
+						y="1"
+						width="78"
+						height="71"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch" pen="1Point"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{coImagen}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="112"
+						y="1"
+						width="334"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mCliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="121"
+						y="103"
+						width="61"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dFechaInicioT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="8"
+						y="103"
+						width="113"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Fecha de Inicio Trabajo en sitio:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="313"
+						y="103"
+						width="100"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dFechaSitioM}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="190"
+						y="103"
+						width="123"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Fecha de Inicio Trabajo en Muelle:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="414"
+						y="103"
+						width="53"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Contrato SAP:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="467"
+						y="103"
+						width="57"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sContrato}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="8"
+						y="119"
+						width="113"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Departamento Solicitante:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="121"
+						y="119"
+						width="403"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sDepsolicitante}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="8"
+						y="135"
+						width="113"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Fecha de Inicio de Operaciones:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="121"
+						y="135"
+						width="61"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dFiProgramado}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="190"
+						y="135"
+						width="123"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-6"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Fecha de fin de Operaciones:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="313"
+						y="135"
+						width="100"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dFfProgramado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="121"
+						y="151"
+						width="123"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sIdPlataforma}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="8"
+						y="151"
+						width="113"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Plataforma:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="467"
+						y="151"
+						width="57"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sPozo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="413"
+						y="152"
+						width="54"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Pozo:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="121"
+						y="168"
+						width="123"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sEquipo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="8"
+						y="168"
+						width="113"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Equipo:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="121"
+						y="186"
+						width="403"
+						height="13"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="8"
+						y="186"
+						width="113"
+						height="13"
+						forecolor="#0000CC"
+						key="staticText-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Objetivo del Contrato:]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

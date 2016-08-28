@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptMediosTransportes" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" forecolor="#000000">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{sTipoActividad}.equals( "Paquete" )]]></conditionExpression>
+			<style forecolor="#0000CC" backcolor="#FFFFFF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["ot-09"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\adal2404\\Documents\\Delphi for PHP Projects\\Reportes\\catalogos\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["c-03"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AKAL-J1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sCodigo" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["428230832"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select * , concat( repeat(' ',iNivel),sNumeroActividad ) as sWbsE ,(dCantidad*dVentaMN) as dMontoMN,(dCantidad*dVentaDLL) as dMontoDLLfrom from actividadesxorden Where sContrato = $P{sContrato}
+and sIdConvenio =$P{sIdConvenio} And sNumeroOrden = $P{sNumeroOrden}
+Order By mysql.udf_NaturalSortFormat(swbs,10,'.')]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sIdConvenio" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<field name="iNivel" class="java.lang.Integer"/>
+	<field name="sSimbolo" class="java.lang.String"/>
+	<field name="sWbsContrato" class="java.lang.String"/>
+	<field name="sWbs" class="java.lang.String"/>
+	<field name="sWbsAnterior" class="java.lang.String"/>
+	<field name="sPaquete" class="java.lang.String"/>
+	<field name="sNumeroActividad" class="java.lang.String"/>
+	<field name="sActividadAnterior" class="java.lang.String"/>
+	<field name="sTipoActividad" class="java.lang.String"/>
+	<field name="sTipoAnexo" class="java.lang.String"/>
+	<field name="iItemOrden" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="dFechaInicio" class="java.sql.Date"/>
+	<field name="sHoraInicio" class="java.lang.String"/>
+	<field name="dDuracion" class="java.math.BigDecimal"/>
+	<field name="dFechaFinal" class="java.sql.Date"/>
+	<field name="sHoraFinal" class="java.lang.String"/>
+	<field name="dPonderado" class="java.math.BigDecimal"/>
+	<field name="sMedida" class="java.lang.String"/>
+	<field name="dCantidad" class="java.lang.Double"/>
+	<field name="dCargado" class="java.lang.Double"/>
+	<field name="dInstalado" class="java.lang.Double"/>
+	<field name="dExcedente" class="java.lang.Double"/>
+	<field name="dCostoMN" class="java.math.BigDecimal"/>
+	<field name="dCostoDLL" class="java.math.BigDecimal"/>
+	<field name="dVentaMN" class="java.lang.Double"/>
+	<field name="dVentaDLL" class="java.lang.Double"/>
+	<field name="sIdPlataforma" class="java.lang.String"/>
+	<field name="sIdPernocta" class="java.lang.String"/>
+	<field name="mComentarios" class="java.lang.String"/>
+	<field name="lGerencial" class="java.lang.String"/>
+	<field name="lCalculo" class="java.lang.String"/>
+	<field name="iColor" class="java.lang.Integer"/>
+	<field name="lGenerado" class="java.lang.String"/>
+	<field name="lCancelada" class="java.lang.String"/>
+	<field name="iConsecutivo" class="java.lang.Integer"/>
+	<field name="lExtraordinario" class="java.lang.String"/>
+	<field name="sIdFase" class="java.lang.String"/>
+	<field name="sAnexo" class="java.lang.String"/>
+	<field name="sWbsE" class="java.lang.String"/>
+	<field name="dMontoMN" class="java.lang.Double"/>
+	<field name="dMontoDLLfrom" class="java.lang.Double"/>
+	<variable name="Suma" class="java.lang.Double" resetType="None" incrementType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{dMontoMN}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<subreport>
+				<reportElement x="2" y="0" width="606" height="56"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sCodigo">
+					<subreportParameterExpression><![CDATA[$P{sCodigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Listado">
+					<subreportParameterExpression><![CDATA[new String("CATALOGO DE CONCEPTOS")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptProgramadetrabajo_titulo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="0" width="44" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="46" y="0" width="247" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="293" y="0" width="65" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="358" y="0" width="63" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="421" y="0" width="49" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="509" y="0" width="63" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total MN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="572" y="0" width="36" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="470" y="0" width="39" height="20" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Medida]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="293" y="0" width="65" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dFechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="358" y="0" width="63" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dFechaFinal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="421" y="0" width="49" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dCantidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="509" y="0" width="63" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dVentaMN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="470" y="0" width="39" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sMedida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="572" y="0" width="36" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dPonderado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="46" y="0" width="247" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="2" y="0" width="44" height="13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sWbsE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="44" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

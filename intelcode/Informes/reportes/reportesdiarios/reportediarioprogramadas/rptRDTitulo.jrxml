@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptReporteDiarioObrasProgramadas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="3" bottomMargin="0">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sNumeroOrden" class="java.lang.String">
+		<defaultValueExpression><![CDATA["COCUITE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA["424109803"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String"/>
+	<parameter name="sNumeroReporte" class="java.lang.String"/>
+	<parameter name="PaginaActual" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+	c.iFirmasReportes,
+	c.sMostrarAvances,
+	c.iFirmas,
+	c.sOrdenPerEq,
+	c.sTipoPartida,
+	c.sImprimePEP,
+	c.sClaveSeguridad,
+	c.cStatusProceso,
+	c.sOrdenExtraordinaria,
+	c.lLicencia,
+	c.sReportesCIA,
+	c.sLeyenda1,
+	c.sLeyenda2,
+	c.sLeyenda3,
+	ot.bAvanceFrente,
+	ot.bAvanceContrato,
+	ot.bComentarios,
+	ot.bPermisos,
+	ot.lMostrarAvanceProgramado,
+	c.bImagen,
+	c.sContrato,
+	c.sNombre,
+	c2.sCodigo,
+	c.sPiePagina,
+	c.sEmail,
+	c.sWeb,
+	c.sSlogan,
+	c.sFirmasElectronicas,
+	c.lImprimeExtraordinario,
+	c2.mDescripcion,
+	c2.mCliente,
+	c2.bImagen as bImagenPEP,
+	sImpresionPaquetes,sTitulo,
+          (select sContrato from contratos where sTipoObra="BARCO") as ContratoGeneral
+From contratos c2
+	INNER JOIN configuracion c ON (
+		c.sContrato = c2.sContrato
+	)
+inner join ordenesdetrabajo ot on (
+		ot.sContrato = c2.sContrato
+		and ot.sNumeroOrden =  $P{sNumeroOrden}
+	)
+Where
+c2.sContrato = $P{sContrato}]]>
+	</queryString>
+	<field name="iFirmasReportes" class="java.lang.String"/>
+	<field name="sMostrarAvances" class="java.lang.String"/>
+	<field name="iFirmas" class="java.lang.String"/>
+	<field name="sOrdenPerEq" class="java.lang.String"/>
+	<field name="sTipoPartida" class="java.lang.String"/>
+	<field name="sImprimePEP" class="java.lang.String"/>
+	<field name="sClaveSeguridad" class="java.lang.String"/>
+	<field name="cStatusProceso" class="java.lang.String"/>
+	<field name="sOrdenExtraordinaria" class="java.lang.String"/>
+	<field name="lLicencia" class="java.lang.String"/>
+	<field name="sReportesCIA" class="java.lang.String"/>
+	<field name="sLeyenda1" class="java.lang.String"/>
+	<field name="sLeyenda2" class="java.lang.String"/>
+	<field name="sLeyenda3" class="java.lang.String"/>
+	<field name="bAvanceFrente" class="java.lang.String"/>
+	<field name="bAvanceContrato" class="java.lang.String"/>
+	<field name="bComentarios" class="java.lang.String"/>
+	<field name="bPermisos" class="java.lang.String"/>
+	<field name="lMostrarAvanceProgramado" class="java.lang.String"/>
+	<field name="bImagen" class="java.io.InputStream"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sCodigo" class="java.lang.String"/>
+	<field name="sPiePagina" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="sSlogan" class="java.lang.String"/>
+	<field name="sFirmasElectronicas" class="java.lang.String"/>
+	<field name="lImprimeExtraordinario" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagenPEP" class="java.io.InputStream"/>
+	<field name="sImpresionPaquetes" class="java.lang.String"/>
+	<field name="sTitulo" class="java.lang.String"/>
+	<field name="ContratoGeneral" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="117">
+			<rectangle radius="5">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="572" height="94"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="40" y="6" width="64" height="56"/>
+				<imageExpression><![CDATA[$F{bImagen}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="63" width="136" height="31"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sNombre}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="470" y="7" width="64" height="56"/>
+				<imageExpression><![CDATA[$F{bImagenPEP}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="429" y="63" width="143" height="31"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="71" y="104" width="103" height="10" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean($P{PaginaActual} > 1)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="6" isUnderline="true"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sNumeroReporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="104" width="71" height="10" isRemoveLineWhenBlank="true" backcolor="#CDDFBF">
+					<printWhenExpression><![CDATA[new Boolean($P{PaginaActual} > 1)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[REPORTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="94" width="71" height="10" isRemoveLineWhenBlank="true" backcolor="#CDDFBF">
+					<printWhenExpression><![CDATA[new Boolean($P{PaginaActual} > 1)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement positionType="Float" x="71" y="94" width="103" height="10" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean($P{PaginaActual} > 1)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="6" isUnderline="true"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dIdFecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Opaque" x="136" y="2" width="293" height="92"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="5" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mDescripcion}+
+"\n\n"+"CONTRATO: "+$F{ContratoGeneral} +
+"\n\n"+$F{sTitulo}.trim() +
+"\n\nO.T.: "+$P{sNumeroOrden}.trim()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

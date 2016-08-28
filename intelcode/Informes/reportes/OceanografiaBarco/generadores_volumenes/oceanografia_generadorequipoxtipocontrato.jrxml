@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="oceanografia_generadorequipoxtipocontrato" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="788" leftMargin="2" rightMargin="2" topMargin="0" bottomMargin="0">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iMes" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["08"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iAnio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-08-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaInicial" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-08-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaFinal" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-08-31"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ContratoSeleccionado" class="java.lang.String"/>
+	<parameter name="Embarcacion" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["%"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sContrato, sNumeroOrden from ordenesdetrabajo
+where sContrato like $P{sContrato}]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-1" x="1" y="2" width="786" height="15"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$F{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="iMes">
+					<subreportParameterExpression><![CDATA[$P{iMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="iAnio">
+					<subreportParameterExpression><![CDATA[$P{iAnio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Embarcacion">
+					<subreportParameterExpression><![CDATA[$P{Embarcacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFecha">
+					<subreportParameterExpression><![CDATA[$P{dFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ContratoSeleccionado">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$F{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_generadorequipoxtipo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

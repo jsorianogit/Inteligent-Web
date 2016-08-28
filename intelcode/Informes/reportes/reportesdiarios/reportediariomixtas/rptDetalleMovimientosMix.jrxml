@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptDetalleMovimientos" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="StyleBitacora" mode="Opaque" forecolor="#000000">
+		<box>
+			<topPen lineWidth="0.75"/>
+			<leftPen lineWidth="0.75"/>
+			<bottomPen lineWidth="0.75"/>
+			<rightPen lineWidth="0.75"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{sTipoActividad}.equals( "Paquete" )]]></conditionExpression>
+			<style forecolor="#0000CC">
+				<pen lineColor="#000000"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{sTipoActividad}.equals( "Nota" )]]></conditionExpression>
+			<style forecolor="#333333">
+				<pen lineColor="#000000"/>
+				<box>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+			</style>
+		</conditionalStyle>
+	</style>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["A"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[call procBitacoraMix(
+         $P{sContrato},
+          $P{sIdConvenio},
+         $P{sNumeroOrden},
+          $P{dIdFecha},
+          $P{sIdTurno}
+    )]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="iConsec" class="java.lang.Integer"/>
+	<field name="iIdDiario" class="java.lang.Integer"/>
+	<field name="sPaquete" class="java.lang.String"/>
+	<field name="sLeyenda" class="java.lang.String"/>
+	<field name="iNivel" class="java.lang.Integer"/>
+	<field name="swbs" class="java.lang.String"/>
+	<field name="sWbsAnterior" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<field name="sTipoActividad" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="lCancelada" class="java.lang.String"/>
+	<field name="mNotas" class="java.lang.String"/>
+	<field name="sMedida" class="java.lang.String"/>
+	<field name="dCantidadAnexo" class="java.math.BigDecimal"/>
+	<field name="dVentaMN" class="java.math.BigDecimal"/>
+	<field name="dCantidad" class="java.math.BigDecimal"/>
+	<field name="sTipo" class="java.lang.String"/>
+	<field name="iFase" class="java.lang.Integer"/>
+	<field name="dCantidadAnterior" class="java.math.BigDecimal"/>
+	<field name="dCantidadActual" class="java.math.BigDecimal"/>
+	<field name="dAvanceAnterior" class="java.math.BigDecimal"/>
+	<field name="dAvanceActual" class="java.math.BigDecimal"/>
+	<field name="dAvance" class="java.math.BigDecimal"/>
+	<field name="dFechaImpresion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="73" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="15" width="576" height="36" forecolor="#000000"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="63" width="45" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[ACTIVIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="63" width="378" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="63" width="51" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="423" y="39" width="153" height="12" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[AVANCES DE OBRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="423" y="51" width="51" height="12" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[ANTERIOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="474" y="51" width="51" height="12" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[ACTUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="525" y="51" width="51" height="12" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[ACUMULADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="63" width="51" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="525" y="63" width="51" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="39" width="423" height="24" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION DE ACTIVIDADES]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="28" y="5" width="167" height="20" forecolor="#3399FF"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DETALLE DE AVANCE DE ACTIVIDADES"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="StyleBitacora" stretchType="RelativeToBandHeight" x="0" y="0" width="45" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{swbs}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="StyleBitacora" stretchType="RelativeToBandHeight" x="45" y="0" width="378" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.0000" isBlankWhenNull="true">
+				<reportElement style="StyleBitacora" stretchType="RelativeToBandHeight" x="423" y="0" width="51" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $F{sTipoActividad}.equals( "Paquete" ) || $F{sTipoActividad}.equals( "Nota" )?
+        null:
+        ($F{dAvanceAnterior} == null ? 0.0000 : $F{dAvanceAnterior} )
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.0000" isBlankWhenNull="true">
+				<reportElement style="StyleBitacora" stretchType="RelativeToBandHeight" x="474" y="0" width="51" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $F{sTipoActividad}.equals( "Paquete" ) || $F{sTipoActividad}.equals( "Nota" )?
+        null:
+        ($F{dAvanceActual} == null ? 0.0000 : $F{dAvanceActual} )
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.0000" isBlankWhenNull="true">
+				<reportElement style="StyleBitacora" stretchType="RelativeToBandHeight" x="525" y="0" width="51" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $F{sTipoActividad}.equals( "Paquete" ) || $F{sTipoActividad}.equals( "Nota" )?
+        null:
+            new Double(
+                ($F{dAvanceActual} == null ? 0.0000 : $F{dAvanceActual}.doubleValue()  )
+                    +
+                ($F{dAvanceAnterior} == null ? 0.0000 : $F{dAvanceAnterior}.doubleValue()  )
+            )
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

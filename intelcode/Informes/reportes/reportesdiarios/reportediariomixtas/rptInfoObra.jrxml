@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptInfoObra" language="groovy" columnCount="2" pageWidth="612" pageHeight="792" columnWidth="306" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2078825000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+   (Select dFechaInicio From convenios Where sContrato = r.sContrato  And sIdConvenio =  r.sIdConvenio limit 1) as dFechaInicio,
+   (Select dFechaFinal From convenios Where sContrato = r.sContrato  And sIdConvenio = r.sIdConvenio limit 1) as dFechaFinal,
+    r.sOperacionInicio,
+    r.sOperacionFinal,
+    r.sTiempoEfectivo,
+    r.sTiempoMuerto,
+    r.sTiempoMuertoReal,
+    r.dIdFecha,
+    r.sNumeroReporte,
+    r.sTiempo,
+    r.sInicioPlatica,
+    r.sFinalPlatica,
+    r.sTema,
+    r.sIdTurno,
+    (select sIdPlataforma from ordenesdetrabajo where sContrato = $P{sContrato}
+	and sNumeroOrden = $P{sNumeroOrden}
+   ) as Plataforma,
+   (select sDescripcion from turnos where sContrato = $P{sContrato}
+    and sIdTurno = $P{sIdTurno}
+   ) as Turno
+from reportediario r
+Where
+    r.sContrato = $P{sContrato}
+    And r.sNumeroOrden = $P{sNumeroOrden}
+    And r.dIdFecha = $P{dIdFecha}
+    And r.sIdTurno =$P{sIdTurno}
+    And r.sIdConvenio =$P{sIdConvenio}]]>
+	</queryString>
+	<field name="dFechaInicio" class="java.sql.Date"/>
+	<field name="dFechaFinal" class="java.sql.Date"/>
+	<field name="sOperacionInicio" class="java.lang.String"/>
+	<field name="sOperacionFinal" class="java.lang.String"/>
+	<field name="sTiempoEfectivo" class="java.lang.String"/>
+	<field name="sTiempoMuerto" class="java.lang.String"/>
+	<field name="sTiempoMuertoReal" class="java.lang.String"/>
+	<field name="dIdFecha" class="java.sql.Date"/>
+	<field name="sNumeroReporte" class="java.lang.String"/>
+	<field name="sTiempo" class="java.lang.String"/>
+	<field name="sInicioPlatica" class="java.lang.String"/>
+	<field name="sFinalPlatica" class="java.lang.String"/>
+	<field name="sTema" class="java.lang.String"/>
+	<field name="sIdTurno" class="java.lang.String"/>
+	<field name="Plataforma" class="java.lang.String"/>
+	<field name="Turno" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="79" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="122" y="21" width="43" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dFechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="187" y="21" width="45" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dFechaFinal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="30" width="110" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sOperacionInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="39" width="110" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sOperacionFinal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="48" width="110" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sTiempoEfectivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="57" width="110" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sTiempoMuerto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="66" width="110" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sTiempoMuertoReal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="461" y="7" width="71" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dIdFecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="16" width="128" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sNumeroReporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="34" width="128" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sTiempo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="43" width="62" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sInicioPlatica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="532" y="43" width="57" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFinalPlatica}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="461" y="52" width="128" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sTema}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="532" y="7" width="57" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Turno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="523" y="43" width="8" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA["A"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="21" width="22" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AL"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="17" y="21" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[PERIODO DE CONTRATO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="17" y="30" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[INICIO DE ACTIVIDADES
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="17" y="39" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[CIERRE DE ACTIVIDADES
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="17" y="48" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[TIEMPO EFECTIVO DE LA ORDEN
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="17" y="57" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[TIEMPO MUERTO DE LA ORDEN
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="17" y="66" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[TIEMPO MUERTO DEL CONTRATO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="34" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[ESTADO DEL TIEMPO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="43" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[PLATICAS DE SEG.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="355" y="52" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[TEMA DE LA PLATICA
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="7" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[FECHA
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="16" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[REPORTE
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="17" y="7" width="215" height="14" backcolor="#FFFFCC"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{sContrato}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="25" width="106" height="9" backcolor="#CDDFBF"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[PLATAFORMA
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="461" y="25" width="128" height="9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Plataforma}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

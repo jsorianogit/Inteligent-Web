@@ -1,0 +1,619 @@
+
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 04:35
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:30
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 00:20
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:30
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 00:10
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 06:00
+comp 3: 06:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 04:37
+comp 3: 04:37
+sJornada: 08:00
+Orden : 428237843
+comp 2: 04:37
+comp 3: 04:37
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 00:08
+comp 3: 00:08
+sJornada: 08:00
+Orden : AKAL-L
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 02:52
+sJornada: 08:00
+Orden : 428237826-KU-C
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 01:20
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 03:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 03:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 03:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 03:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 03:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 01:20
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 01:20
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 01:20
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 07:25
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 07:25
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 07:25
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 05:20
+comp 3: 05:20
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 1: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 1: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 1: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 02:15
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 02:20
+sJornada: 08:00
+Orden : AKAL-L
+comp 1: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 06:30
+comp 3: 06:30
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 06:30
+comp 3: 06:30
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 02:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 02:30
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 06:30
+comp 3: 06:30
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 02:45
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 02:42
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 3: 03:28
+sJornada: 08:00
+Orden : 428237843
+comp 2: 04:30
+comp 3: 04:30
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 00:10
+sJornada: 08:00
+Orden : 428237843
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 1: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 03:55
+sJornada: 08:00
+Orden : AKAL-TM
+comp 3: 04:40
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 03:55
+sJornada: 08:00
+Orden : AKAL-TM
+comp 3: 04:40
+sJornada: 08:00
+Orden : 428237843
+comp 2: 08:00
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 02:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 05:58
+comp 3: 05:58
+sJornada: 08:00
+Orden : 428237843
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 07:45
+comp 3: 07:45
+sJornada: 08:00
+Orden : 428237843
+comp 2: 06:45
+comp 3: 06:45
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 02:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 01:15
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 1: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 06:45
+comp 3: 06:45
+sJornada: 08:00
+Orden : 428237843
+comp 2: 03:00
+comp 3: 03:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 3: 00:30
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 12:00
+Orden : AYC-EST-002-09-2007
+comp 3: 00:00
+sJornada: 12:00
+Orden : AYC-EST-018-10-2007
+comp 3: 00:00
+sJornada: 12:00
+Orden : AYC-EST-018-10-2007
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 02:07
+comp 3: 02:07
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-AKAL-E
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237819-CI
+comp 3: 00:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 08:00
+sJornada: 08:00
+Orden : AKAL-L
+comp 3: 08:00
+sJornada: 08:00
+Orden : AKAL-M
+comp 3: 08:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237843
+comp 2: 02:07
+comp 3: 02:07
+sJornada: 08:00
+Orden : 428237843
+comp 2: 00:00
+comp 3: 00:00
+sJornada: 08:00
+Orden : 428237826-KU-S
+comp 2: 00:00
+comp 3: 00:00

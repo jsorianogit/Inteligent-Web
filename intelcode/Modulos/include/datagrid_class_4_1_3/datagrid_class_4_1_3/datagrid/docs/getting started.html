@@ -1,0 +1,344 @@
+<pre>
+<strong>PHP DataGrid - Getting Started (for version 4.0.0 or above).</strong>
+
+See the <a href="http://phpbuilder.blogspot.com/2007/02/step-by-step-v400-or-above.html">last updated version</a>
+
+
+<strong>Step 1. 
++---------------------------------------------------------------------------+
+| Creating & Calling:                                                       
++---------------------------------------------------------------------------+
+</strong>
+Be sure you write here a right path to the datagrid.class.php file, relatively
+to code_template.php, PEAR.php and DB.php files .<br>
+<font color="darkblue"><b>
+define ("DATAGRID_DIR", "");       /* Ex.: "datagrid/" */
+define ("PEAR_DIR", "pear/");      /* Ex.: "datagrid/pear/" */
+  
+require_once(DATAGRID_DIR.'datagrid.class.php');
+require_once(PEAR_DIR.'PEAR.php');
+require_once(PEAR_DIR.'DB.php');
+</b></font>
+
+Put right values to these variables. Be sure, you use a prefix if you need it. 
+<font color="green"><b> 
+##  *** creating variables that we need for database connection </b></font>
+<font color="darkblue"><b>
+$DB_USER='name';            /* usually like this: prefix_name             */
+$DB_PASS='';                /* must be already enscrypted (recommended)   */
+$DB_HOST='localhost';       /* usually localhost                          */
+$DB_NAME='dbName';          /* usually like this: prefix_dbName           */
+</b></font>
+
+First of all, we need to be connected to our database.
+<font color="green"><b> 
+ob_start();
+##  *** (example of ODBC connection string)
+##  *** $db_conn =& DB::factory('odbc');       
+##  *** $result_conn = $db_conn -> connect(DB::parseDSN('odbc://root:12345@test_db')); 
+##  *** (examples of connections to other db types see in "docs/pear/" folder)</b></font>
+<font color="darkblue"><b>
+$db_conn =& DB::factory('mysql'); 
+$result_conn = $db_conn -> connect(DB::parseDSN('mysql://'.$DB_USER.':'.$DB_PASS.'@'.$DB_HOST.'/'.$DB_NAME));
+if(DB::isError($result_conn)){ 
+    die($result_conn->getMessage()); 
+}</b></font>
+
+Now you have to prepare the SELECT SQL statement. It can be any type of SELECT
+statement your database supports (with JOIN, UNION etc.), but you must put the
+primary key on the first place. Also be careful to write all fileds you need them
+to be shown, because the DataGrid class works with only on fields that you placed
+in SELECT statement.
+<strong>Don't add here ORDER BY, LIMIT words or ; at the end of the statement.</strong>
+<font color="green"><b>
+##  *** put a primary key on the first place </b></font>
+<font color="darkblue"><b>
+$sql = "SELECT primary_key, filed_1, filed_2 ... FROM tableName ";
+</b></font>
+
+Creating the new class instance and linking the DataGrid class to our database.
+<font color="green"><b>
+##  *** set needed options and create new class instance </b></font>
+<font color="green"><b>// display SQL statements while processing</b></font> 
+<font color="darkblue"><b>$debug_mode = false;</b></font>
+<font color="green"><b>// display system messages on a screen</b></font>     
+<font color="darkblue"><b>$messaging = true;</b></font>
+<font color="green"><b>// prevent overlays</b></font>                        
+<font color="darkblue"><b>$unique_prefix = "_abc";</b></font>
+<font color="darkblue"><b>
+$dgrid = new DataGrid($debug_mode, $messaging, $unique_prefix, DATAGRID_DIR);
+</b></font>
+
+Now we need to set data source for the Grid
+<font color="green"><b>
+##  *** set data source with needed options</b></font>
+<font color="green"><b>Make default(first) ordering by thid field</b></font>
+<font color="darkblue"><b>$default_order_field = "field_name";</b></font>
+<font color="green"><b>Default field order type</b></font>
+<font color="darkblue"><b>$default_order_type = "ASC|DESC";</b></font>
+<font color="darkblue"><b>
+$dgrid->dataSource($db_conn, $sql, $default_order_field, $default_order_type);	    
+</b></font>
+
+<strong>
+Step 2. 
++---------------------------------------------------------------------------+
+| General Settings:                                                         
++---------------------------------------------------------------------------+
+</strong>
+We can add an unique prefix (optional) to our datagrid if we want to prevent
+using of double names on this page (in case, when you use some datagrids or
+forms on one page)
+<font color="green"><b>
+##  *** set unique prefix </b></font><font color="darkblue"><b>
+$u_prefix = "_abc";
+$dgrid->setUniqueNames($u_prefix);
+</b></font>
+
+If you want to use a local language (not English) - you have to set the right 
+encoding. <strong>The properly fields in your database must be created with the
+same CHARACTER SET too.</strong> Also you need to define in your file:
+<strong>header('Content-type: text/html; charset=XXXX');</strong> where xxxx ISO-8859-1 or UTF-8
+or whatever you have.
+          
+<font color="green"><b>
+##  *** set encoding (default - utf8) </b></font><font color="darkblue"><b>
+$dg_encoding = "utf8"; 
+$dgrid->setEncoding($dg_encoding);
+</b></font>
+
+Option for some right-to-left languages (Hebrew, Arabic etc.)
+<font color="green"><b>
+##  *** set direction: "ltr" or "rtr" (default - ltr) </b></font><font color="darkblue">
+<b>$direction = "ltr";
+$dgrid->setDirection($direction);
+</b></font>
+
+Set layouts for datagrid in view or edit mode and for the filtering block
+<font color="green"><b>
+##  *** set layouts: 0 - tabular(horizontal) - default, 1 - columnar(vertical) </b></font><font color="darkblue"><b>
+$layouts = array("view"=>0, "edit"=>1, "filter"=>1); 
+$dgrid->setLayouts($layouts);
+</b></font>
+
+Set various modes for datagrid. 
+<strong>True</strong> - allow the operation in this mode("view" or "edit"), false - don't allow.
+<strong>Type</strong> - a type of command button (link, html button or image).
+<strong>byFieldValue</strong> - if you want to make this field to be a link to edit mode page
+(instead of edit button), write here a name of the field. If you want to use a
+standart edit command button leave it empty: "byFieldValue"=>""
+
+<font color="green"><b>##  *** set other modes ("type" = "link|button|image"),
+##  *** ("byFieldValue" - make the field as a link to edit mode page)</b></font><font color="darkblue"><b>
+$modes = array(
+&nbsp;"add"=>array("view"=>true, "edit"=>false, "type"=>"link"),
+&nbsp;"edit"=>array("view"=>true, "edit"=>true, "type"=>"link", &nbsp;"byFieldValue"=>"FieldName"),
+&nbsp;"cancel"=>array("view"=>true, "edit"=>true, "type"=>"link"),
+&nbsp;"details"=>array("view"=>true, "edit"=>false, "type"=>"link"),
+&nbsp;"delete"=>array("view"=>true, "edit"=>true, "type"=>"image")
+);
+$dgrid->setModes($modes);
+</b></font>
+
+Set scrolling settings and parameters for DataGrid. If you want the DataGrid will
+be displayed with scrolling, allow this option by the next commands.
+
+<font color="green"><b>##  *** allow scrolling on datagrid</b></font><font color="darkblue"><b>
+$scrolling_option = false;
+$dgrid->allowScrollingSettings($scrolling_option);
+</b></font>
+<font color="green"><b>##  *** set scrolling settings (optional)</b></font><font color="darkblue"><b>
+$scrolling_width = "90%";
+$scrolling_height = "100%";
+$dgrid->setScrollingSettings($scrolling_width, $scrolling_height);  
+</b></font>
+
+If you want to allow multirow operations for DataGrid, set <b>$multirow_option = true;</b>
+
+<font color="green"><b>##  *** allow mulirow operations</b></font><font color="darkblue"><b>
+$multirow_option = false;
+$dgrid->allowMultirowOpeartions($multirow_option);
+</b></font>
+
+Set CSS parameters for the datagrid. If you want to use embedded css class - define
+$css_type as "embedded" and $css_class as you wish. If you use an external file of
+CSS styles - you define $css_type as "file" and $css_class as full path to your
+file.<b>
+For example: $css_class = "css/style.css".
+Embedded CSS styles: "default", "blue", "gray" and "green".</b>
+<font color="green"><b>
+##  *** set CSS class for datagrid: </b></font><font color="darkblue"><b>
+$css_class = "default";</b></font><font color="green"><b> // "default" or "blue" or "gray" or "green" or your css file relative path with name</b></font><font color="darkblue"><b>
+$css_type = "embedded";</b></font><font color="green"><b> // "embedded" - use embedded classes, "file" - link external css file</b></font><font color="darkblue"><b>
+$dgrid->setCssClass($css_class, $css_type);
+</b></font>
+
+Set variables that you use to get acces to your page
+<font color="green"><b>
+##  *** set variables that used to get access to the page
+##  *** (like: my_page.php?act=34&id=56 etc.)  </b></font><font color="darkblue"><b>
+$http_get_vars = array("act", "id");
+$dgrid->setHttpGetVars($http_get_vars);
+</b></font>
+
+If you want to use some PHP DataGrid on your page, you need to define properties for
+another datagrid/s
+<font color="green"><b>
+##  *** set another datagrid/s unique prefixes (if you use few datagrids on one page)
+##  *** format (in wich mode to allow processing of another datagrids)
+##  *** array("unique_prefix"=>array("view"=>true|false, "edit"=>true|false, "details"=>true|false), [,...]);</b></font><font color="darkblue"><b>
+$anotherDatagrids = array("abcd_"=>array("view"=>true, "edit"=>true, "details"=>true));
+$dgrid->setAnotherDatagrids($anotherDatagrids);  
+</b></font>
+
+Set datagrid title (caption)
+<font color="green"><b>
+##  *** set DataGrid Caption</b></font><font color="darkblue"><b>
+$dg_caption = "My Favorite Lovely PHP DataGrid";
+$dgrid->setCaption($dg_caption);
+</b></font>
+
+<strong>
+Step 3. 
++---------------------------------------------------------------------------+
+| Printing & Exporting Settings:                                            
++---------------------------------------------------------------------------+
+</strong>
+Set printing as true, if you want to allow this option
+<font color="green"><b>
+##  *** set printing option: true(default) or false </b></font><font color="darkblue"><b>
+$printing_option = true;
+$dgrid->allowPrinting($printing_option); </b></font>
+
+Set exporting as true, if you want to allow this option
+<font color="green"><b>
+##  *** set exporting option: true(default) or false </b></font><font color="darkblue"><b>
+$exporting_option = true;
+$dgrid->allowExporting($exporting_option);
+</b></font>
+
+<strong>
+Step 4. 
++---------------------------------------------------------------------------+
+| Sorting & Paging Settings:                                              
++---------------------------------------------------------------------------+
+</strong>
+Set sorting option as true, if you want to allow sorting on columns
+<font color="green"><b>
+##  *** set sorting option: true(default) or false </b></font><font color="darkblue"><b>
+$sorting_option = true;
+$dgrid->allowSorting($sorting_option);
+</b></font>
+
+Set paging option as true, if you want to allow paging on datagrid
+<font color="green"><b>
+##  *** set paging option: true(default) or false </b></font><font color="darkblue"><b>
+$paging_option = true;
+$rows_numeration = false;
+$numeration_sign = "N #";
+$dgrid->allowPaging($paging_option, $rows_numeration, $numeration_sign);
+</b></font>
+
+Set aditional paging settings. <b>$top_paging</b> or <b>$bottom_paging</b> both defines paging
+(top and bottom) behaviour. We have three parts of the paging line: <i>results</i>, <i>pages</i> and
+<i>page size</i> dropdownbox. You need to set parameters for each of them. If you don't want 
+to show any of them or all of them - leave it empty (Ex.: <b>$bottom_paging = array()</b>
+or <b>$bottom_paging = array("results"=>true, "results_align"=>"left");</b>). If you want to
+define your own dropdown box with page sizes - you can make it in <b>$pages_array array</b>
+- see example below. Also you need to define default page size in <b>$default_page_size</b>
+variable.
+<font color="green"><b>
+##  *** set paging settings </b></font><font color="darkblue"><b>
+$bottom_paging = array("results"=>true, "results_align"=>"left", "pages"=>true,
+                       "pages_align"=>"center", "page_size"=>true,
+                       "page_size_align"=>"right");
+$top_paging = array("results"=>true, "results_align"=>"left",
+                    "pages"=>true, "pages_align"=>"center",
+                    "page_size"=>true, "page_size_align"=>"right");
+$pages_array = array(10, 25, 50, 100, 250, 500, 1000);
+$default_page_size = 10;
+$dgrid->setPagingSettings($bottom_paging, $top_paging, $pages_array, $default_page_size);
+</b></font>
+
+
+<strong>
+Step 5. 
++---------------------------------------------------------------------------+
+| 5. Filter Settings:                               
++---------------------------------------------------------------------------+
+</strong>
+If you want to allow a filtering mode, set $filtering_option as true. 
+<font color="green"><b>
+##  *** set filtering option: true or false(default)</b></font>
+<font color="darkblue"><b>
+$filtering_option = true;
+$dgrid->allowFiltering($filtering_option);
+</b></font>
+
+Set aditional filtering settings.
+<b>"FieldName_1/2/3/.../n"=></b> - field on which will be made the filtering
+<b>"table"=>"tableName_1/2/3/.../n"</b>
+<b>"field"=>"fieldName_1/2/3/.../n"</b> - table and field with the filtered field is linked
+<b>"source"=>"self"|$fill_from_array</b> - take a values from specific array or not 
+<b>"operator"=>false|true</b> - draw comparison operators dropdown list or not
+<b>"order"=>"ASC|DESC"</b> - dropdown list values order (optional)
+<b>"type"=>"textbox|dropdownlist"</b> - view type of filtering filed (textbox - default)
+<b>"case_sensitive"=>false|true</b> - whether filtering is case sensitive
+<b>"comparison_type"=>"string|numeric|binary"</b> - filtering comparison type
+<font color="green"><b>
+##  *** set aditional filtering settings</b></font>
+<font color="darkblue"><b>
+$fill_from_array = array("1", "2", "3", "4", "5");
+$filtering_fields = array(
+    "FieldName_1"=>array("table"=>"tableName_1", "field"=>"fieldName_1", "source"=>"self"|$fill_from_array, "operator"=>false|true, "order"=>"ASC|DESC", "type"=>"textbox|dropdownlist", "case_sensitive"=>false|true, "comparison_type"=>"string|numeric|binary"),
+    "FieldName_2"=>array("table"=>"tableName_2", "field"=>"fieldName_2", "source"=>"self"|$fill_from_array, "operator"=>false|true, "order"=>"ASC|DESC", "type"=>"textbox|dropdownlist", "case_sensitive"=>false|true, "comparison_type"=>"string|numeric|binary"),
+    "FieldName_3"=>array("table"=>"tableName_3", "field"=>"fieldName_3", "source"=>"self"|$fill_from_array, "operator"=>false|true, "order"=>"ASC|DESC", "type"=>"textbox|dropdownlist", "case_sensitive"=>false|true, "comparison_type"=>"string|numeric|binary")
+);
+$dgrid->setFieldsFiltering($filtering_fields);
+</b></font>
+
+
+<strong>
+Step 6. 
++---------------------------------------------------------------------------+
+| 6. View Mode Settings:                               
++---------------------------------------------------------------------------+
+</strong>
+
+<font color="green"><b>
+##  *** set table properties</b></font><font color="darkblue"><b>
+$vm_table_properties = array("width"=>"90%");
+$dgrid->setViewModeTableProperties($vm_table_properties);  
+</b></font>
+This method sets up columns, that will be viewable.
+For all types:
+<strong>"header"=>"..."</strong> - name of the column header 
+<strong>"type"=>"..."</strong>  - type of column: label, image, linktoview, link (http://, mailto:) or password
+<strong>"align"=>"..."</strong> - alignment of the column (left or right)
+<strong>"width"=>"..."</strong> - width of column in pixels or in percents
+<strong>"wrap"=>"..."</strong>  - wraping of the column data (wrap or nowrap)
+<strong>"text_length"=>"..."</strong> - viewable length of text in characters (any integer number - truncate after this number of characters, "-1" - don't truncate )
+<strong>"case"=>"..."</strong> - text case (normal, upper or lower)
+<strong>"summarize"=>...</strong> - summirize values in this column (true or false)
+For link type:
+<strong>"field_key"=>"..."</strong>  - field for href parameter in &lt;a href="field_key"&gt;
+<strong>"field_data"=>"..."</strong> - field for &lt;a href=""&gt;field_data&lt;/a&gt;
+<strong>"href"=>"..."</strong> - href parameter, {0} will be chaanged on "field_key" value
+<strong>"target"=>"..."</strong>  - target parameter
+
+<font color="green"><b>
+##  *** set columns in view mode</b></font><font color="darkblue"><b>
+$vm_colimns = array(
+    "FieldName_1"=>array("header"=>"Name_A", "type"=>"label",      "align"=>"left", "width"=>"X%|Xpx", "wrap"=>"wrap|nowrap", "text_length"=>"-1", "case"=>"normal|upper|lower", "summarize"=>true|false),
+    "FieldName_2"=>array("header"=>"Name_B", "type"=>"image",      "align"=>"left", "width"=>"X%|Xpx", "wrap"=>"wrap|nowrap", "text_length"=>'-1', "case"=>"normal|upper|lower", "summarize"=>true|false),
+    "FieldName_3"=>array("header"=>"Name_C", "type"=>"linktoview", "align"=>"left", "width"=>"X%|Xpx", "wrap"=>"wrap|nowrap", "text_length"=>'-1', "case"=>"normal|upper|lower", "summarize"=>true|false),
+    "FieldName_4"=>array("header"=>"Name_D", "type"=>"link",       "align"=>"left", "width"=>"X%|Xpx", "wrap"=>"wrap|nowrap", "text_length"=>"-1", "case"=>"normal|upper|lower", "summarize"=>true|false, "field_key"=>"field_name_1", "field_data"=>"field_name_2", "href"=>"{0}", "target"=>"_new"),
+    "FieldName_5"=>array("header"=>"Name_E", "type"=>"link",       "align"=>"left", "width"=>"X%|Xpx", "wrap"=>"wrap|nowrap", "text_length"=>"-1", "case"=>"normal|upper|lower", "summarize"=>true|false, "field_key"=>"field_name_1", "field_data"=>"field_name_2", "href"=>"mailto:{0}", "target"=>"_new"),
+    "FieldName_6"=>array("header"=>"Name_F", "type"=>"link",       "align"=>"left", "width"=>"X%|Xpx", "wrap"=>"wrap|nowrap", "text_length"=>"-1", "case"=>"normal|upper|lower", "summarize"=>true|false, "field_key"=>"field_name_1", "field_data"=>"field_name_2", "href"=>"http://mydomain.com?act={0}&code=ABC", "target"=>"_new"),
+    "FieldName_7"=>array("header"=>"Name_G", "type"=>"password",   "align"=>"left", "width"=>"X%|Xpx", "wrap"=>"wrap|nowrap", "text_length"=>"-1", "case"=>"normal|upper|lower", "summarize"=>true|false)
+);
+$dgrid->setColumnsInViewMode($vm_colimns);
+</b></font>
+
+<b>To be continued...</b>
+</pre>

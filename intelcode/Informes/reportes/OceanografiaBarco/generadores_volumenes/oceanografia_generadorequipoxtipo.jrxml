@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="oceanografia_generadorequipoxtipo" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="788" leftMargin="2" rightMargin="2" topMargin="8" bottomMargin="8">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["OT-02"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iMes" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["08"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iAnio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-08-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaInicial" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-08-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaFinal" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-08-31"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ContratoSeleccionado" class="java.lang.String"/>
+	<parameter name="Embarcacion" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["%"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    c.sTitulo,
+    c.mDescripcion as mDescripcionContrato,
+    be.sContrato,
+    ba.sNumeroOrden,
+    be.sIdEquipo,
+    e.sDescripcion,
+    e.sMedida,
+    be.dIdFecha,
+    sum(be.dCantidad) as dTotal ,
+    (select sum(dCantidad)  from bitacoradeequipos b1  where b1.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "01") and b1.sIdEquipo = be.sIdEquipo and b1.sContrato = be.scontrato) as Dia1,
+    (select sum(dCantidad)  from bitacoradeequipos b2  where b2.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "02") and b2.sIdEquipo = be.sIdEquipo and b2.sContrato = be.scontrato )as Dia2,
+    (select sum(dCantidad)  from bitacoradeequipos b3  where b3.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "03") and b3.sIdEquipo = be.sIdEquipo and b3.sContrato = be.scontrato) as Dia3,
+    (select sum(dCantidad)  from bitacoradeequipos b4  where b4.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "04") and b4.sIdEquipo = be.sIdEquipo and b4.sContrato = be.scontrato) as Dia4,
+    (select sum(dCantidad)  from bitacoradeequipos b5  where b5.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "05") and b5.sIdEquipo = be.sIdEquipo and b5.sContrato = be.scontrato) as Dia5,
+    (select sum(dCantidad)  from bitacoradeequipos b6  where b6.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "06") and b6.sIdEquipo = be.sIdEquipo and b6.sContrato = be.scontrato) as Dia6,
+    (select sum(dCantidad)  from bitacoradeequipos b7  where b7.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "07") and b7.sIdEquipo = be.sIdEquipo and b7.sContrato = be.scontrato) as Dia7,
+    (select sum(dCantidad)  from bitacoradeequipos b8  where b8.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "08") and b8.sIdEquipo = be.sIdEquipo and b8.sContrato = be.scontrato) as Dia8,
+    (select sum(dCantidad)  from bitacoradeequipos b9  where b9.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "09") and b9.sIdEquipo = be.sIdEquipo and b9.sContrato = be.scontrato) as Dia9,
+    (select sum(dCantidad)  from bitacoradeequipos b10 where b10.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "10") and b10.sIdEquipo = be.sIdEquipo and b10.sContrato = be.scontrato) as Dia10,
+    (select sum(dCantidad)  from bitacoradeequipos b11 where b11.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "11") and b11.sIdEquipo = be.sIdEquipo and b11.sContrato = be.scontrato) as Dia11,
+    (select sum(dCantidad)  from bitacoradeequipos b12 where b12.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "12") and b12.sIdEquipo = be.sIdEquipo and b12.sContrato = be.scontrato) as Dia12,
+    (select sum(dCantidad)  from bitacoradeequipos b13 where b13.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "13") and b13.sIdEquipo = be.sIdEquipo and b13.sContrato = be.scontrato) as Dia13,
+    (select sum(dCantidad)  from bitacoradeequipos b14 where b14.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "14") and b14.sIdEquipo = be.sIdEquipo and b14.sContrato = be.scontrato) as Dia14,
+    (select sum(dCantidad)  from bitacoradeequipos b15 where b15.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "15") and b15.sIdEquipo = be.sIdEquipo and b15.sContrato = be.scontrato) as Dia15,
+    (select sum(dCantidad)  from bitacoradeequipos b16 where b16.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "16") and b16.sIdEquipo = be.sIdEquipo and b16.sContrato = be.scontrato) as Dia16,
+    (select sum(dCantidad)  from bitacoradeequipos b17 where b17.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "17") and b17.sIdEquipo = be.sIdEquipo and b17.sContrato = be.scontrato )as Dia17,
+    (select sum(dCantidad)  from bitacoradeequipos b18 where b18.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "18") and b18.sIdEquipo = be.sIdEquipo and b18.sContrato = be.scontrato) as Dia18,
+    (select sum(dCantidad)  from bitacoradeequipos b19 where b19.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "19") and b19.sIdEquipo = be.sIdEquipo and b19.sContrato = be.scontrato) as Dia19,
+    (select sum(dCantidad)  from bitacoradeequipos b20 where b20.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "20") and b20.sIdEquipo = be.sIdEquipo and b20.sContrato = be.scontrato) as Dia20,
+    (select sum(dCantidad)  from bitacoradeequipos b21 where b21.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "21") and b21.sIdEquipo = be.sIdEquipo and b21.sContrato = be.scontrato) as Dia21,
+    (select sum(dCantidad)  from bitacoradeequipos b22 where b22.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "22") and b22.sIdEquipo = be.sIdEquipo and b22.sContrato = be.scontrato) as Dia22,
+    (select sum(dCantidad)  from bitacoradeequipos b23 where b23.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "23") and b23.sIdEquipo = be.sIdEquipo and b23.sContrato = be.scontrato) as Dia23,
+    (select sum(dCantidad)  from bitacoradeequipos b24 where b24.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "24") and b24.sIdEquipo = be.sIdEquipo and b24.sContrato = be.scontrato) as Dia24,
+    (select sum(dCantidad)  from bitacoradeequipos b25 where b25.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "25") and b25.sIdEquipo = be.sIdEquipo and b25.sContrato = be.scontrato) as Dia25,
+    (select sum(dCantidad)  from bitacoradeequipos b26 where b26.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "26") and b26.sIdEquipo = be.sIdEquipo and b26.sContrato = be.scontrato) as Dia26,
+    (select sum(dCantidad)  from bitacoradeequipos b27 where b27.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "27") and b27.sIdEquipo = be.sIdEquipo and b27.sContrato = be.scontrato) as Dia27,
+    (select sum(dCantidad)  from bitacoradeequipos b28 where b28.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "28") and b28.sIdEquipo = be.sIdEquipo and b28.sContrato = be.scontrato) as Dia28,
+    (select sum(dCantidad)  from bitacoradeequipos b29 where b29.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "29") and b29.sIdEquipo = be.sIdEquipo and b29.sContrato = be.scontrato) as Dia29,
+    (select sum(dCantidad)  from bitacoradeequipos b30 where b30.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "30") and b30.sIdEquipo = be.sIdEquipo and b30.sContrato = be.scontrato) as Dia30,
+    (select sum(dCantidad)  from bitacoradeequipos b31 where b31.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "31") and b31.sIdEquipo = be.sIdEquipo and b31.sContrato = be.scontrato) as Dia31
+from bitacoradeequipos be
+	Inner Join bitacoradeactividades ba On (
+    	ba.sContrato = be.sContrato
+        and ba.dIdFecha = be.dIdFecha
+        and ba.iIdDiario = be.iIdDiario
+    )
+	Inner Join equipos e on (
+    	be.sContrato = e.sContrato
+        and be.sIdEquipo = e.sIdEquipo
+        and e.lCobro = "Si"
+        and e.sIdTipoEquipo   <> "PU"
+    )
+	Inner Join contratos c on (
+    	be.sContrato = c.sContrato
+    )
+where
+	be.sContrato  like $P{sContrato}
+    and be.dIdFecha >= $P{dFechaInicial}
+    and be.dIdFecha <= $P{dFechaFinal}
+
+Group By be.sIdEquipo
+order by be.sContrato, e.iItemOrden, be.dIdFecha
+
+
+
+
+#  sCobro = si o no]]>
+	</queryString>
+	<field name="sTitulo" class="java.lang.String"/>
+	<field name="mDescripcionContrato" class="java.lang.String"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<field name="sIdEquipo" class="java.lang.String"/>
+	<field name="sDescripcion" class="java.lang.String"/>
+	<field name="sMedida" class="java.lang.String"/>
+	<field name="dIdFecha" class="java.sql.Date"/>
+	<field name="dTotal" class="java.math.BigDecimal"/>
+	<field name="Dia1" class="java.math.BigDecimal"/>
+	<field name="Dia2" class="java.math.BigDecimal"/>
+	<field name="Dia3" class="java.math.BigDecimal"/>
+	<field name="Dia4" class="java.math.BigDecimal"/>
+	<field name="Dia5" class="java.math.BigDecimal"/>
+	<field name="Dia6" class="java.math.BigDecimal"/>
+	<field name="Dia7" class="java.math.BigDecimal"/>
+	<field name="Dia8" class="java.math.BigDecimal"/>
+	<field name="Dia9" class="java.math.BigDecimal"/>
+	<field name="Dia10" class="java.math.BigDecimal"/>
+	<field name="Dia11" class="java.math.BigDecimal"/>
+	<field name="Dia12" class="java.math.BigDecimal"/>
+	<field name="Dia13" class="java.math.BigDecimal"/>
+	<field name="Dia14" class="java.math.BigDecimal"/>
+	<field name="Dia15" class="java.math.BigDecimal"/>
+	<field name="Dia16" class="java.math.BigDecimal"/>
+	<field name="Dia17" class="java.math.BigDecimal"/>
+	<field name="Dia18" class="java.math.BigDecimal"/>
+	<field name="Dia19" class="java.math.BigDecimal"/>
+	<field name="Dia20" class="java.math.BigDecimal"/>
+	<field name="Dia21" class="java.math.BigDecimal"/>
+	<field name="Dia22" class="java.math.BigDecimal"/>
+	<field name="Dia23" class="java.math.BigDecimal"/>
+	<field name="Dia24" class="java.math.BigDecimal"/>
+	<field name="Dia25" class="java.math.BigDecimal"/>
+	<field name="Dia26" class="java.math.BigDecimal"/>
+	<field name="Dia27" class="java.math.BigDecimal"/>
+	<field name="Dia28" class="java.math.BigDecimal"/>
+	<field name="Dia29" class="java.math.BigDecimal"/>
+	<field name="Dia30" class="java.math.BigDecimal"/>
+	<field name="Dia31" class="java.math.BigDecimal"/>
+	<variable name="SUM_dTotal_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{dTotal}]]></variableExpression>
+	</variable>
+	<group name="Equipo">
+		<groupExpression><![CDATA[$F{sIdEquipo}]]></groupExpression>
+		<groupHeader>
+			<band height="13" splitType="Stretch">
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-2" x="168" y="0" width="552" height="13"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sDescripcion}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-33" x="7" y="0" width="161" height="13"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sIdEquipo}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="720" y="0" width="62" height="13"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sMedida}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-1" x="-1" y="0" width="783" height="23"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicio">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="iMes">
+					<subreportParameterExpression><![CDATA[$P{iMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="iAnio">
+					<subreportParameterExpression><![CDATA[$P{iAnio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Embarcacion">
+					<subreportParameterExpression><![CDATA[$P{Embarcacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sInforme">
+					<subreportParameterExpression><![CDATA[new String("GENERADOR DE EQUIPOS")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFecha">
+					<subreportParameterExpression><![CDATA[$P{dFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ContratoSeleccionado">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[new String("")]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_generadorpersonalxtipo_titulo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-1" x="30" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-3" x="53" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-4" x="76" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-5" x="99" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-6" x="122" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-7" x="145" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia7}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-8" x="168" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia8}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-9" x="191" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia9}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-10" x="214" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-11" x="237" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia11}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-12" x="260" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia12}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-13" x="283" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia13}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-14" x="306" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia14}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-15" x="329" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia15}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-16" x="352" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia16}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-17" x="375" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia17}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-18" x="398" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia18}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-19" x="421" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia19}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-20" x="444" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia20}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-21" x="467" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia21}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-22" x="490" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia22}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-23" x="513" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia23}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-24" x="536" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia24}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-25" x="559" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia25}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-26" x="582" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia26}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-27" x="605" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia27}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-28" x="628" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia28}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-29" x="651" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia29}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-30" x="674" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia30}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-31" x="697" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia31}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-32" x="720" y="0" width="62" height="13"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dTotal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-34" x="7" y="0" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="78" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-2" x="7" y="1" width="775" height="34"/>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_generadores_firmas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="13" splitType="Stretch">
+			<break>
+				<reportElement key="element-1" x="0" y="12" width="788" height="1"/>
+			</break>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="720" y="0" width="62" height="12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_dTotal_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="605" y="1" width="114" height="10"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[TOTAL GENERAL DIA =>]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

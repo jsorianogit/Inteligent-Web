@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="encabezado"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="535"
+		 pageHeight="802"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<import value="it.businesslogic.ireport.IReportScriptlet" />
+
+	<queryString><![CDATA[select * from configuracion where bimagen<>"" limit 1]]></queryString>
+
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sNombreCorto" class="java.lang.String"/>
+	<field name="sRfc" class="java.lang.String"/>
+	<field name="sDireccion1" class="java.lang.String"/>
+	<field name="sDireccion2" class="java.lang.String"/>
+	<field name="sDireccion3" class="java.lang.String"/>
+	<field name="sSlogan" class="java.lang.String"/>
+	<field name="sPiePagina" class="java.lang.String"/>
+	<field name="bImagen" class="java.io.InputStream"/>
+	<field name="sTelefono" class="java.lang.String"/>
+	<field name="sFax" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="lLicencia" class="java.lang.String"/>
+	<field name="cStatusProceso" class="java.lang.String"/>
+	<field name="cStatusSuspendida" class="java.lang.String"/>
+	<field name="cStatusTerminada" class="java.lang.String"/>
+	<field name="sIdDepartamento" class="java.lang.String"/>
+	<field name="sIdEmbarcacion" class="java.lang.String"/>
+	<field name="iRedondeoMaterial" class="java.lang.Integer"/>
+	<field name="iRedondeoEquipo" class="java.lang.Integer"/>
+	<field name="iRedondeoPersonal" class="java.lang.Integer"/>
+	<field name="iRedondeoEmbarcacion" class="java.lang.Integer"/>
+	<field name="sRangoAjusteMenor" class="java.lang.String"/>
+	<field name="sRangoAjusteMayor" class="java.lang.String"/>
+	<field name="sTipoContrato" class="java.lang.String"/>
+	<field name="sRangoEstimacion" class="java.lang.String"/>
+	<field name="sTipoPartida" class="java.lang.String"/>
+	<field name="lCalculaFecha" class="java.lang.String"/>
+	<field name="sTipoOperacion" class="java.lang.String"/>
+	<field name="sTipoAlcance" class="java.lang.String"/>
+	<field name="sTipoCIA" class="java.lang.String"/>
+	<field name="lAutomatico" class="java.lang.String"/>
+	<field name="iIncremento" class="java.lang.Integer"/>
+	<field name="sDuracion" class="java.lang.String"/>
+	<field name="sReporteDiario" class="java.lang.String"/>
+	<field name="sGerencial" class="java.lang.String"/>
+	<field name="sIsometricos" class="java.lang.String"/>
+	<field name="sHost" class="java.lang.String"/>
+	<field name="sFolder" class="java.lang.String"/>
+	<field name="sViewIsometrico" class="java.lang.String"/>
+	<field name="iFirmas" class="java.lang.String"/>
+	<field name="lExporta" class="java.lang.String"/>
+	<field name="sTipoSeguridad" class="java.lang.String"/>
+	<field name="sFirmasElectronicas" class="java.lang.String"/>
+	<field name="sTipsInicial" class="java.lang.String"/>
+	<field name="lComentariosReporte" class="java.lang.String"/>
+	<field name="sFotografias" class="java.lang.String"/>
+	<field name="lIncluyeGrafica" class="java.lang.String"/>
+	<field name="lIncluyeAvanceOrdenes" class="java.lang.String"/>
+	<field name="lIncluyeAvanceContrato" class="java.lang.String"/>
+	<field name="iMeses" class="java.lang.Integer"/>
+	<field name="lDistribucion" class="java.lang.String"/>
+	<field name="sFasePrincipal" class="java.lang.String"/>
+	<field name="dRetencion" class="java.math.BigDecimal"/>
+	<field name="dPenaConvencional" class="java.lang.Double"/>
+	<field name="sBaseCalculo" class="java.lang.String"/>
+	<field name="sImporteRetencion" class="java.lang.String"/>
+	<field name="sTipoAjusteCosto" class="java.lang.String"/>
+	<field name="sAvanceInicial" class="java.lang.String"/>
+	<field name="sAvanceAnterior" class="java.lang.String"/>
+	<field name="sFormato" class="java.lang.String"/>
+	<field name="iConsecutivo" class="java.lang.Integer"/>
+	<field name="lImprimeExtraordinario" class="java.lang.String"/>
+	<field name="sAvanceBitacora" class="java.lang.String"/>
+	<field name="sClaveTierra" class="java.lang.String"/>
+	<field name="sClaveSeguridad" class="java.lang.String"/>
+	<field name="sIdPernocta" class="java.lang.String"/>
+	<field name="sImprimePEP" class="java.lang.String"/>
+	<field name="sOrdenExtraordinaria" class="java.lang.String"/>
+	<field name="sIdFase" class="java.lang.String"/>
+	<field name="iLongActividad" class="java.lang.Integer"/>
+	<field name="lCalculoPonderado" class="java.lang.String"/>
+	<field name="sBaseGeneracion" class="java.lang.String"/>
+	<field name="sTipoGeneracion" class="java.lang.String"/>
+	<field name="sSeguridadGenerador" class="java.lang.String"/>
+	<field name="sTipoEstimacion" class="java.lang.String"/>
+	<field name="sTerminoPenalizacion" class="java.lang.String"/>
+	<field name="sIdConvenio" class="java.lang.String"/>
+	<field name="sPartidaEfectiva" class="java.lang.String"/>
+	<field name="sOrdenPerEq" class="java.lang.String"/>
+	<field name="iReportesSinValid" class="java.lang.Integer"/>
+	<field name="sClaveDevolucion" class="java.lang.String"/>
+	<field name="sDevolucion" class="java.lang.String"/>
+	<field name="sMedida" class="java.lang.String"/>
+	<field name="txtValidaMaterial" class="java.lang.String"/>
+	<field name="txtMaterialAutomatico" class="java.lang.String"/>
+	<field name="sIdAnexo" class="java.lang.String"/>
+	<field name="sPaquete" class="java.lang.String"/>
+	<field name="sProteccion" class="java.lang.String"/>
+	<field name="iJLunes" class="java.math.BigDecimal"/>
+	<field name="iJMartes" class="java.math.BigDecimal"/>
+	<field name="iJMiercoles" class="java.math.BigDecimal"/>
+	<field name="iJJueves" class="java.math.BigDecimal"/>
+	<field name="iJViernes" class="java.math.BigDecimal"/>
+	<field name="iJSabado" class="java.math.BigDecimal"/>
+	<field name="iJDomingo" class="java.math.BigDecimal"/>
+	<field name="lAsistencia" class="java.lang.String"/>
+	<field name="sIdGuardia" class="java.lang.String"/>
+	<field name="sFalta" class="java.lang.String"/>
+	<field name="sEquipoSeguridad" class="java.lang.String"/>
+	<field name="sCampPerf" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="68"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="55"
+						y="4"
+						width="454"
+						height="24"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sNombre}]]></textFieldExpression>
+				</textField>
+				<image  onErrorType="Blank" isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="5"
+						y="3"
+						width="62"
+						height="64"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{bImagen}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="55"
+						y="28"
+						width="454"
+						height="11"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["RFC: " + $F{sRfc}+"  TELEFONO: "+$F{sTelefono}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="55"
+						y="39"
+						width="454"
+						height="11"
+						key="textField-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["OFICINA CENTRAL: "+$F{sDireccion1}+ " "+ $F{sDireccion2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="55"
+						y="50"
+						width="454"
+						height="11"
+						key="textField-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sDireccion3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

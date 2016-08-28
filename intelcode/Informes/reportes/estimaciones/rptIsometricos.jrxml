@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="rptIsometricos"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContrato" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["425027849"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iNumeroEstimacion" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["04"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sTipoActividad" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["Paquete"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["SUNUAPA-302"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sConvenio" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["AC-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sFecha" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2008-04-18"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select e2.iNumeroEstimacion, e.sWbs, e.sNumeroActividad, a.mDescripcion, a.sMedida, 
+a.dVentaMN, a.dCantidadAnexo as dCantidadInstalar,
+e.sIsometrico, e.sPrefijo, e.dCantidad ,
+@creo:=e2.sIdUsuario, @autorizo:=e2.sIdUsuarioAutoriza,
+(select u.sNombre from usuarios u where sIdUsuario = @creo) as ucreo, 
+(select u.sPuesto from usuarios u where sIdUsuario = @creo) as pcreo,
+(select u.sNombre from usuarios u where sIdUsuario = @autorizo) as uautorizo,
+(select u.sPuesto from usuarios u where sIdUsuario = @autorizo) as pautorizo,
+g.sNombre, g.sWeb, g.sEmail
+from estimacionxpartida e
+inner join configuracion g
+on (g.sContrato = e.sContrato)
+inner join estimaciones e2 
+on (    e2.sContrato = e.sContrato 
+    and e2.sNumeroOrden = e.sNumeroOrden 
+    and e2.sNumeroGenerador = e.sNumeroGenerador
+    and e2.iNumeroEstimacion = $P{iNumeroEstimacion})
+inner join actividadesxanexo a 
+on (    e.sContrato = a.sContrato 
+    and a.sIdConvenio = $P{sConvenio} 
+    and e.sWbs = a.sWbs 
+    and e.sNumeroActividad = a.sNumeroActividad 
+    and a.sTipoActividad = "Actividad")
+Where e.sContrato = $P{sContrato} order by a.iItemOrden, e.sIsometrico]]></queryString>
+
+	<field name="iNumeroEstimacion" class="java.lang.String"/>
+	<field name="sWbs" class="java.lang.String"/>
+	<field name="sNumeroActividad" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="sMedida" class="java.lang.String"/>
+	<field name="dVentaMN" class="java.lang.Double"/>
+	<field name="dCantidadInstalar" class="java.lang.Double"/>
+	<field name="sIsometrico" class="java.lang.String"/>
+	<field name="sPrefijo" class="java.lang.String"/>
+	<field name="dCantidad" class="java.lang.Double"/>
+	<field name="@creo:=e2.sIdUsuario" class="java.lang.String"/>
+	<field name="@autorizo:=e2.sIdUsuarioAutoriza" class="java.lang.String"/>
+	<field name="ucreo" class="java.lang.String"/>
+	<field name="pcreo" class="java.lang.String"/>
+	<field name="uautorizo" class="java.lang.String"/>
+	<field name="pautorizo" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="22"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="0"
+						width="65"
+						height="21"
+						key="subreport-1"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sNumeroOrden">
+						<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="Estimacion">
+						<subreportParameterExpression><![CDATA[$P{iNumeroEstimacion}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "rptEncabezadoSencillo.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="82"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="45"
+						y="22"
+						width="43"
+						height="8"
+						key="staticText-19"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[ELABORO:]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="45"
+						width="125"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="35"
+						width="125"
+						height="8"
+						key="textField-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ucreo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="47"
+						width="125"
+						height="8"
+						key="textField-15"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pcreo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="207"
+						y="45"
+						width="125"
+						height="8"
+						backcolor="#FFFFFF"
+						key="textField-17"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pagina " +$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="453"
+						y="22"
+						width="43"
+						height="8"
+						key="staticText-21"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[AUTORIZO]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="410"
+						y="45"
+						width="125"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="410"
+						y="35"
+						width="125"
+						height="8"
+						key="textField-18"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{uautorizo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="410"
+						y="47"
+						width="125"
+						height="8"
+						key="textField-19"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pautorizo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="13"
+						width="126"
+						height="8"
+						key="textField-20"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["POR "+$F{sNombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="63"
+						width="151"
+						height="8"
+						key="textField-21"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sWeb}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="70"
+						width="151"
+						height="8"
+						key="textField-22"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sEmail}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="409"
+						y="13"
+						width="126"
+						height="8"
+						key="textField-23"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["POR PEMEX"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="63"
+						width="151"
+						height="8"
+						key="textField-24"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="4" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="71"
+						width="151"
+						height="8"
+						key="textField-25"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="4" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="43"  isSplitAllowed="true" >
+				<crosstab >
+					<reportElement
+						x="1"
+						y="0"
+						width="532"
+						height="42"
+						key="crosstab-1"/>
+					<crosstabHeaderCell>						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabHeaderCell>					<rowGroup name="sNumeroActividad" width="22">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{sNumeroActividad}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="1"
+						y="0"
+						width="21"
+						height="25"
+						backcolor="#F6F6CB"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Center">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{sNumeroActividad}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<rowGroup name="mDescripcion" width="147" totalPosition="End">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{mDescripcion}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#666666" leftBorder="None" leftBorderColor="#666666" rightBorder="None" rightBorderColor="#666666" bottomBorder="None" bottomBorderColor="#666666"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="147"
+						height="25"
+						backcolor="#F6F6CB"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" leftPadding="2" rightBorder="None" rightBorderColor="#666666" bottomBorder="Thin" bottomBorderColor="#666666" bottomPadding="3"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{mDescripcion}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<rowGroup name="dCantidadInstalar" width="28">
+						<bucket>
+							<bucketExpression class="java.lang.Double"><![CDATA[$F{dCantidadInstalar}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="28"
+						height="25"
+						backcolor="#F6F6CB"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="None" leftBorderColor="#666666" rightBorder="None" rightBorderColor="#666666" rightPadding="1" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Right">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{dCantidadInstalar}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<rowGroup name="sMedida" width="21">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{sMedida}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="21"
+						height="25"
+						backcolor="#F6F6CB"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="None" leftBorderColor="#666666" leftPadding="3" rightBorder="Thin" rightBorderColor="#666666" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Left">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{sMedida}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<rowGroup name="dVentaMN" width="32">
+						<bucket>
+							<bucketExpression class="java.lang.Double"><![CDATA[$F{dVentaMN}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="true" pattern="¤#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="32"
+						height="25"
+						backcolor="#F6F6CB"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Right">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{dVentaMN}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<columnGroup name="sWbs" height="14">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA["RELACION DE ISOMETRICOS"]]></bucketExpression>
+						</bucket>
+						<crosstabColumnHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="98"
+						height="14"
+						backcolor="#CCCCCC"
+						key="textField"
+						stretchType="RelativeToTallestObject"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="2" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{sWbs}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabColumnHeader>
+					</columnGroup>
+					<columnGroup name="sIsometrico" height="0" totalPosition="End" headerPosition="Center">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{sIsometrico}]]></bucketExpression>
+						</bucket>
+						<crosstabTotalColumnHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="45"
+						height="63"
+						forecolor="#000000"
+						backcolor="#A0B79F"
+						key="staticText-22"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="23" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Center">
+						<font size="5"/>
+					</textElement>
+				<text><![CDATA[TOTAL POR CONCEPTO]]></text>
+				</staticText>
+						</cellContents>
+						</crosstabTotalColumnHeader>
+					</columnGroup>
+					<columnGroup name="iNumeroEstimacion" height="63">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA["ESTIMACION NO. "+$F{iNumeroEstimacion}]]></bucketExpression>
+						</bucket>
+						<crosstabColumnHeader>
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="53"
+						height="17"
+						backcolor="#A0B79F"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Center">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{iNumeroEstimacion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="17"
+						width="53"
+						height="46"
+						backcolor="#F7F7A4"
+						key="textField-21"/>
+					<box topBorder="Thin" topBorderColor="#666666" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Right">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{sIsometrico}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabColumnHeader>
+					</columnGroup>
+
+					<measure name="dCantidad_Nothing" class="java.lang.Double" calculation="Sum">
+						<measureExpression><![CDATA[$F{dCantidad}]]></measureExpression>
+					</measure>
+					<crosstabCell width="53" height="25">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#666666" leftBorder="None" leftBorderColor="#666666" rightBorder="None" rightBorderColor="#666666" bottomBorder="None" bottomBorderColor="#666666"/>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="53"
+						height="25"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" rightPadding="3" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{dCantidad_Nothing}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="45" height="25" columnTotalGroup="sIsometrico">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#666666" leftBorder="None" leftBorderColor="#666666" rightBorder="None" rightBorderColor="#666666" bottomBorder="None" bottomBorderColor="#666666"/>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="45"
+						height="25"
+						backcolor="#F7F7A4"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" rightPadding="3" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{dCantidad_Nothing}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="53" height="0" rowTotalGroup="mDescripcion">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="45" height="0" rowTotalGroup="mDescripcion" columnTotalGroup="sIsometrico">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="53" height="0" rowTotalGroup="sNumeroActividad">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="45" height="0" rowTotalGroup="sNumeroActividad" columnTotalGroup="sIsometrico">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="53" height="0" rowTotalGroup="dCantidadInstalar">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="45" height="0" rowTotalGroup="dCantidadInstalar" columnTotalGroup="sIsometrico">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="53" height="0" rowTotalGroup="dVentaMN">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="45" height="0" rowTotalGroup="dVentaMN" columnTotalGroup="sIsometrico">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="25" columnTotalGroup="iNumeroEstimacion">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="dVentaMN" columnTotalGroup="iNumeroEstimacion">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="dCantidadInstalar" columnTotalGroup="iNumeroEstimacion">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="mDescripcion" columnTotalGroup="iNumeroEstimacion">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="sNumeroActividad" columnTotalGroup="iNumeroEstimacion">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="53" height="0" rowTotalGroup="sMedida">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#666666" leftBorder="None" leftBorderColor="#666666" rightBorder="None" rightBorderColor="#666666" bottomBorder="None" bottomBorderColor="#666666"/>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="156"
+						width="53"
+						height="25"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" rightPadding="3" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{dCantidad_Nothing}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="sMedida" columnTotalGroup="iNumeroEstimacion">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="45" height="0" rowTotalGroup="sMedida" columnTotalGroup="sIsometrico">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#666666" leftBorder="None" leftBorderColor="#666666" rightBorder="None" rightBorderColor="#666666" bottomBorder="None" bottomBorderColor="#666666"/>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="313"
+						y="156"
+						width="45"
+						height="25"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#666666" topPadding="1" leftBorder="Thin" leftBorderColor="#666666" rightBorder="Thin" rightBorderColor="#666666" rightPadding="3" bottomBorder="Thin" bottomBorderColor="#666666"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{dCantidad_Nothing}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="25" columnTotalGroup="sWbs">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="dVentaMN" columnTotalGroup="sWbs">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="sMedida" columnTotalGroup="sWbs">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="dCantidadInstalar" columnTotalGroup="sWbs">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="mDescripcion" columnTotalGroup="sWbs">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="sNumeroActividad" columnTotalGroup="sWbs">
+						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</crosstabCell>
+					<whenNoDataCell>						<cellContents mode="Transparent">
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						</cellContents>
+					</whenNoDataCell>					</crosstab>
+			</band>
+		</summary>
+</jasperReport>

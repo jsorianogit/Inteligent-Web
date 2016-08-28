@@ -1,0 +1,10 @@
+* php.ini
+
+	[browscap]
+	browscap = C:\wamp\php\extras\php_browscap.ini
+
+* copiar a esa ruta el archivo php_browscap.ini
+
+* reiniciar apache
+
+* ya se puede usar la funcion get_browser()

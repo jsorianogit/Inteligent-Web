@@ -1,0 +1,1 @@
+[05-Sep-2011 19:23:15] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '/opt/apache/htdocs/inteligentwebfnUtilerias.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /opt/apache/htdocs/inteligentweb/intelcode/Modulos/include/formulario.inc.php on line 38

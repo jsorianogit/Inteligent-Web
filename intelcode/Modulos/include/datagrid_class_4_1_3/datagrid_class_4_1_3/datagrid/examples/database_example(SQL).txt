@@ -1,0 +1,303 @@
+CREATE DATABASE localhost_db;
+USE localhost_db;
+-- 
+-- Table structure for table `tblRegions`
+-- 
+
+CREATE TABLE `tblRegions` (
+  `RegionID` tinyint(3) unsigned NOT NULL auto_increment,
+  `Name` varchar(22) NOT NULL default '',
+  PRIMARY KEY  (`RegionID`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+-- 
+-- Dumping data for table `tblRegions`
+-- 
+
+INSERT INTO `tblRegions` VALUES (1, 'Africa');
+INSERT INTO `tblRegions` VALUES (2, 'Asia');
+INSERT INTO `tblRegions` VALUES (3, 'Caribbean');
+INSERT INTO `tblRegions` VALUES (4, 'Europe');
+INSERT INTO `tblRegions` VALUES (5, 'Middle East');
+INSERT INTO `tblRegions` VALUES (6, 'North America');
+INSERT INTO `tblRegions` VALUES (7, 'Oceania');
+INSERT INTO `tblRegions` VALUES (8, 'South America');
+INSERT INTO `tblRegions` VALUES (9, 'North and South Poles');
+
+
+
+-- ----------------------------
+-- Table structure for tblCountries
+-- ----------------------------
+CREATE TABLE `tblCountries` (
+  
+	`CountryID` tinyint(3) unsigned NOT NULL auto_increment,
+  
+	`RegionID` tinyint(3) unsigned NOT NULL default '0',
+  
+	`Name` varchar(50) NOT NULL default '',
+  
+	`Description` varchar(255) NOT NULL default '',
+  
+	`Population` double unsigned NOT NULL default '0',
+  
+	`PictureURL` varchar(100) NOT NULL default '',
+  
+	`is_democracy` int(10) unsigned NOT NULL default '0',
+  
+	`independentDate` datetime default '0000-00-00 00:00:00',
+  
+	PRIMARY KEY  (`CountryID`)
+
+) ENGINE=MyISAM AUTO_INCREMENT=228 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records 
+-- ----------------------------
+INSERT INTO `tblCountries` VALUES ('1', '1', 'Algeria', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('2', '1', 'Angola', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('3', '1', 'Benin', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('4', '1', 'Botswana', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('5', '1', 'Burkina Faso', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('6', '1', 'Burundi', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('7', '1', 'Cameroon', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('8', '1', 'Cape Verde', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('9', '1', 'Central African Republic', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('10', '1', 'Chad', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('11', '1', 'Comoros', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('12', '1', 'Cote d-Ivoire', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('13', '1', 'Democratic Republic of the Congo', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('14', '1', 'Djibouti', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('79', '2', 'Afganistan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('16', '1', 'Equatorial Guinea', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('17', '1', 'Eritrea', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('18', '1', 'Ethiopia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('19', '1', 'Gabon', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('20', '1', 'Gambia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('21', '1', 'Ghana', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('22', '1', 'Guinea', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('23', '1', 'Guinea-Bissau', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('24', '1', 'Kenya', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('25', '1', 'Lesotho', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('26', '1', 'Liberia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('27', '1', 'Libya', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('28', '1', 'Madagascar', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('29', '1', 'Malawi', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('54', '1', 'Mali', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('67', '1', 'Sierra Leone', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('68', '1', 'Somalia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('66', '1', 'Seychelles', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('65', '1', 'Senegal', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('55', '1', 'Mauritania', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('56', '1', 'Mauritius', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('57', '1', 'Morocco', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('58', '1', 'Mozambique', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('59', '1', 'Namibia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('60', '1', 'Niger', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('61', '1', 'Nigeria', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('62', '1', 'Republic of the Congo', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('63', '1', 'Rwanda', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('64', '1', 'Sao Tome and Principe', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('69', '1', 'South Africa', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('70', '1', 'Sudan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('71', '1', 'Swaziland', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('72', '1', 'Tanzania', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('73', '1', 'Togo', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('74', '1', 'Tunisia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('75', '1', 'Uganda', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('76', '1', 'Western Sahara', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('77', '1', 'Zambia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('78', '1', 'Zimbabwe', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('80', '2', 'Bangladesh', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('81', '2', 'Bhutan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('82', '2', 'Brunei', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('83', '2', 'Cambodia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('84', '2', 'China', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('85', '2', 'Hong Kong', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('86', '2', 'India', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('87', '2', 'Indonesia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('88', '2', 'Japan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('89', '2', 'Kazakhstan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('90', '2', 'Laos', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('91', '2', 'Macao', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('92', '2', 'Malaysia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('93', '2', 'Maldives', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('94', '2', 'Mongolia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('95', '2', 'Myanmar', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('96', '2', 'Nepal', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('97', '2', 'North Korea', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('98', '2', 'Pakistan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('99', '2', 'Philippines', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('100', '2', 'Singapore', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('101', '2', 'South Korea', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('102', '2', 'Sri Lanka', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('103', '2', 'Taiwan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('104', '2', 'Tajikistan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('105', '2', 'Thailand', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('106', '2', 'Vietnam', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('107', '2', 'Afganistan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('108', '3', 'Antigua', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('109', '3', 'Bahamas', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('110', '3', 'Barbados', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('111', '3', 'Dominica', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('112', '3', 'Grenada', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('113', '3', 'St.Kitts & Nevis', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('114', '3', 'St.Lucia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('115', '3', 'St.Vincent & the Grenadines', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('116', '3', 'Trinidad & Tobago', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('117', '4', 'Albania', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('118', '4', 'Andorra', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('119', '4', 'Armenia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('120', '4', 'Austria', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('121', '4', 'Azerbaijan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('122', '4', 'Belarus', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('123', '4', 'Belgium', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('124', '4', 'Bosnia and Herzegovina', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('125', '4', 'Bulgaria', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('126', '4', 'Croatia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('127', '4', 'Czech Republic', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('128', '4', 'Denmark', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('129', '4', 'Estonia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('130', '4', 'Finland', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('131', '4', 'France', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('132', '4', 'Georgia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('133', '4', 'Germany', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('134', '4', 'Greece', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('135', '4', 'Hungary', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('136', '4', 'Iceland', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('137', '4', 'Ireland', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('138', '4', 'Italy', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('139', '4', 'Latvia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('140', '4', 'Liechtenstein', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('141', '4', 'Lithuania', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('142', '4', 'Luxembourg', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('143', '4', 'Macedonia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('144', '4', 'Malta', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('145', '4', 'Moldova', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('146', '4', 'Monaco', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('147', '4', 'Netherlands', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('148', '4', 'Norway', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('149', '4', 'Poland', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('150', '4', 'Portugal', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('151', '4', 'Romania', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('152', '4', 'Russian Federation', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('153', '4', 'San Marino', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('154', '4', 'Slovakia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('155', '4', 'Slovenia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('156', '4', 'Spain', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('157', '4', 'Sweden', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('158', '4', 'Switzerland', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('159', '4', 'Turkey', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('160', '4', 'Ukraine', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('161', '4', 'United Kingdom', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('162', '4', 'Yugoslavia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('163', '5', 'Bahrain', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('164', '5', 'Cyprus', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('165', '5', 'Egypt', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('166', '5', 'Iran', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('167', '5', 'Iraq', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('168', '5', 'Israel', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('169', '5', 'Jordan', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('170', '5', 'Kuwait', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('171', '5', 'Lebanon', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('172', '5', 'Oman', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('173', '5', 'Qatar', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('174', '5', 'Saudi Arabia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('175', '5', 'Syria', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('176', '5', 'Turkey', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('177', '5', 'United Arab Emirates', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('178', '5', 'Yemen', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('179', '6', 'Belize', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('180', '6', 'Canada', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('181', '6', 'Costa Rica', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('182', '6', 'Cuba', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('183', '6', 'Dominican Republic', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('184', '6', 'El Salvador', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('185', '6', 'Guatemala', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('186', '6', 'Haiti', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('195', '6', 'Nicaragua', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('192', '6', 'Honduras', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('193', '6', 'Jamaica', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('194', '6', 'Mexico', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('196', '6', 'Panama', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('197', '6', 'United States of America', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('198', '7', 'Australia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('199', '7', 'Federated States of Micronesia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('200', '7', 'Fiji', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('201', '7', 'Kiribati', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('202', '7', 'Marshall Islands', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('203', '7', 'Nauru', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('204', '7', 'New Zealand', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('205', '7', 'Palau', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('206', '7', 'Papua New Guinea', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('207', '7', 'Samoa', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('208', '7', 'Solomon Islands', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('209', '7', 'Tonga', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('210', '7', 'Tuvalu', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('211', '7', 'Vanuatu', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('212', '8', 'Argentina', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('213', '8', 'Bolivia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('214', '8', 'Brazil', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('215', '8', 'Chile', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('216', '8', 'Colombia', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('217', '8', 'Ecuador', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('218', '8', 'French Guiana', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('219', '8', 'Guyana', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('220', '8', 'Paraguay', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('221', '8', 'Peru', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('222', '8', 'Suriname', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('223', '8', 'Uruguay', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('224', '8', 'Venezuela', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('225', '4', 'Vatican City', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('226', '9', 'Antarctica', '', '0', '', '0', null);
+INSERT INTO `tblCountries` VALUES ('227', '9', 'Arctic', '', '0', '', '0', null);
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `tblDemocracy`
+-- 
+
+CREATE TABLE `tblDemocracy` (
+  `did` int(10) unsigned NOT NULL auto_increment,
+  `description` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`did`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `tblDemocracy`
+-- 
+
+INSERT INTO `tblDemocracy` VALUES (1, 'Yes');
+INSERT INTO `tblDemocracy` VALUES (2, 'No');
+
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `tblPresidents`
+-- 
+
+CREATE TABLE `tblPresidents` (
+  
+   `presidentID` int(11) NOT NULL auto_increment,
+  
+   `CountryID` int(11) unsigned NOT NULL,
+  
+   `Name` varchar(50) default NULL,
+  
+   `BirthDate` date default NULL,
+  
+   `Status` enum('Candidate','Vice','Current') default 'Candidate',
+  
+    PRIMARY KEY  (`presidentID`)
+
+) ENGINE=MyISAM  AUTO_INCREMENT=3 CHARSET=latin1;
+
+-- 
+-- Dumping data for table `tblPresidents`
+-- 
+INSERT INTO `tblPresidents` VALUES ('1', '1', 'Mombo', '1995-02-14', 'Candidate');
+INSERT INTO `tblPresidents` VALUES ('2', '2', 'Rombo', '1965-11-08', 'Candidate');

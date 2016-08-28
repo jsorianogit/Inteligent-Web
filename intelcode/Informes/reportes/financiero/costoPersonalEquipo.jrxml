@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="costoPersonalEquipo"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="709"
+		 pageHeight="501"
+		 columnWidth="649"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\wamp\\www\\html\\reportes\\financiero\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContrato" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["428237843"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2007-12-07"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["A"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["428237843"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT 
+c.bImagen, c.sContrato, 
+c.sNombre, c.sPiePagina, 
+c.sEmail,c.sWeb,
+c.sSlogan,c.sFirmasElectronicas,
+c.lImprimeExtraordinario,
+c2.mDescripcion, c2.mCliente, c2.bImagen AS bImagenPEP 
+FROM  contratos c2 
+INNER JOIN configuracion c 
+ON (c.sContrato = c2.sContrato) Where c2.sContrato = $P{sContrato}]]></queryString>
+
+	<field name="bImagen" class="java.io.InputStream"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sPiePagina" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="sSlogan" class="java.lang.String"/>
+	<field name="sFirmasElectronicas" class="java.lang.String"/>
+	<field name="lImprimeExtraordinario" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagenPEP" class="java.io.InputStream">
+		<fieldDescription><![CDATA[Imagen de Pemex PEP]]></fieldDescription>
+	</field>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="91"  isSplitAllowed="true" >
+				<rectangle radius="0" >
+					<reportElement
+						mode="Transparent"
+						x="1"
+						y="2"
+						width="648"
+						height="89"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="296"
+						y="73"
+						width="100"
+						height="11"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sContrato}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="186"
+						y="16"
+						width="276"
+						height="50"
+						forecolor="#0000FF"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2"
+						y="66"
+						width="185"
+						height="23"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mCliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="463"
+						y="66"
+						width="185"
+						height="24"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sNombre}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="259"
+						y="73"
+						width="37"
+						height="10"
+						forecolor="#0033FF"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Contrato:]]></text>
+				</staticText>
+				<image  vAlign="Middle" hAlign="Center" isLazy="true" onErrorType="Blank" isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="28"
+						y="8"
+						width="119"
+						height="52"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{bImagenPEP}]]></imageExpression>
+				</image>
+				<image  vAlign="Middle" hAlign="Center" isLazy="true" onErrorType="Blank" isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="506"
+						y="8"
+						width="119"
+						height="52"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{bImagen}]]></imageExpression>
+				</image>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="11"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Transparent"
+						x="1"
+						y="1"
+						width="220"
+						height="10"
+						backcolor="#0000FF"
+						key="subreport-5"/>
+					<subreportParameter  name="dIdFecha">
+						<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "costoPersonalEquipo_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="19"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Transparent"
+						x="369"
+						y="0"
+						width="242"
+						height="10"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="dIdFecha">
+						<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sIdTurno">
+						<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subpersonal.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="369"
+						y="10"
+						width="242"
+						height="9"
+						key="subreport-3"
+						positionType="Float"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="dIdFecha">
+						<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sIdTurno">
+						<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subequipo.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="0"
+						width="335"
+						height="10"
+						key="subreport-4"
+						positionType="Float"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="dIdFecha">
+						<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sIdTurno">
+						<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sIdConvenio">
+						<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sNumeroOrden">
+						<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subactividades.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="23"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="181"
+						y="0"
+						width="138"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pagina " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="324"
+						y="0"
+						width="193"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

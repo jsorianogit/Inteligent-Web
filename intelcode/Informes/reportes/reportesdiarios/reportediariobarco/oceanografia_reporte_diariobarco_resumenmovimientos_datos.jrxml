@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="oceanografia_reporte_diariobarco_resumenmovimientos" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Fecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Tipo1" class="java.lang.String"/>
+	<parameter name="Tipo2" class="java.lang.String"/>
+	<parameter name="Tipo3" class="java.lang.String"/>
+	<parameter name="Tipo4" class="java.lang.String"/>
+	<parameter name="Tipo5" class="java.lang.String"/>
+	<parameter name="Tipo6" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select f.sContrato,
+(select SUM(t1.sFactor) from fasesxorden t1 where t1.sContrato= f.sContrato and t1.dIdFecha = me.dIdFecha and t1.sClasificacion = $P{Tipo1}) as Mov_1,
+(select SUM(t1.sFactor) from fasesxorden t1 where t1.sContrato= f.sContrato and t1.dIdFecha = me.dIdFecha and t1.sClasificacion = $P{Tipo2}) as Mov_2,
+(select SUM(t1.sFactor) from fasesxorden t1 where t1.sContrato= f.sContrato and t1.dIdFecha = me.dIdFecha and t1.sClasificacion = $P{Tipo3}) as Mov_3,
+(select SUM(t1.sFactor) from fasesxorden t1 where t1.sContrato= f.sContrato and t1.dIdFecha = me.dIdFecha and t1.sClasificacion = $P{Tipo4}) as Mov_4,
+(select SUM(t1.sFactor) from fasesxorden t1 where t1.sContrato= f.sContrato and t1.dIdFecha = me.dIdFecha and t1.sClasificacion = $P{Tipo5}) as Mov_5,
+(select SUM(t1.sFactor) from fasesxorden t1 where t1.sContrato= f.sContrato and t1.dIdFecha = me.dIdFecha and t1.sClasificacion = $P{Tipo6}) as Mov_6,
+(select SUM(t1.sFactor) from fasesxorden t1 where t1.dIdFecha = me.dIdFecha ) as SumaMov
+from movimientosdeembarcacion me
+Inner join fasesxorden f on (f.dIdFecha=me.dIdFecha and f.iIdDiario=me.iIdDiario)
+Inner join tiposdemovimiento t on (t.sContrato = me.sContrato and t.sIdTipoMovimiento = me.sClasificacion)
+Where me.sContrato= $P{sContrato} and me.dIdFecha=$P{Fecha} group by sContrato  order by sContrato]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="Mov_1" class="java.lang.Double"/>
+	<field name="Mov_2" class="java.lang.Double"/>
+	<field name="Mov_3" class="java.lang.Double"/>
+	<field name="Mov_4" class="java.lang.Double"/>
+	<field name="Mov_5" class="java.lang.Double"/>
+	<field name="Mov_6" class="java.lang.Double"/>
+	<field name="SumaMov" class="java.lang.Double"/>
+	<variable name="Suma1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Mov_1}]]></variableExpression>
+	</variable>
+	<variable name="Suma2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Mov_2}]]></variableExpression>
+	</variable>
+	<variable name="Suma3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Mov_3}]]></variableExpression>
+	</variable>
+	<variable name="Suma4" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Mov_4}]]></variableExpression>
+	</variable>
+	<variable name="Suma5" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Mov_5}]]></variableExpression>
+	</variable>
+	<variable name="Suma6" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Mov_6}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Transparent" x="14" y="0" width="157" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sContrato}+ " "]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="256" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($F{Mov_2})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="511" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($F{Mov_5})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="171" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($F{Mov_1})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="426" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($F{Mov_4})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="341" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($F{Mov_3})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch">
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="171" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Suma1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="341" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Suma3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Opaque" x="14" y="0" width="157" height="12" forecolor="#000000" backcolor="#99CCFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CANTIDAD DEL DIA"]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="256" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Suma2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="511" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Suma5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="426" y="0" width="85" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Suma4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<textField pattern="###0.000000" isBlankWhenNull="false">
+				<reportElement key="textField-5" x="511" y="0" width="85" height="12"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SumaMov}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="false">
+				<reportElement key="textField-5" x="14" y="0" width="497" height="12"/>
+				<box leftPadding="3" rightPadding="15">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TOTAL DEL DIA "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

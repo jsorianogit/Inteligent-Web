@@ -1,0 +1,3 @@
+
+directorios de cache de reportes:
+	intelcode/Acceso/scripts/php/Reportes/generadores_swbs/reports/

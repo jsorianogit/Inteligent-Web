@@ -1,0 +1,1868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="oceanografia_generadorbarcoplataforma" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="788" leftMargin="2" rightMargin="2" topMargin="11" bottomMargin="11">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="iAnio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iMes" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaInicial" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2012-05-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dFechaFinal" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2012-05-22"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["%"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ContratoSeleccionado" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["428231821"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Embarcacion" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    c.sContrato, c.sTipoObra,
+    f.sNumeroOrden,
+    c.sTitulo,
+    c.mDescripcion as mDescripcionContrato,
+    f.sNumeroOrden Orden,
+    f.dIdFecha,
+    t.sIdTipoMovimiento,
+    t.sDescripcion,
+    sum(f.sFactor) as sFactor,
+    t.dVentaMN,
+    t.dVentaDLL,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "01") ) as Dia1,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "02")) as Dia2,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "03") ) as Dia3,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "04") ) as Dia4,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "05") ) as Dia5,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "06") ) as Dia6,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "07") ) as Dia7,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "08") ) as Dia8,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "09")) as Dia9,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "10") ) as Dia10,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "11") ) as Dia11,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "12") ) as Dia12,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "13") ) as Dia13,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "14") ) as Dia14,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "15") ) as Dia15,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "16") ) as Dia16,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "17") ) as Dia17,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "18") ) as Dia18,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "19") ) as Dia19,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "20")) as Dia20,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "21") ) as Dia21,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "22") ) as Dia22,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "23") ) as Dia23,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "24") ) as Dia24,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "25") ) as Dia25,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "26") ) as Dia26,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "27") ) as Dia27,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "28") ) as Dia28,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "29") ) as Dia29,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "30") ) as Dia30,
+    (select sum(fo.sFactor) from fasesxorden fo where fo.sContrato=f.sContrato and fo.sNumeroOrden=f.sNumeroOrden and fo.sClasificacion=f.sClasificacion and fo.dIdFecha=concat( $P{iAnio},"-",$P{iMes},"-", "31") ) as Dia31
+from fasesxorden f
+	Inner Join tiposdemovimiento t On (
+    	t.sIdTipoMovimiento = f.sClasificacion
+        and t.sClasificacion = "Movimiento de Barco"
+        and t.lGenera = "Si"
+    )
+	Inner Join contratos c on (
+    	f.sContrato = c.sContrato
+    )
+where
+    f.sContrato like $P{sContrato}
+    and f.dIdFecha >= $P{dFechaInicial}
+    and f.dIdFecha <= $P{dFechaFinal}
+Group By c.sTipoObra,c.sContrato, f.sNumeroOrden, t.sIdTipoMovimiento
+order By c.sTipoObra, f.sContrato, f.sNumeroOrden]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sTipoObra" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<field name="sTitulo" class="java.lang.String"/>
+	<field name="mDescripcionContrato" class="java.lang.String"/>
+	<field name="Orden" class="java.lang.String"/>
+	<field name="dIdFecha" class="java.sql.Date"/>
+	<field name="sIdTipoMovimiento" class="java.lang.String"/>
+	<field name="sDescripcion" class="java.lang.String"/>
+	<field name="sFactor" class="java.lang.Double"/>
+	<field name="dVentaMN" class="java.math.BigDecimal"/>
+	<field name="dVentaDLL" class="java.math.BigDecimal"/>
+	<field name="Dia1" class="java.lang.Double"/>
+	<field name="Dia2" class="java.lang.Double"/>
+	<field name="Dia3" class="java.lang.Double"/>
+	<field name="Dia4" class="java.lang.Double"/>
+	<field name="Dia5" class="java.lang.Double"/>
+	<field name="Dia6" class="java.lang.Double"/>
+	<field name="Dia7" class="java.lang.Double"/>
+	<field name="Dia8" class="java.lang.Double"/>
+	<field name="Dia9" class="java.lang.Double"/>
+	<field name="Dia10" class="java.lang.Double"/>
+	<field name="Dia11" class="java.lang.Double"/>
+	<field name="Dia12" class="java.lang.Double"/>
+	<field name="Dia13" class="java.lang.Double"/>
+	<field name="Dia14" class="java.lang.Double"/>
+	<field name="Dia15" class="java.lang.Double"/>
+	<field name="Dia16" class="java.lang.Double"/>
+	<field name="Dia17" class="java.lang.Double"/>
+	<field name="Dia18" class="java.lang.Double"/>
+	<field name="Dia19" class="java.lang.Double"/>
+	<field name="Dia20" class="java.lang.Double"/>
+	<field name="Dia21" class="java.lang.Double"/>
+	<field name="Dia22" class="java.lang.Double"/>
+	<field name="Dia23" class="java.lang.Double"/>
+	<field name="Dia24" class="java.lang.Double"/>
+	<field name="Dia25" class="java.lang.Double"/>
+	<field name="Dia26" class="java.lang.Double"/>
+	<field name="Dia27" class="java.lang.Double"/>
+	<field name="Dia28" class="java.lang.Double"/>
+	<field name="Dia29" class="java.lang.Double"/>
+	<field name="Dia30" class="java.lang.Double"/>
+	<field name="Dia31" class="java.lang.Double"/>
+	<variable name="SumaDia1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia1}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia2}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia3}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia4" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia4}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia5" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia5}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia6" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia6}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia7" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia7}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia8" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia8}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia9" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia9}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia10" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia10}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia11" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia11}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia12" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia12}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia13" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia13}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia14" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia14}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia15" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia15}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia16" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia16}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia17" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia17}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia18" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia18}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia19" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia19}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia20" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia20}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia21" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia21}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia22" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia22}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia23" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia23}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia24" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia24}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia25" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia25}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia26" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia26}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia27" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia27}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia28" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia28}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia29" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia29}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia30" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia30}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia31" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia31}]]></variableExpression>
+	</variable>
+	<variable name="SumaFactor" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{sFactor}]]></variableExpression>
+	</variable>
+	<variable name="SumaFactor_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{sFactor}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia31_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia31}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia30_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia30}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia29_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia29}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia28_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia28}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia27_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia27}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia26_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia26}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia25_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia25}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia24_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia24}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia23_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia23}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia22_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia22}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia21_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia21}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia20_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia20}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia19_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia19}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia18_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia18}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia17_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia17}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia16_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia16}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia15_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia15}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia14_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia14}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia13_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia13}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia12_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia12}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia11_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia11}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia10_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia10}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia9_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia9}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia8_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia8}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia7_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia7}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia6_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia6}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia5_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia5}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia4_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia4}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia3_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia3}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia2_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia2}]]></variableExpression>
+	</variable>
+	<variable name="SumaDia1_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Dia1}]]></variableExpression>
+	</variable>
+	<group name="sTipoObra" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{sTipoObra}]]></groupExpression>
+		<groupHeader>
+			<band height="34" splitType="Stretch">
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-96" mode="Opaque" x="11" y="5" width="313" height="28" backcolor="#EAEAEA"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="7" isBold="false" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA["OBRAS DE TIPO:  "+ $F{sTipoObra}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-133" mode="Opaque" x="338" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["2"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-134" mode="Opaque" x="364" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["4"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-135" mode="Opaque" x="377" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["5"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-136" mode="Opaque" x="390" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["6"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-137" mode="Opaque" x="403" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["7"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-138" mode="Opaque" x="416" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["8"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-139" mode="Opaque" x="429" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["9"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-140" mode="Opaque" x="442" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["10"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-141" mode="Opaque" x="455" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["11"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-142" mode="Opaque" x="468" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["12"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-143" mode="Opaque" x="481" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["13"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-144" mode="Opaque" x="493" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["14"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-145" mode="Opaque" x="506" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["15"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-146" mode="Opaque" x="519" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["16"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-147" mode="Opaque" x="532" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["17"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-148" mode="Opaque" x="545" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["18"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-149" mode="Opaque" x="558" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["19"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-150" mode="Opaque" x="571" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["20"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-151" mode="Opaque" x="584" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["21"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-152" mode="Opaque" x="597" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["22"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-153" mode="Opaque" x="610" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["23"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-154" mode="Opaque" x="623" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["24"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-155" mode="Opaque" x="636" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["25"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-156" mode="Opaque" x="649" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["26"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-157" mode="Opaque" x="662" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["27"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-158" mode="Opaque" x="675" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["28"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-159" mode="Opaque" x="688" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["29"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-160" mode="Opaque" x="701" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["30"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-161" mode="Opaque" x="714" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["31"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-162" mode="Opaque" x="727" y="5" width="48" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TOAL POR DIA"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-163" mode="Opaque" x="325" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["1"]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.000000" isBlankWhenNull="true">
+					<reportElement key="textField-164" mode="Opaque" x="351" y="5" width="13" height="28" backcolor="#99CCFF"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font fontName="SansSerif" size="6" isBold="false" pdfFontName="Helvetica-Bold"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["3"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="sContrato">
+		<groupExpression><![CDATA[$F{sContrato}]]></groupExpression>
+		<groupHeader>
+			<band height="16" splitType="Stretch">
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-263" isPrintRepeatedValues="false" x="17" y="0" width="213" height="15"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ORDEN: "+ $F{sContrato}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="sNumeroOrden">
+		<groupExpression><![CDATA[$F{sNumeroOrden}]]></groupExpression>
+		<groupHeader>
+			<band height="17" splitType="Stretch">
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-264" isPrintRepeatedValues="false" x="10" y="2" width="764" height="15"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA["       PLATAFORMA: " +$F{sNumeroOrden}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-5" x="0" y="0" width="775" height="17"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="iMes">
+					<subreportParameterExpression><![CDATA[$P{iMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicio">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaInicial">
+					<subreportParameterExpression><![CDATA[$P{dFechaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="iAnio">
+					<subreportParameterExpression><![CDATA[$P{iAnio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Embarcacion">
+					<subreportParameterExpression><![CDATA[$P{Embarcacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sInforme">
+					<subreportParameterExpression><![CDATA["GENERADOR DE BARCO"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ContratoSeleccionado">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Mostrar">
+					<subreportParameterExpression><![CDATA["No"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_generadorbarco_titulo_plataforma.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-98" x="338" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-99" x="364" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-100" x="377" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-101" x="390" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-102" x="403" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia7}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-103" x="416" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia8}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-104" x="429" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia9}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-105" x="442" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-106" x="455" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia11}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-107" x="468" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia12}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-108" x="481" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia13}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-109" x="493" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia14}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-110" x="506" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia15}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-111" x="519" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia16}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-112" x="532" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia17}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-113" x="545" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia18}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-114" x="558" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia19}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-115" x="571" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia20}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-116" x="584" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia21}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-117" x="597" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia22}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-118" x="610" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia23}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-119" x="623" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia24}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-120" x="636" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia25}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-121" x="649" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia26}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-122" x="662" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia27}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-123" x="675" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia28}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-124" x="688" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia29}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-125" x="701" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia30}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-126" x="714" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia31}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-127" x="727" y="0" width="48" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFactor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-128" x="325" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-129" x="351" y="0" width="13" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-130" isPrintRepeatedValues="false" x="50" y="0" width="274" height="34"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-131" isPrintRepeatedValues="false" x="11" y="0" width="39" height="34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sIdTipoMovimiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="63" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-4" x="0" y="0" width="622" height="21"/>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dFechaFinal">
+					<subreportParameterExpression><![CDATA[$P{dFechaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ContratoSeleccionado">
+					<subreportParameterExpression><![CDATA[$P{ContratoSeleccionado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "oceanografia_generadores_firmas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="39" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-230" mode="Opaque" x="263" y="2" width="62" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TOTAL DIARIO"]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-231" mode="Opaque" x="338" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia2_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-232" mode="Opaque" x="364" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia4_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-233" mode="Opaque" x="377" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia5_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-234" mode="Opaque" x="390" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia6_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-235" mode="Opaque" x="403" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia7_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-236" mode="Opaque" x="416" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia8_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-237" mode="Opaque" x="429" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia9_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-238" mode="Opaque" x="442" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia10_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-239" mode="Opaque" x="455" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia11_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-240" mode="Opaque" x="468" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia12_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-241" mode="Opaque" x="481" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia13_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-242" mode="Opaque" x="493" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia14_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-243" mode="Opaque" x="506" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia15_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-244" mode="Opaque" x="519" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia16_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-245" mode="Opaque" x="532" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia17_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-246" mode="Opaque" x="545" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia18_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-247" mode="Opaque" x="558" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia19_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-248" mode="Opaque" x="571" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia20_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-249" mode="Opaque" x="584" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia21_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-250" mode="Opaque" x="597" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia22_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-251" mode="Opaque" x="610" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia23_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-252" mode="Opaque" x="623" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia24_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-253" mode="Opaque" x="636" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia25_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-254" mode="Opaque" x="649" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia26_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-255" mode="Opaque" x="662" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia27_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-256" mode="Opaque" x="675" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia28_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-257" mode="Opaque" x="688" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia29_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-258" mode="Opaque" x="701" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia30_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-259" mode="Opaque" x="714" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia31_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-260" mode="Opaque" x="727" y="2" width="48" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaFactor_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-261" mode="Opaque" x="325" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia1_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement key="textField-262" mode="Opaque" x="351" y="2" width="13" height="36" backcolor="#99CCFF"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SumaDia3_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

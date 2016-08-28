@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptReporteDiarioObrasProgramadas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="3" bottomMargin="0">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="321"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sNumeroOrden" class="java.lang.String">
+		<defaultValueExpression><![CDATA["COCUITE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA["424109803"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    c.bImagen AS LOGO,  c.sNombre, c2.sCodigo,
+    c2.mDescripcion, c2.mCliente, c2.bImagen as bImagenPEP
+    From contratos c2 INNER JOIN configuracion c ON (c.sContrato = c2.sContrato)
+    inner join ordenesdetrabajo ot on (ot.sContrato = c2.sContrato and ot.sNumeroOrden = $P{sNumeroOrden} )
+    Where c2.sContrato =  $P{sContrato}]]>
+	</queryString>
+	<field name="LOGO" class="java.io.InputStream"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sCodigo" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagenPEP" class="java.io.InputStream"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="-1" width="572" height="91"/>
+			</rectangle>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="38" y="2" width="91" height="77"/>
+				<imageExpression><![CDATA[$F{LOGO}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="78" width="174" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sNombre}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="447" y="2" width="91" height="77"/>
+				<imageExpression><![CDATA[$F{bImagenPEP}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="398" y="78" width="174" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mCliente}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="129" y="6" width="318" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="129" y="17" width="318" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CONTRATO: "+$F{sCodigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

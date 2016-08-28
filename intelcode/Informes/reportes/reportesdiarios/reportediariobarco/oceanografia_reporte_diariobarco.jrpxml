@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperPrint PUBLIC "-//JasperReports//DTD JasperPrint//EN" "http://jasperreports.sourceforge.net/dtds/jasperprint.dtd">
+
+<jasperPrint name="oceanografia_reporte_diariobarco" pageWidth="612" pageHeight="792" topMargin="11" leftMargin="2" bottomMargin="11" rightMargin="2" locale="es_ES" timezone="America/Mexico_City">
+	<property name="net.sf.jasperreports.export.xml.start.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.end.page.index" value="-1"/>
+	<property name="net.sf.jasperreports.export.xml.page.count" value="0"/>
+	<origin band="background"/>
+	<origin band="title"/>
+	<origin band="pageHeader"/>
+	<origin band="columnHeader"/>
+	<origin band="detail"/>
+	<origin band="columnFooter"/>
+	<origin band="pageFooter"/>
+</jasperPrint>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAvancesObrayOrden" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="3" bottomMargin="0">
+	<property name="ireport.zoom" value="1.4641000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    #AVANCES DE LA OBRA
+   	#--avance Real Anterior de la Obra
+      @dAvanceRealObraAnterior:=(
+         select IF(sum(dAvance) IS NULL,0,sum(dAvance)) as dAvance
+         from avancesglobalesxorden
+         where sContrato = $P{sContrato}   and sNumeroOrden = $P{sNumeroOrden}  and dIdFecha < $P{dIdFecha}  and sIdConvenio = $P{sIdConvenio}
+         group by sContrato
+      ) as dAvRealAnteriorContrato,
+
+	   #--avance real actual de la obra
+      @dAvanceRealObraActual:=(
+         Select IF(sum(dAvance) IS NULL,0,sum(dAvance)) as dAvance
+         from avancesglobalesxorden
+         where sContrato = $P{sContrato}   and sNumeroOrden = $P{sNumeroOrden}   and dIdFecha = $P{dIdFecha}  and sIdConvenio =  $P{sIdConvenio}
+         group by sContrato
+      ) as dAvRealActualContrato,
+   	#--avance acumulado real de la obra
+	  (IF(@dAvanceRealObraActual IS NULL,0,@dAvanceRealObraActual )+ IF(@dAvanceRealObraAnterior IS NULL,0,@dAvanceRealObraAnterior ) ) as dAvRealAcumuladoContrato ,
+
+
+   #--avance programado anterior de la obra
+      @dAvanceProgObraAnterior:=(
+        Select
+  dAvancePonderadoGlobal-dAvancePonderadoDia as dProgramadoOrdenAnterior
+  from avancesglobales where sContrato =$P{sContrato}   and
+sIdConvenio = $P{sIdConvenio}  And dIdFecha = $P{dIdFecha}  and sNumeroOrden = $P{sNumeroOrden}
+      ) as dAvProgAnteriorContrato,
+        #--avamce programado actual de la obra
+      @dAvanceProgObraActual:=(
+         Select
+  dAvancePonderadoDia as dProgramadoOrdenActual
+  from avancesglobales where sContrato = $P{sContrato}  and
+sIdConvenio = $P{sIdConvenio}  And dIdFecha =$P{dIdFecha}  and sNumeroOrden = $P{sNumeroOrden}) as dAvProgActualContrato,
+	#--avance programado acumulado de la obra
+	  (@dAvanceProgObraActual + @dAvanceProgObraAnterior) as dAvProgAcumuladoContrato]]>
+	</queryString>
+	<field name="dAvRealAnteriorContrato" class="java.math.BigDecimal"/>
+	<field name="dAvRealActualContrato" class="java.math.BigDecimal"/>
+	<field name="dAvRealAcumuladoContrato" class="java.lang.Double"/>
+	<field name="dAvProgAnteriorContrato" class="java.math.BigDecimal"/>
+	<field name="dAvProgActualContrato" class="java.math.BigDecimal"/>
+	<field name="dAvProgAcumuladoContrato" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="338" y="13" width="48" height="13" backcolor="#BAD3FE"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ACUMULADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="163" y="26" width="84" height="13" backcolor="#BAD3FE"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCE REAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="292" y="13" width="46" height="13" backcolor="#BAD3FE"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ACTUAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="247" y="13" width="45" height="13" backcolor="#BAD3FE"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ANTERIOR"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="163" y="39" width="84" height="13" backcolor="#BAD3FE"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCE PROGRAMADO"]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="247" y="39" width="45" height="13"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double(
+($F{dAvProgAnteriorContrato} == null?0.0:$F{dAvProgAnteriorContrato}.doubleValue())
+)]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="292" y="39" width="46" height="13"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double(
+($F{dAvProgActualContrato} == null?0.0:$F{dAvProgActualContrato}.doubleValue())
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="247" y="0" width="139" height="13" backcolor="#FFFF99"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVANCES DE LA OBRA"]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="338" y="39" width="48" height="13"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double(
+($F{dAvProgAcumuladoContrato} == null?0.0:$F{dAvProgAcumuladoContrato}.doubleValue())
+)]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="338" y="26" width="48" height="13"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{dAvRealAcumuladoContrato}==null?0:$F{dAvRealAcumuladoContrato})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="247" y="26" width="45" height="13"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{dAvRealAnteriorContrato}==null?0:$F{dAvRealAnteriorContrato})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="292" y="26" width="46" height="13"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{dAvRealActualContrato}==null?0:$F{dAvRealActualContrato})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

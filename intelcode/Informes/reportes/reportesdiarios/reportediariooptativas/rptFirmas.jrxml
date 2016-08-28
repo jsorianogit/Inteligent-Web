@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptFirmas" language="groovy" pageWidth="572" pageHeight="752" columnWidth="532" leftMargin="20" rightMargin="20" topMargin="3" bottomMargin="0">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="54"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["COCUITE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["424109803"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-07-03"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["A"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lStatus" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Pendiente"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroReporte" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["COCUITE-VER-013"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+	f.sFirmante1 as      sSuperintendente ,
+	f.sFirmante7 as       sSuperintendentePatio,
+	f.sFirmante9 as      sRepresentanteTecnico ,
+	f.sFirmante2 as      sSupervisor ,
+	f.sFirmante8 as      sSupervisorPatio ,
+	f.sFirmante3 as      sSupervisorGenerador ,
+	f.sFirmante4 as      sSupervisorEstimacion ,
+	f.sFirmante5 as      sSupervisorTierra ,
+	f.sFirmante6 as      sResidente ,
+	f.sPuesto1 as      sPuestoSuperintendente,
+	f.sPuesto7 as      sPuestoSuperintendentePatio ,
+	f.sPuesto2 as      sPuestoSupervisor ,
+	f.sPuesto8 as      sPuestoSupervisorPatio ,
+	f.sPuesto9 as      sPuestoRepresentanteTecnico,
+	f.sPuesto3 as      sPuestoSupervisorGenerador ,
+	f.sPuesto4 as      sPuestoSupervisorEstimacion,
+	f.sPuesto5 as      sPuestoSupervisorTierra,
+	f.sPuesto6 as      sPuestoResidente ,
+	f.sFirmante10 as      sSupervisorSubContratista ,
+	f.sPuesto10 as      sPuestoSupervisorSubContratista ,
+	c.iFirmasReportes,
+    	c.sMostrarAvances,
+    	c.iFirmas,
+    	c.sOrdenPerEq,
+    	c.sTipoPartida,
+    	c.sImprimePEP,
+	c.sClaveSeguridad,
+    	c.cStatusProceso,
+    	c.sOrdenExtraordinaria,
+    	c.lLicencia,
+    	c.sReportesCIA,
+    	c.sLeyenda1,
+    	c.sLeyenda2,
+    	c.sLeyenda3,
+	ot.bAvanceFrente,
+    	ot.bAvanceContrato,
+    	ot.bComentarios,
+    	ot.bPermisos,
+    	ot.lMostrarAvanceProgramado,
+	c.bImagen,
+    	c.sContrato,
+    	c.sNombre,
+    	c2.sCodigo,
+    	c.sPiePagina,
+    	c.sEmail,
+    	c.sWeb,
+    	c.sSlogan,
+    	c.sFirmasElectronicas,
+    	c.lImprimeExtraordinario,
+	c2.mDescripcion,
+    	c2.sTitulo,
+    	c2.mCliente,
+    	c2.bImagen as bImagenPEP ,
+    	(select sOrigenTierra from turnos where sContrato=c.sContrato and sIdTurno = $P{sIdTurno}) as sOrigenTierra,
+	(select sIdUsuarioValida from reportediario where sContrato=c.sContrato  and dIdFecha=$P{dIdFecha}   and sNumeroOrden=f.sNumeroOrden  and sIdTurno=$P{sIdTurno}  and sIdConvenio= $P{sIdConvenio}  and sNumeroReporte=$P{sNumeroReporte}) sIdUsuarioValida,
+	(select sIdUsuarioAutoriza from reportediario where sContrato=c.sContrato  and dIdFecha=$P{dIdFecha}   and sNumeroOrden=f.sNumeroOrden  and sIdTurno=$P{sIdTurno}  and sIdConvenio= $P{sIdConvenio}  and sNumeroReporte=$P{sNumeroReporte}) sIdUsuarioAutoriza,
+	(select sIdUsuarioResidente from reportediario where sContrato=c.sContrato  and dIdFecha=$P{dIdFecha}  and sNumeroOrden=f.sNumeroOrden  and sIdTurno=$P{sIdTurno}  and sIdConvenio= $P{sIdConvenio} and sNumeroReporte=$P{sNumeroReporte}) sIdUsuarioResidente
+
+from firmas f , contratos c2 INNER JOIN configuracion c ON (
+	c.sContrato = c2.sContrato
+)
+inner join ordenesdetrabajo ot on (
+	ot.sContrato = c2.sContrato
+    and ot.sNumeroOrden = $P{sNumeroOrden}
+)
+Where
+	c2.sContrato = $P{sContrato}
+    and f.sContrato=c2.sContrato
+    and ot.sNumeroOrden=f.sNumeroOrden
+	and dIdFecha <=$P{dIdFecha}
+Order By dIdFecha DESC
+limit 1]]>
+	</queryString>
+	<field name="sSuperintendente" class="java.lang.String"/>
+	<field name="sSuperintendentePatio" class="java.lang.String"/>
+	<field name="sRepresentanteTecnico" class="java.lang.String"/>
+	<field name="sSupervisor" class="java.lang.String"/>
+	<field name="sSupervisorPatio" class="java.lang.String"/>
+	<field name="sSupervisorGenerador" class="java.lang.String"/>
+	<field name="sSupervisorEstimacion" class="java.lang.String"/>
+	<field name="sSupervisorTierra" class="java.lang.String"/>
+	<field name="sResidente" class="java.lang.String"/>
+	<field name="sPuestoSuperintendente" class="java.lang.String"/>
+	<field name="sPuestoSuperintendentePatio" class="java.lang.String"/>
+	<field name="sPuestoSupervisor" class="java.lang.String"/>
+	<field name="sPuestoSupervisorPatio" class="java.lang.String"/>
+	<field name="sPuestoRepresentanteTecnico" class="java.lang.String"/>
+	<field name="sPuestoSupervisorGenerador" class="java.lang.String"/>
+	<field name="sPuestoSupervisorEstimacion" class="java.lang.String"/>
+	<field name="sPuestoSupervisorTierra" class="java.lang.String"/>
+	<field name="sPuestoResidente" class="java.lang.String"/>
+	<field name="sSupervisorSubContratista" class="java.lang.String"/>
+	<field name="sPuestoSupervisorSubContratista" class="java.lang.String"/>
+	<field name="iFirmasReportes" class="java.lang.String"/>
+	<field name="sMostrarAvances" class="java.lang.String"/>
+	<field name="iFirmas" class="java.lang.String"/>
+	<field name="sOrdenPerEq" class="java.lang.String"/>
+	<field name="sTipoPartida" class="java.lang.String"/>
+	<field name="sImprimePEP" class="java.lang.String"/>
+	<field name="sClaveSeguridad" class="java.lang.String"/>
+	<field name="cStatusProceso" class="java.lang.String"/>
+	<field name="sOrdenExtraordinaria" class="java.lang.String"/>
+	<field name="lLicencia" class="java.lang.String"/>
+	<field name="sReportesCIA" class="java.lang.String"/>
+	<field name="sLeyenda1" class="java.lang.String"/>
+	<field name="sLeyenda2" class="java.lang.String"/>
+	<field name="sLeyenda3" class="java.lang.String"/>
+	<field name="bAvanceFrente" class="java.lang.String"/>
+	<field name="bAvanceContrato" class="java.lang.String"/>
+	<field name="bComentarios" class="java.lang.String"/>
+	<field name="bPermisos" class="java.lang.String"/>
+	<field name="lMostrarAvanceProgramado" class="java.lang.String"/>
+	<field name="bImagen" class="java.lang.Object"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sCodigo" class="java.lang.String"/>
+	<field name="sPiePagina" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="sSlogan" class="java.lang.String"/>
+	<field name="sFirmasElectronicas" class="java.lang.String"/>
+	<field name="lImprimeExtraordinario" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="sTitulo" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagenPEP" class="java.lang.Object"/>
+	<field name="sOrigenTierra" class="java.lang.String"/>
+	<field name="sIdUsuarioValida" class="java.lang.String"/>
+	<field name="sIdUsuarioAutoriza" class="java.lang.String"/>
+	<field name="sIdUsuarioResidente" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="174" height="10"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sLeyenda1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="180" y="0" width="174" height="10">
+					<printWhenExpression><![CDATA[!$F{sPuestoSupervisor}.equals("*")  || !$F{sPuestoSupervisorPatio}.equals("*")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sLeyenda3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="358" y="0" width="174" height="10"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sLeyenda2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="16" width="174" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sOrigenTierra}.equals("No")?$F{sSuperintendente}:$F{sSuperintendentePatio})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="36" width="174" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sOrigenTierra}.equals("No")?$F{sPuestoSuperintendente}:$F{sPuestoSuperintendentePatio})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="16" width="174" height="20">
+					<printWhenExpression><![CDATA[!$F{sPuestoSupervisor}.equals("*")  || !$F{sPuestoSupervisorPatio}.equals("*")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sOrigenTierra}.equals("No")?$F{sSupervisor}:$F{sSupervisorPatio})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="36" width="174" height="20">
+					<printWhenExpression><![CDATA[!$F{sPuestoSupervisor}.equals("*")  || !$F{sPuestoSupervisorPatio}.equals("*")]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sOrigenTierra}.equals("No")?$F{sPuestoSupervisor}:$F{sPuestoSupervisorPatio})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="16" width="174" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sOrigenTierra}.equals("No")?$F{sSupervisorTierra}:$F{sResidente})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="36" width="174" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sOrigenTierra}.equals("No")?$F{sPuestoSupervisorTierra}:$F{sPuestoResidente})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

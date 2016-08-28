@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="avanceGerencial"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="792"
+		 pageHeight="612"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="5"
+		 rightMargin="5"
+		 topMargin="5"
+		 bottomMargin="5"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\wamp\\www\\html\\reportes\\avanceGerencialxOrden204\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContrato" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["428237814"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["A-03"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2008-02-11"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["AKAL-L"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[Select
+  iNivel as Nivel,
+  @sWbs:=sWbs as Wbs,
+  sNumeroActividad as Concepto,
+  mDescripcion as Descripcion,
+  date_format(dFechaInicio,"%d/%m/%Y") as FInicio,
+  date_format(dFechaFinal,"%d/%m/%Y") as FTermino,
+  concat(dPonderado,' %') as Ponderado,
+  concat(format(ifnull((Select
+                              Sum(dPonderadoDiario) as dPonderadoGlobal
+                        From
+                          avancesxactividad
+                        Where
+                          sContrato = $P{sContrato}
+                          And sIdConvenio = $P{sIdConvenio}
+                          And sNumeroOrden =$P{sNumeroOrden}
+                          And sWbs = @sWbs
+                          And dIdFecha <= $P{dIdFecha}
+                        Group By sContrato),0),4),' %') as AvProgramado,
+  concat(format(ifnull(( Select
+                            Sum(dAvance) as dAvanceGlobal
+                         From
+                           bitacoradepaquetes
+                         Where
+                           sContrato = $P{sContrato}
+                           And sIdConvenio = $P{sIdConvenio}
+                           And sNumeroOrden = $P{sNumeroOrden}
+                           And sWbs = @sWbs
+                           And dIdFecha <= $P{dIdFecha}
+                         Group By sContrato),0),4),' %') as AvanceFisico,
+  concat('$ ',format((dVentaMN),2)) as MonedaNacional,
+  concat('$ ',format(ifnull((Select
+                               sum(a1.dVentaMN * e1.dCantidad) as dMontoMN
+                             From
+                               distribuciondeactividades e1
+                             INNER JOIN
+                               actividadesxorden a1
+                             ON
+                               (e1.sContrato = a1.sContrato
+                               And a1.sIdConvenio = e1.sIdConvenio
+                               And a1.sNumeroOrden = e1.sNumeroOrden
+                               And e1.sWbs = a1.sWbs
+                               And e1.sNumeroActividad = a1.sNumeroActividad
+                               And a1.sTipoActividad = 'Actividad')
+                             Where
+                               e1.sContrato = $P{sContrato}
+                               And e1.sNumeroOrden = $P{sNumeroOrden}
+                               And e1.sIdConvenio = $P{sIdConvenio}
+                               And e1.dIdFecha <= $P{dIdFecha}
+                               And e1.sWbs Like concat(@sWbs,'.%')
+                             Group By e1.sContrato),0),2)) as MontoProgramado,
+  concat('$ ',format(ifnull((Select
+                                sum(a.dVentaMN * e.dCantidad) as dMontoMN
+                             From
+                               estimacionxpartida e
+                             INNER JOIN
+                               actividadesxorden a
+                             ON
+                               (e.sContrato = a.sContrato
+                               And a.sIdConvenio = $P{sIdConvenio}
+                               And a.sNumeroOrden = e.sNumeroOrden
+                               And e.sWbs = a.sWbs
+                               And e.sNumeroActividad = a.sNumeroActividad
+                               And a.sTipoActividad = 'Actividad')
+                             INNER JOIN
+                               estimaciones e2
+                             ON
+                               (e.sContrato = e2.sContrato
+                               And e.sNumeroOrden = e2.sNumeroOrden
+                               And e.sNumeroGenerador = e2.sNumeroGenerador
+                               And e2.dFechaFinal <= $P{dIdFecha}
+                               And e2.lStatus = 'Autorizado' )
+                             Where
+                               e.sContrato = $P{sContrato}
+                               And e2.sNumeroOrden = $P{sNumeroOrden}
+                               And e.sWbs Like concat(@sWbs,'.%')
+                             Group By e.sContrato),0),2)) as MontoGenerado
+from
+  actividadesxorden  aa
+Where
+  sContrato = $P{sContrato}
+  and sIdConvenio =$P{sIdConvenio} 
+  And sTipoActividad = 'Paquete'
+  and sNumeroOrden=$P{sNumeroOrden}
+  And iNivel <= 1
+order by iItemOrden]]></queryString>
+
+	<field name="Nivel" class="java.lang.Integer"/>
+	<field name="Wbs" class="java.lang.String"/>
+	<field name="Concepto" class="java.lang.String"/>
+	<field name="Descripcion" class="java.lang.String"/>
+	<field name="FInicio" class="java.lang.String"/>
+	<field name="FTermino" class="java.lang.String"/>
+	<field name="Ponderado" class="java.lang.String"/>
+	<field name="AvProgramado" class="java.lang.String"/>
+	<field name="AvanceFisico" class="java.lang.String"/>
+	<field name="MonedaNacional" class="java.lang.String"/>
+	<field name="MontoProgramado" class="java.lang.String"/>
+	<field name="MontoGenerado" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="32"
+						y="0"
+						width="712"
+						height="10"
+						key="subreport-1"/>
+					<subreportParameter  name="sContrato">
+						<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="sNumeroOrden">
+						<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "logos.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="21"  isSplitAllowed="true" >
+				<rectangle radius="0" >
+					<reportElement
+						x="32"
+						y="1"
+						width="725"
+						height="19"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch" pen="1Point"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="32"
+						y="1"
+						width="65"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-1"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[Concepto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="97"
+						y="1"
+						width="149"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-3"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[Descripcion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="246"
+						y="1"
+						width="65"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-4"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[F.Inicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="311"
+						y="1"
+						width="65"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-5"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[F.Final]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="376"
+						y="1"
+						width="49"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-6"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[Pond.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="425"
+						y="1"
+						width="49"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-7"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[Av.Prog]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="474"
+						y="1"
+						width="49"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[Av.Fisico]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="523"
+						y="1"
+						width="78"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-9"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[$ MN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="601"
+						y="1"
+						width="78"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-10"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[$ Prog]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="679"
+						y="1"
+						width="78"
+						height="19"
+						backcolor="#CCCCFF"
+						key="staticText-11"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[$ Gen]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="12"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="32"
+						y="-1"
+						width="65"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Concepto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="97"
+						y="-1"
+						width="149"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Descripcion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="376"
+						y="-1"
+						width="49"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Ponderado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="425"
+						y="-1"
+						width="49"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{AvProgramado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="474"
+						y="-1"
+						width="49"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{AvanceFisico}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="523"
+						y="-1"
+						width="78"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MonedaNacional}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="601"
+						y="-1"
+						width="78"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MontoProgramado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="679"
+						y="-1"
+						width="78"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MontoGenerado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="246"
+						y="-1"
+						width="65"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FInicio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="311"
+						y="-1"
+						width="65"
+						height="12"
+						key="textField"
+						stretchType="RelativeToBandHeight"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="2" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="2"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FTermino}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="25"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="310"
+						y="7"
+						width="100"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="7"
+						width="87"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

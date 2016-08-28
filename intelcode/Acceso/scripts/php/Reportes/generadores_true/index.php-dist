@@ -1,0 +1,64 @@
+<?php 
+session_start();
+session_register('sErrorAcceso');
+$ruta = realpath("Plantilla/stmenu.js");
+   $Tam=strlen($ruta);
+   $TamFIle=strlen("stmenu.js");
+   $i=0;
+   $ruta_real="";
+   while($i<($Tam-$TamFIle))
+   {
+      $ruta_real.=$ruta[$i];
+      $i++;
+   }
+  /* $ruta_real="";
+   $ruta_real="/DreamWeaver/Plantilla/";*/
+   $Save="<?php \$ruta_real=\"$ruta_real\" ?>";
+	$fp = fopen("config.php","w");
+	fwrite($fp, $Save);
+   fclose($fp); 
+   require("Plantilla/Superior.php"); 
+   //require("config.php");
+   ?>
+<script language="javascript" >
+	function Validar(form)
+	{
+	  if (form.sUsuario.value == "")
+	  { alert("¡Por favor ingrese NICK!"); form.sUsuario.focus(); return; }
+	else if (form.sContrasena.value == "")
+	  { alert("¡Por favor ingrese su Password!"); form.sContrasena.focus(); return; }
+	  else
+		form.submit();
+	}
+</script>
+	<table border="0" cellspacing="0" cellpadding="2" width="812">
+        <tr>
+          <td width="808" class="pageName"><div align="center" class="Estilo2">SISTEMA DE VALIDACION </div></td>
+        </tr>
+	</table>
+	<table width="814" cellpadding="2" cellspacing="1" border="0" id="calendar">
+        <tr>
+          <td height="24" colspan="7" class="subHeader">&nbsp;</td>
+        </tr>
+		<form name="frmAcceso" action="selectContract.php" method="post">
+		<tr id="weekdays" bgcolor="#999966">
+          <th width="41%" align="right" bgcolor="#330066" class="bodyText">Usuario</th>
+          <th width="59%" align="left" bgcolor="#330066" class="bodyText">
+            <input name="sUsuario" type="text" size="25" maxlength="25"/>
+          </th>
+        </tr>
+		<tr id="weekdays" bgcolor="#999966">
+          <th width="41%" align="right" bgcolor="#330066" class="bodyText">Contrase&ntilde;a</th>
+          <th width="59%" align="left" bgcolor="#330066" class="bodyText">
+            <input name="sContrasena" type="password" size="25" maxlength="25"/>
+          </th>
+        </tr>
+		<tr id="weekdays" bgcolor="#999966">
+          <th width="41%" align="center" bgcolor="#330066" class="bodyText" colspan=2>
+           <input value="Aceptar"  type="button" onclick="Validar(this.form)" />
+          </th>
+        </tr>
+		</form>
+      </table>
+	  
+<?php if(isset($_SESSION['sErrorAcceso']))echo "<center><font color=red>".$_SESSION['sErrorAcceso']."</font></center>"; require("Plantilla/Inferior.php"); ?>

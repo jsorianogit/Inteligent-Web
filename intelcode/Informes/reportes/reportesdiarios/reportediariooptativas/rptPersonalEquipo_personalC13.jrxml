@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPersonalEquipo_personalC13" language="groovy" pageWidth="204" pageHeight="752" columnWidth="204" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Error">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["OT-04"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-09-25"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["BG OSA GOLIATH DP III"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["A"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+  bp.sContrato,
+  bp.sIdPernocta,
+  bp.dIdFecha,
+  bp.sIdPersonal,
+  per.sDescripcion as sPernocta,
+  bp.sDescripcion,
+  sum(bp.dCantidad) as dCantidad,
+  p.sIdTipoPersonal
+from bitacoradepersonal bp
+ inner join bitacoradeactividades ba on (
+    ba.sContrato = bp.sContrato
+    and ba.dIdFecha = bp.dIdFecha
+    and ba.iIdDiario = bp.iIdDiario
+    and ba.sNumeroOrden = $P{sNumeroOrden}
+    and ba.sIdTurno = $P{sIdTurno}
+  )
+ INNER JOIN personal p On (
+     bp.sContrato = p.sContrato
+     and bp.sIdPersonal=p.sIdPersonal
+     And p.lImprime = "Si"
+     And  (select sPersonalIndependiente from configuracion where sContrato = $P{sContrato}  ) LIKE concat( "%" , concat(trim(p.sIdTipoPersonal), "%")))
+ inner join pernoctan per on (
+     bp.sIdPernocta = per.sIdPernocta
+)
+Where
+   bp.dIdFecha  = $P{dIdFecha}
+   And bp.sContrato = $P{sContrato}
+Group By bp.sIdPernocta, bp.sIdPersonal
+Order By bp.sIdPernocta, p.iItemOrden]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sIdPernocta" class="java.lang.String"/>
+	<field name="dIdFecha" class="java.sql.Date"/>
+	<field name="sIdPersonal" class="java.lang.String"/>
+	<field name="sPernocta" class="java.lang.String"/>
+	<field name="sDescripcion" class="java.lang.String"/>
+	<field name="dCantidad" class="java.math.BigDecimal"/>
+	<field name="sIdTipoPersonal" class="java.lang.String"/>
+	<variable name="dSumaPersonal" class="java.math.BigDecimal" resetType="Group" resetGroup="sPernocta" calculation="Sum">
+		<variableExpression><![CDATA[$F{dCantidad}]]></variableExpression>
+	</variable>
+	<variable name="dSumaTotal" class="java.math.BigDecimal" resetType="Group" resetGroup="sContrato" calculation="Sum">
+		<variableExpression><![CDATA[$F{dCantidad}]]></variableExpression>
+	</variable>
+	<group name="sContrato">
+		<groupExpression><![CDATA[$F{sContrato}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<textField>
+					<reportElement mode="Opaque" x="0" y="0" width="168" height="10" backcolor="#BAD3FE"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font fontName="Arial" size="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{sIdTipoPersonal}.equals("EXT")?"TIEMPO EXTRA":"CONTROL DE PERSONAL")]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10">
+				<textField>
+					<reportElement x="136" y="0" width="32" height="10"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($V{dSumaTotal}==null?0.00:$V{dSumaTotal})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="136" height="10" backcolor="#BAD3FE"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA["TOTAL DE PERSONAL"]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="sPernocta">
+		<groupExpression><![CDATA[$F{sPernocta}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement mode="Opaque" x="0" y="10" width="168" height="10" backcolor="#CCCCCC"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sPernocta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="136" height="10"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA["DESCRIPCION"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="136" y="0" width="32" height="10"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA["CANT."]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10">
+				<textField>
+					<reportElement x="136" y="0" width="32" height="10"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($V{dSumaPersonal}==null?0.00:$V{dSumaPersonal})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="136" height="10" backcolor="#BAD3FE"/>
+					<box>
+						<pen lineWidth="0.1"/>
+						<topPen lineWidth="0.1"/>
+						<leftPen lineWidth="0.1"/>
+						<bottomPen lineWidth="0.1"/>
+						<rightPen lineWidth="0.1"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA["TOTAL DEL FRENTE"]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="136" height="10"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="0" width="32" height="10"/>
+				<box>
+					<pen lineWidth="0.1"/>
+					<topPen lineWidth="0.1"/>
+					<leftPen lineWidth="0.1"/>
+					<bottomPen lineWidth="0.1"/>
+					<rightPen lineWidth="0.1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dCantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

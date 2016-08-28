@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptReporteDiarioObrasProgramadas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="3" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Listado" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select
+	c.iFirmasReportes,
+	c.sMostrarAvances,
+	c.iFirmas,
+	c.sOrdenPerEq,
+	c.sTipoPartida,
+	c.sImprimePEP,
+	c.sClaveSeguridad,
+	c.cStatusProceso,
+	c.sOrdenExtraordinaria,
+	c.lLicencia,
+	c.sReportesCIA,
+	c.sLeyenda1,
+	c.sLeyenda2,
+	c.sLeyenda3,
+	c.bImagen,
+	c.sContrato,
+	c.sNombre,
+	c2.sCodigo,
+	c.sPiePagina,
+	c.sEmail,
+	c.sWeb,
+	c.sSlogan,
+	c.sFirmasElectronicas,
+	c.lImprimeExtraordinario,
+	c2.mDescripcion,
+	c2.mCliente,
+	c2.bImagen as bImagenPEP,
+	sImpresionPaquetes,sTitulo
+From contratos c2
+	INNER JOIN configuracion c ON (
+		c.sContrato = c2.sContrato
+	)
+Where
+c2.sContrato = $P{sContrato}]]>
+	</queryString>
+	<field name="iFirmasReportes" class="java.lang.String"/>
+	<field name="sMostrarAvances" class="java.lang.String"/>
+	<field name="iFirmas" class="java.lang.String"/>
+	<field name="sOrdenPerEq" class="java.lang.String"/>
+	<field name="sTipoPartida" class="java.lang.String"/>
+	<field name="sImprimePEP" class="java.lang.String"/>
+	<field name="sClaveSeguridad" class="java.lang.String"/>
+	<field name="cStatusProceso" class="java.lang.String"/>
+	<field name="sOrdenExtraordinaria" class="java.lang.String"/>
+	<field name="lLicencia" class="java.lang.String"/>
+	<field name="sReportesCIA" class="java.lang.String"/>
+	<field name="sLeyenda1" class="java.lang.String"/>
+	<field name="sLeyenda2" class="java.lang.String"/>
+	<field name="sLeyenda3" class="java.lang.String"/>
+	<field name="bImagen" class="java.io.InputStream"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sCodigo" class="java.lang.String"/>
+	<field name="sPiePagina" class="java.lang.String"/>
+	<field name="sEmail" class="java.lang.String"/>
+	<field name="sWeb" class="java.lang.String"/>
+	<field name="sSlogan" class="java.lang.String"/>
+	<field name="sFirmasElectronicas" class="java.lang.String"/>
+	<field name="lImprimeExtraordinario" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="mCliente" class="java.lang.String"/>
+	<field name="bImagenPEP" class="java.io.InputStream"/>
+	<field name="sImpresionPaquetes" class="java.lang.String"/>
+	<field name="sTitulo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="-1" width="552" height="91"/>
+			</rectangle>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="38" y="2" width="91" height="77"/>
+				<imageExpression><![CDATA[$F{bImagen}]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="451" y="2" width="91" height="77"/>
+				<imageExpression><![CDATA[$F{bImagenPEP}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="Float" x="129" y="17" width="322" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CONTRATO: "+$F{sContrato}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="129" y="2" width="322" height="11"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mCliente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="18" width="552" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="3" width="226" height="15" forecolor="#FFFFFF" backcolor="#000000"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Listado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

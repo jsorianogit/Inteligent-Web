@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPersonalEquipo_equiposeguridad" language="groovy" pageWidth="204" pageHeight="204" columnWidth="204" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["424109803"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["COCUITE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-07-03"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["A"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+	b.sContrato,
+    b.sNumeroActividad,
+    "" as sPernocta,
+    m.sIdMaterial,
+    sum(m.dCantidad) as dCantidad,
+	m.sDescripcion as sEquipo
+from bitacoradeactividades b
+inner join bitacorademateriales m  on (
+	m.sContrato = b.sContrato
+    and m.dIdFecha = b.dIdFecha
+    and m.iIdDiario = b.iIdDiario
+    and m.sWbs = b.sWbs
+)
+where
+	b.sContrato =$P{sContrato}
+    and b.sNumeroOrden =  $P{sNumeroOrden}
+	and b.dIdFecha =  $P{dIdFecha}
+    and b.sIdTurno = $P{sIdTurno}
+group by
+	m.sIdMaterial
+order by m.sDescripcion]]>
+	</queryString>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sNumeroActividad" class="java.lang.String"/>
+	<field name="sPernocta" class="java.lang.String"/>
+	<field name="sIdMaterial" class="java.lang.String"/>
+	<field name="dCantidad" class="java.math.BigDecimal"/>
+	<field name="sEquipo" class="java.lang.String"/>
+	<group name="sContrato">
+		<groupExpression><![CDATA[$F{sContrato}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="168" height="10" backcolor="#8ADC6F"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA["CONTROL DE EQUIPO DE SEGURIDAD"]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="sPernocta">
+		<groupExpression><![CDATA[$F{sPernocta}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<staticText>
+					<reportElement mode="Opaque" x="136" y="0" width="32" height="10" backcolor="#8ADC6F"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA["CANT."]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="136" height="10" backcolor="#8ADC6F"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA["DESCRIPCION"]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="136" y="0" width="32" height="10"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dCantidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="136" height="10" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sEquipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,5 @@
+onkeyup=tab(this.form,this)
+
+return Enviar(this.form)
+
+Cancelar(this.form,'index.php')

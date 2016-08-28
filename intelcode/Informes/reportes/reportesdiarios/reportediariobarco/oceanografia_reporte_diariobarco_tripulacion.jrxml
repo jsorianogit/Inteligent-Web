@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="oceanografia_reporte_diariobarco_tripulacion" columnCount="2" pageWidth="612" pageHeight="792" columnWidth="306" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Fecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\ivan\\Documents\\Delphi for PHP Projects\\reportes\\Reportes Diarios New\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT c.sIdCategoria,td.dIdFecha, c.sDescripcion as sCategoria , t.sDescripcion  as texto, Sum(td.iNacionales) as iNacionales,
+ Sum(td.iExtranjeros) as iExtranjeros FROM tripulaciondiaria td INNER JOIN tripulacion t ON
+ (t.sContrato = td.sContrato And t.sIdTripulacion = td.sIdTripulacion and t.dFechaVigencia =
+   ( select dFechaVigencia from categorias where dFechaVigencia<=$P{dIdFecha} group by dFechaVigencia order by dFechaVigencia limit 1 )
+)
+ INNER JOIN categorias c ON (t.sIdCategoria = c.sIdCategoria and c.dFechaVigencia =
+   ( select dFechaVigencia from categorias where dFechaVigencia<=$P{dIdFecha} group by dFechaVigencia order by dFechaVigencia limit 1 )
+ )
+ Where td.sContrato = $P{sContrato} And td.dIdFecha = $P{dIdFecha}  and td.sIdTurno ="A"
+ Group By t.sIdTripulacion
+# Group By t.sIdCategoria
+ Order By c.sIdCategoria, t.sIdTripulacion]]>
+	</queryString>
+	<field name="sIdCategoria" class="java.lang.String"/>
+	<field name="dIdFecha" class="java.sql.Date"/>
+	<field name="sCategoria" class="java.lang.String"/>
+	<field name="texto" class="java.lang.String"/>
+	<field name="iNacionales" class="java.math.BigDecimal"/>
+	<field name="iExtranjeros" class="java.math.BigDecimal"/>
+	<variable name="TotalCategoria" class="java.math.BigDecimal" resetType="Group" resetGroup="Categorias" calculation="Sum">
+		<variableExpression><![CDATA[$F{iNacionales}]]></variableExpression>
+	</variable>
+	<group name="Categorias" keepTogether="true">
+		<groupExpression><![CDATA[$F{sIdCategoria}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-5" mode="Opaque" x="14" y="0" width="231" height="10" forecolor="#000000" backcolor="#99CCFF"/>
+					<box leftPadding="3">
+						<pen lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="styled">
+						<font fontName="SansSerif" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sCategoria}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-5" mode="Opaque" x="245" y="0" width="46" height="10" forecolor="#000000" backcolor="#99CCFF"/>
+					<box leftPadding="3">
+						<pen lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+						<font fontName="SansSerif" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["CANT."]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10">
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Opaque" x="14" y="0" width="231" height="10" forecolor="#000000" backcolor="#CCCCCC"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="styled">
+						<font fontName="SansSerif" size="7" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TOTALES "]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Opaque" x="245" y="0" width="46" height="10" forecolor="#000000" backcolor="#CCCCCC"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+						<font fontName="SansSerif" size="7" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TotalCategoria}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Opaque" x="14" y="8" width="277" height="12" forecolor="#000000" backcolor="#99CCFF"/>
+				<box leftPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RESUMEN DE PERSONAL ABORDO"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="14" y="0" width="231" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="245" y="0" width="46" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iNacionales}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

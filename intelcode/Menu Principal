@@ -1,0 +1,225 @@
+Configuracion
+	Familia de Productos
+	Almacenes
+	Consumibles
+	-
+	Medios de Transportes
+		Tipos de Medios de Transportes
+		Medios de Transportes
+	Personal
+		Tipos de Categorias
+		Catalogo de Categorias de Personal
+		Paquetes de Categoria de Personal
+		Programacion de Categoria de Personal
+	Tripulacion
+		Categoria de Tripulacion Base
+		Tripulacion Base
+		Floteles / Complejos / Pernoctan
+	Equipos
+		Tipo de Equipos
+		Catalogo de Equipos
+		Paquetes de Equipos
+	-
+	Tipos de Permisos de Seguridad
+	-
+	Tipos de Orden de Trabajo
+	-
+	Municipios/Localidades/Plataformas
+	-
+	Cuentas
+	Subcuentas
+	-
+	Clasificacion de Planos de Construccion
+	Planos de Construccion
+	-
+	Pozos/Equipos
+	Medidas x Fletes / Suministros
+Control de Obra
+	Importacion de Plantilla Anexo
+	Reprogramaciones del Contrato
+	Polizas y Fianzas
+	-
+	Conceptos Generales / Partidas de Anexo
+	Recursos por Concepto / Partida
+	Distribucion de Conceptos / Partidas
+	Ficha Tecnica
+	-
+	Registro de Ordenes de Trabajo
+	Conceptos / Partidas x Orden de Trabajo
+	Distribucion de Conceptos / Partidas por Orden de Trabajo
+	Puntos de Inspeccion
+	Frentes de Trabajo
+	-
+	Condiciones Climatologicas
+Precio Unitario
+	Tramite de Permisos de Seguridad
+	-
+	Procesos y Configuraciones
+		Distribucion de Programa de Trabajo
+		-
+		Regeneracion de Avances del Contrato
+		Regeneracion de Avances Globales
+		Regeneracion de Avances Entregables
+		-
+		Agrupamiento de Actividades
+	Avances Globales
+		Avances del Contrato
+		Avances x Orden de Trabajo
+	Consultas
+		Reporte de Equipos Utilizados en Reportes Diarios
+		-
+		Consulta x Partida Anexo
+		Consulta de Partidas x Alcance
+		Consulta de Partidas x Paquetes de Trabajo
+		Consulta de Partidas x Descripcion
+		Catalogo de Anexo C
+		-
+		Comparativo Suministrado Vs. Reportado Vs Generado
+		Comparativo Instalado Vs. Generado en inteligent
+		Consulta General x Partida Anexo
+		Comparativo Reportado Vs. Generado (inteligent)
+		Comparativo Reportado Vs. Generado (intelcode)
+		Comparativo Suministrado vs Reportado vs Generado
+		Generacion de Informes
+		Generacion de Informes(Menu)
+	Busqueda de Comentarios
+	-
+	Actividades Diarias
+		Firmantes
+		-
+		Captura de Instalacion por Isometrico
+		Reporte de Instalacion por Periodo
+		Ordenes de Cambio
+		-
+		Reporte Diario
+		Reporte Diario Gerencial
+		Sintesis Gerencial
+		Cancelacion de Partidas x Orden de Trabajo
+		-
+		Validar Reportes Diarios/Generadores
+		Abrir Reportes Diarios Generadores
+	Album Fotografico / Tiempos Muertos...
+		Tiempos Muertos
+		Personal / Equipo Utilizado
+		Resumen Financiero
+		Album Fotografico
+	Estimaciones
+		Proyeccion
+		-
+		Historial de Generadores
+		-
+		Estimaciones de SubContratistas
+		-
+		Estimaciones
+		Imprimir Estimaciones
+		-
+		Autorizacion de Estimaciones
+		Filtro de Estimaciones
+	Generadores de Obra
+		Captura de Generadores de Obra
+		Impresion de Generadores
+		Historial de Generadores
+	Reportes
+		Reportes de Instalacion x Periodo
+		Reportes Diarios
+		Reportes Diarios + Gerencial
+Almacen
+	Pagos Proveedores
+	-
+	Proveedores
+	Movtos. de Almacen
+	-
+	Inventario General
+	-
+	Solicitudes de Material de Almacen
+	Captura de Requisiciones
+	Captura de Ordenes de Compra 
+	Captura de Avisos de Embarques
+	-
+	Entradas al Almacen
+	Salidas de Almacen
+	-
+	Validar Solicitudes/Requisiciones/Ordenes de Compra
+	Abrir Solicitudes/Requisiciones/Ordenes de Compra
+Herramientas
+	Graficas
+	-
+	SQL intel-code
+	Importacion de Datos
+	Exportacion de Datos
+	Importar Datos (Reportes Diarios / Generadores)
+	Exportacion Personalizada
+	-
+	Ejecutar Script SQL
+	-
+	Herramienta de Migracion de Base de Datos
+	-
+	Descargas de Actualizaciones Inteligent Escritorio
+Panel de Control
+	Permisos de Acceso a Almacen
+	-
+	Administracion de Usuarios
+		Kardex del Sistema
+		-
+		Departamentos
+		-
+		Programas
+		Asignacion de Contratos a Usuarios
+		-
+		Usuarios
+		Grupos
+		-
+		Asignacion de Programas a Usuarios
+		Asignacion de Programas a Grupos
+		-
+		Informe de transferencia de datos
+	Contratos
+	SubContratos
+	Configuracion del Sistema
+	Turnos
+	Dias Festivos
+	Presupuesto Mal Tiempo
+	Registro de Avisos y Alertas
+	Administracion de Catalogos
+	-
+	Administracion del Cliente
+		Residencia de Obra
+		Activos Integrales
+		-
+		Factor de Costo
+		-
+		Tipos de Estimacion
+		Tipos de Convenios
+		Fases de Proyectos
+		Fases de Costo
+		-
+		Trinomios
+		-
+	Status de Ordenes
+	Tipos de Movimiento
+	-
+	Programa de Platicas de Seguridad
+	-
+	Fases  de Embarcacion
+	Costos Emb. x Fase
+Gerencial
+	Gerencial
+	-
+	Avances Fisico / Financiero
+	-
+	Personal Programado / Real
+	-
+	Retenciones y Penas Convencionales
+	Retenciones Aplicadas
+	-
+	Administracion de Contratos
+Sistema
+	Acerca de...
+	Tips del Dia
+	Advertencias!
+	-
+	Cambio de Password
+	Login
+	Seleccion de Contrato
+	Salir
+

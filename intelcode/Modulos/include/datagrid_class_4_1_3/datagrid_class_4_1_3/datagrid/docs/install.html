@@ -1,0 +1,62 @@
+<pre>
+<strong>PHP DataGrid - Step by Step.</strong>
+
+See the <a href="http://phpbuilder.blogspot.com/2007/02/installation-v400-or-above.html">last updated version</a>
+
+
+NEW INSTALLATION (for version 4.0.0 or above)
+A new installation of PHP DataGrid is a very straight forward process:   
+========================================================
+
+<strong>Step 1.
+--------------------------------------------------------</strong>
+Uncompress the PHP DataGrid version 4.x.x script archive.
+The archive will create a directory called "datagrid_4_x_x"
+
+<strong>Step 2.
+--------------------------------------------------------</strong>
+Upload content of this folder (all files and directories it includes)
+to your document root (public_html, www, htdocs etc.) using FTP. 
+
+For example:<font color="darkblue"><strong>
+   public_html/your_site/datagrid
+</font></strong>
+
+<strong>Step 3.
+--------------------------------------------------------</strong>
+Using phpMyAdmin or another tool, create your database and user, 
+and assign that user to the database. Write down the name of the database, 
+username, and password for the database installation procedure. 
+
+Create all appropriate database tables.
+
+<strong>Step 4.
+--------------------------------------------------------</strong>
+Open code_template.php file, uncomment these 4 lines and change variable 
+values on yours (saved on step 3).
+
+<font color="darkblue"><strong>
+//  $DB_USER='name';            /* usually like this: prefix_name             */
+//  $DB_PASS='';                /* must be already enscrypted (recommended)   */
+//  $DB_HOST='localhost';       /* usually localhost                          */
+//  $DB_NAME='dbName';          /* usually like this: prefix_dbName           */
+</strong></font>
+
+Define a <b>relative path</b> to datagrid.class.php file and "pear" directory
+(relatively to the code_template.php file).
+                              
+<font color="darkblue"><strong>
+//  define ("DATAGRID_DIR", "");  /* Ex.: "datagrid/" */  
+//  define ("PEAR_DIR", "pear/"); /* Ex.: "datagrid/pear/" */  
+//  
+//  require_once(DATAGRID_DIR.'datagrid.class.php');
+//  require_once(PEAR_DIR.'PEAR.php');
+//  require_once(PEAR_DIR.'DB.php');
+</strong></font>
+
+<strong>Step 5.
+--------------------------------------------------------</strong>
+Rename code_template.php file according to your needs.
+
+<strong>Congradulations, you now have PHP DataGrid v.4.x.x. Installed!</strong>
+</pre>

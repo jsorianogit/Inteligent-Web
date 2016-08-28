@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptReporteDiarioProgramadas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.9982500000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sContrato" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("OT-09")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdConvenio" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("c-03")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroOrden" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("akal-j1")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sNumeroReporte" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("AKAL-J1-018")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sIdTurno" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("A")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lStatus" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("Autorizado")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dIdFecha" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2011-02-13"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sContratoBarco" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["428230832"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	$P{lStatus} as lStatus,
+	$P{sContrato} as sContrato,
+	$P{sIdConvenio} as sIdConvenio,
+	$P{sIdTurno} as sIdTurno,
+	$P{sNumeroOrden} as sNumeroOrden,
+	$P{sNumeroReporte} as sNumeroReporte,
+	$P{SUBREPORT_DIR} as SUBREPORT_DIR]]>
+	</queryString>
+	<field name="lStatus" class="java.lang.String"/>
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="sIdConvenio" class="java.lang.String"/>
+	<field name="sIdTurno" class="java.lang.String"/>
+	<field name="sNumeroOrden" class="java.lang.String"/>
+	<field name="sNumeroReporte" class="java.lang.String"/>
+	<field name="SUBREPORT_DIR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch">
+			<subreport>
+				<reportElement x="10" y="0" width="572" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptRDTitulo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="179">
+			<subreport isUsingCache="true" runToBottom="false">
+				<reportElement positionType="Float" mode="Transparent" x="14" y="0" width="568" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptInfoObra.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="27" y="26" width="555" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptDetalleMovimientosMix.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="27" y="13" width="555" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +
+($P{lStatus}.equals( "Pendiente" ) ?"rptAvancesObrayOrdenAG.jasper":"rptAvancesObrayOrdenAG.jasper")]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement positionType="Float" x="0" y="157" width="612" height="1"/>
+			</break>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="27" y="129" width="555" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptTiemposMuertos.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="27" y="162" width="555" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptReporteFotografico.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="27" y="116" width="555" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptPermisosSeguridad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="27" y="142" width="555" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptComentarios.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="2" y="80" width="580" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContratoBarco">
+					<subreportParameterExpression><![CDATA[$P{sContratoBarco}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptPersonalEquipo.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="27" y="61" width="555" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContratoBarco">
+					<subreportParameterExpression><![CDATA[$P{sContratoBarco}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptDetalleMovimientos.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="27" y="97" width="555" height="13"/>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptDetalleMateriales.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="2" y="44" width="580" height="13"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContratoBarco">
+					<subreportParameterExpression><![CDATA[$P{sContratoBarco}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptPersonalEquipoPU.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="86" splitType="Stretch">
+			<subreport>
+				<reportElement x="2" y="0" width="580" height="86" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dIdFecha">
+					<subreportParameterExpression><![CDATA[$P{dIdFecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="lStatus">
+					<subreportParameterExpression><![CDATA[$P{lStatus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sContrato">
+					<subreportParameterExpression><![CDATA[$P{sContrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdTurno">
+					<subreportParameterExpression><![CDATA[$P{sIdTurno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroReporte">
+					<subreportParameterExpression><![CDATA[$P{sNumeroReporte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sIdConvenio">
+					<subreportParameterExpression><![CDATA[$P{sIdConvenio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sNumeroOrden">
+					<subreportParameterExpression><![CDATA[$P{sNumeroOrden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rptFirmas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,168 @@
+<?php session_start();?>
+<html>
+   <head>
+      <style type='text/css'>@import 'estilo1.css';</style>
+      <script language="javascript" src="../../../estilos/domtableenhance.js"></script>
+      <link rel="stylesheet" href="../../../estilos/emx_nav_left.css" type="text/css" />
+      <title></title>
+   </head>
+   <body onload="document.formulario.actividad.focus();">
+<table border=3 >
+<tr>
+<td style="vertical-align: top" width="30%">
+<table>
+<form name = "formulario" action="<?php echo $PHP_SELF?>" method="post">
+   <tr>
+      <th>
+         Numero de partida
+      </th>
+      <td>
+         <input type = "text" name = "actividad" value = "" />
+      </td>
+   </tr>
+</form>
+</table>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: left"width="100% " >
+<?php
+//$_SESSION['ssUsuario']='IMOLINA';
+//$_SESSION['ssContrasena']='DANAE';
+require ("../../../include/formulario.inc.php");
+//$sContrato ='425026939';
+$sIdConvenio='';
+$actividad = $_POST['actividad'];
+//obtener el numero de orden
+$sql="SELECT c.sIdConvenio,c2.dFechaInicio,c2.dFechaFinal,c2.dMontoMN FROM configuracion c INNER JOIN convenios c2 ON (c.sContrato=c2.sContrato AND c.sIdConvenio=c2.sIdConvenio) WHERE c.sContrato='$sContrato'";
+$resultado=mysql_query($sql,$link);
+if($row=mysql_fetch_array($resultado)){
+	$sIdConvenio=$row['sIdConvenio'];
+}
+
+//visualizaciones
+$sql="SELECT a2.iFase, a2.dAvance AS dPonderado, a2.sDescripcion, Sum(b.dCantidad) AS dCantidad  
+      FROM alcancesxactividad a2
+      LEFT JOIN bitacoradealcances b 
+      ON (b.sContrato = a2.sContrato AND b.sNumeroActividad = a2.sNumeroActividad AND b.iFase = a2.iFase) 
+      WHERE a2.sContrato = '$sContrato' And a2.sNumeroActividad = '$actividad' Group By a2.iFase";
+$result = mysql_query($sql);
+print ("<table class='enhancedtablerowhover'>");
+   print ("<thead><tr>");
+   print ("<th>Fase</th>");
+   print ("<th>%</th>");
+   print ("<th>Cantidad</th>");
+   print ("</tr></thead><tbody>");
+while ($row = mysql_fetch_array($result)){
+   print ("<tr>");
+   print ("<td>$row[2]</td>");
+   print ("<td>$row[1]</td>");
+   print ("<td>$row[3]</td>");
+   print ("</tr>");
+}
+print ("</tbody></table>");
+?>
+</td>
+<td>
+<?php
+if($_SESSION['database']=="intel-code")$paquete ="and sTipoActividad='Actividad'";
+else $paquete ="";
+$sql = " select sContrato,sIdConvenio,sNumeroActividad,dPonderado,sMedida
+         from actividadesxanexo
+         where sContrato='$sContrato'
+         and sNumeroActividad='$actividad'
+	$spaquete";
+//         and sTipoActividad ='Actividad'";
+$result=mysql_query($sql);
+print ("<table class='enhancedtablerowhover'>");
+//print ("<caption>Actividad Anexo</caption>");
+   print ("<thead><tr>");
+   print ("<th class='title' colspan = 10 align=center>Actividad Anexo</th></tr>");
+   print ("<th>Convenio</th>");  
+   print ("<th>Numero Actividad</th>");  
+   print ("<th>Ponderado</th>");  
+   print ("<th>Medida</th>");  
+   print ("</tr></thead><tbody>");
+while ($row = mysql_fetch_array($result)){
+   print ("<tr>");
+   print ("<td>".$row['sIdConvenio']."</td>");
+   print ("<td>".$row['sNumeroActividad']."</td>");
+   print ("<td>".$row['dPonderado']."</td>");
+   print ("<td>".$row['sMedida']."</td>");
+   print ("</tr>");
+}
+print ("</tbody></table>");
+
+
+?>
+</td>
+</tr>
+<tr >
+<td colspan=2 align="justify" width="100% ">
+<?php
+//
+if($_SESSION['database']=="intel-code"){
+	$paquete ="sWbs";
+	$medida =",sMedida";
+	$venta =",dVentaMN";
+}
+else {
+	$paquete ="sPaquete";
+	$medida ="";
+	$venta ="";
+}
+
+$sql="Select sNumeroOrden, $paquete, sNumeroActividad, mDescripcion $medida, dCantidad $venta, dFechaInicio, 
+dFechaFinal, dInstalado, dExcedente, dPonderado 
+From actividadesxorden Where sContrato = '$sContrato' And sIdConvenio ='$sIdConvenio' 
+And sNumeroActividad = '$actividad' and sTipoActividad = 'Actividad' order by sNumeroOrden, iItemOrden";
+$result = mysql_query($sql);
+
+print ("<table class='enhancedtablerowhover'>");
+//print ("<caption>Concepto / Partida x Ordendes de Trabajo</caption>");
+   print ("<thead><tr>");
+   print ("<th class='title' colspan = 10 align=center>Concepto / Partida x Ordendes de Trabajo</th></tr>");
+   print ("<tr><th>Orden</th>");
+   print ("<th>Wbs</th>");
+   print ("<th>Descripcion</th>");
+   print ("<th>Cantidad</th>");
+   if($_SESSION['database']=="intel-code"){
+     print ("<th>Um</th>");
+     print ("<th>Pu</th>");
+  }
+   print ("<th>Instalado</th>");
+   print ("<th>Pendiente</th>");
+   print ("<th>Exedente</th>");
+   print ("<th>Ponderado</th>");
+   print ("</tr></thead><tbody>");
+while ($row = mysql_fetch_array($result)){
+   print ("<tr>");
+   $pendiente = $row['dCantidad'] - $row['dInstalado'];
+   print ("<td>".$row['sNumeroOrden']."</td>");
+   print ("<td><a href = 
+'coincidencias.php?sNumeroOrden=$row[sNumeroOrden]&sWbs=$row[1]&sNumeroActividad=$row[sNumeroActividad]&sContrato=$sContrato' 
+target='coincidencias'>".$row[1]."</td></a>");
+   print ("<td>".$row['mDescripcion']."</td>");
+   print ("<td>".$row['dCantidad']."</td>");
+   if($_SESSION['database']=="intel-code") {
+  	print ("<td>".$row['sMedida']."</td>");
+   	print ("<td>".$row['dVentaMN']."</td>");
+  }
+   print ("<td>".$row['dInstalado']."</td>");
+   print ("<td>".($pendiente)."</td>");
+   print ("<td>".$row['dExcedente']."</td>");
+   print ("<td>".$row['dPonderado']."</td>");
+   print ("</tr>");
+}
+print ("</tbody></table>");
+print ("<script languaje='javacript'>
+         parent.coincidencias.location.href='coincidencias.php?sNumeroOrden=&sWbs=&sNumeroActividad=&sContrato=';
+       </script>");//   parent.coincidencias.location.reload();
+
+mysql_close($link);
+?>
+</td>
+</tr>
+</table>
+   </body>
+</head>

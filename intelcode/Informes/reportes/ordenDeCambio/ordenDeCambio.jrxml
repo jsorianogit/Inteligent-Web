@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ordenDeCambio"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="Default"
+		isDefault="true"
+		forecolor="#000099"
+		fontSize="8"
+		isBlankWhenNull="true"
+	/>
+	<style 
+		name="lCedulaSiProcede"
+		isDefault="false"
+	>
+
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($F{lCedulaProcede}.equals("Si"))]]></conditionExpression>
+			<style 
+				name="lCedulaSiProcede"
+				isDefault="false"
+				backcolor="#003366"
+			/>
+		</conditionalStyle>
+	</style>
+	<style 
+		name="lCedulaNoProcede"
+		isDefault="false"
+	>
+
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($F{lCedulaProcede}.equals("No"))]]></conditionExpression>
+			<style 
+				name="lCedulaNoProcede"
+				isDefault="false"
+				backcolor="#003366"
+			/>
+		</conditionalStyle>
+	</style>
+
+	<parameter name="sContrato" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["428237813"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="iCedulaProcedencia" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\wamp\\www\\html\\reportes\\ordenDeCambio\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[Select
+  o.*,
+  c.mDescripcion,
+  c.bImagen,c.bImagen AS bImagen2,c.bImagen as bImagen3, c.bImagen as bImagen4,
+  c2.sNombre,
+  c2.sDireccion1,
+  c2.sDireccion2,
+  c2.sDireccion3,
+  c2.bImagen as bImagenCIA
+From
+  ordendecambio o
+  inner join contratos c on (o.sContrato = c.sContrato)
+  inner join configuracion c2 on (o.sContrato = c2.sContrato)
+  Where o.sContrato=$P{sContrato} and o.iCedulaProcedencia=$P{iCedulaProcedencia};]]></queryString>
+
+	<field name="sContrato" class="java.lang.String"/>
+	<field name="iCedulaProcedencia" class="java.lang.Integer"/>
+	<field name="mCedulaMotivo" class="java.lang.String"/>
+	<field name="mCedulaProblematica" class="java.lang.String"/>
+	<field name="mCedulaCambioPropuesto" class="java.lang.String"/>
+	<field name="dCedulaMontoRequerido" class="java.lang.String"/>
+	<field name="iCedulaDiasPlazo" class="java.lang.String"/>
+	<field name="iCedulaDiasProrroga" class="java.lang.String"/>
+	<field name="sCedulaSoporte" class="java.lang.String"/>
+	<field name="lCedulaProcede" class="java.lang.String"/>
+	<field name="lCedulaNoProcede" class="java.lang.String"/>
+	<field name="mCedulaAccionesPropuestas" class="java.lang.String"/>
+	<field name="sCedulaAreaResponsable" class="java.lang.String"/>
+	<field name="sCedulaAntefirman" class="java.lang.String"/>
+	<field name="dNotificacionFecha" class="java.sql.Date"/>
+	<field name="mNotificacionDescripcion" class="java.lang.String"/>
+	<field name="sNotificacionProcede" class="java.lang.String"/>
+	<field name="sNotificacionRequierePrecios" class="java.lang.String"/>
+	<field name="sNotificacionExtiendeTiempo" class="java.lang.String"/>
+	<field name="iNotificacionEntregaPropuesta" class="java.lang.Integer"/>
+	<field name="sNotificacionPlanosAdjuntos" class="java.lang.String"/>
+	<field name="sNotificacionOtroRequerimiento" class="java.lang.String"/>
+	<field name="mNotificacionSupervisor" class="java.lang.String"/>
+	<field name="mNotificacionResidente" class="java.lang.String"/>
+	<field name="sNotificacionAntefirman" class="java.lang.String"/>
+	<field name="sNotificacionOficio" class="java.lang.String"/>
+	<field name="lNotificacionSinComentarios" class="java.lang.String"/>
+	<field name="lNotificacionConComentarios" class="java.lang.String"/>
+	<field name="lNotificacionConPropuesta" class="java.lang.String"/>
+	<field name="lNotificacionSinPropuesta" class="java.lang.String"/>
+	<field name="mNotificacionContratista" class="java.lang.String"/>
+	<field name="dNotificacionFechaFirma" class="java.sql.Date"/>
+	<field name="mDictamenDescripcion" class="java.lang.String"/>
+	<field name="mDictamenFundamento" class="java.lang.String"/>
+	<field name="mDictamenAntecedentes" class="java.lang.String"/>
+	<field name="mDictamenJustificacion" class="java.lang.String"/>
+	<field name="mDictamenVerificacionPresupuestal" class="java.lang.String"/>
+	<field name="mDictamenResidente" class="java.lang.String"/>
+	<field name="sDictamenAntefirman" class="java.lang.String"/>
+	<field name="sOrdenOficio" class="java.lang.String"/>
+	<field name="sOrdenCambio" class="java.lang.String"/>
+	<field name="dOrdenFecha" class="java.sql.Date"/>
+	<field name="dOrdenMonto" class="java.math.BigDecimal"/>
+	<field name="iOrdenPlazo" class="java.lang.Integer"/>
+	<field name="mOrdenOtros" class="java.lang.String"/>
+	<field name="sOrdenOficios" class="java.lang.String"/>
+	<field name="sOrdenIngenieria" class="java.lang.String"/>
+	<field name="sOrdenNotasBitacora" class="java.lang.String"/>
+	<field name="sOrdenModificacionProgramas" class="java.lang.String"/>
+	<field name="sOrdenPreciosExtraordinarios" class="java.lang.String"/>
+	<field name="sOrdenSancionesdeCampo" class="java.lang.String"/>
+	<field name="sOrdenAnalisisdePrecios" class="java.lang.String"/>
+	<field name="sOrdenNotificacionesdeCambio" class="java.lang.String"/>
+	<field name="mOrdenSupervisor" class="java.lang.String"/>
+	<field name="mOrdenResidente" class="java.lang.String"/>
+	<field name="sOrdenAntefirman" class="java.lang.String"/>
+	<field name="dOrdenFechaFirma" class="java.sql.Date"/>
+	<field name="mOrdenContratista" class="java.lang.String"/>
+	<field name="lStatus" class="java.lang.String"/>
+	<field name="mDescripcion" class="java.lang.String"/>
+	<field name="bImagen" class="java.io.InputStream"/>
+	<field name="bImagen2" class="java.io.InputStream"/>
+	<field name="bImagen3" class="java.io.InputStream"/>
+	<field name="bImagen4" class="java.io.InputStream"/>
+	<field name="sNombre" class="java.lang.String"/>
+	<field name="sDireccion1" class="java.lang.String"/>
+	<field name="sDireccion2" class="java.lang.String"/>
+	<field name="sDireccion3" class="java.lang.String"/>
+	<field name="bImagenCIA" class="java.lang.Object"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="351"  isSplitAllowed="true" >
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="4"
+						y="9"
+						width="110"
+						height="50"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{bImagen}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="355"
+						y="10"
+						width="195"
+						height="30"
+						forecolor="#000000"
+						key="textField-28"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["CÉDULA DE PROCEDENCIA DE LA \n"+
+"NOTIFICACION DE CAMBIO No. " +$F{iCedulaProcedencia}.toString()]]></textFieldExpression>
+				</textField>
+				<frame>					<reportElement
+						style="Default"
+						x="4"
+						y="64"
+						width="545"
+						height="45"
+						key="frame-9"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="8"
+						y="29"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						key="staticText-83"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[OBRA :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="8"
+						y="17"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						key="staticText-84"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CONTRATISTA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="8"
+						y="5"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						key="staticText-85"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CONTRATO:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						mode="Opaque"
+						x="87"
+						y="5"
+						width="450"
+						height="12"
+						forecolor="#0000CC"
+						key="textField-41"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sContrato}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						mode="Opaque"
+						x="88"
+						y="17"
+						width="450"
+						height="12"
+						forecolor="#0000CC"
+						key="textField-42"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sNombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						mode="Opaque"
+						x="88"
+						y="29"
+						width="450"
+						height="12"
+						forecolor="#0000CC"
+						key="textField-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mDescripcion}]]></textFieldExpression>
+				</textField>
+				</frame>				<frame>					<reportElement
+						style="Default"
+						x="4"
+						y="114"
+						width="545"
+						height="152"
+						key="frame-10"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="9"
+						y="5"
+						width="125"
+						height="11"
+						forecolor="#000000"
+						key="staticText-86"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MOTIVO DEL CAMBIO:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						mode="Opaque"
+						x="9"
+						y="18"
+						width="530"
+						height="11"
+						forecolor="#0000CC"
+						backcolor="#FFFFFF"
+						key="textField-44"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mCedulaMotivo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="9"
+						y="39"
+						width="125"
+						height="11"
+						forecolor="#000000"
+						key="staticText-87"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PROBLEMATICA ACTUAL:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						mode="Opaque"
+						x="9"
+						y="52"
+						width="530"
+						height="11"
+						forecolor="#0000CC"
+						backcolor="#FFFFFF"
+						key="textField-45"
+						positionType="Float"
+						isRemoveLineWhenBlank="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mCedulaProblematica}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="9"
+						y="73"
+						width="125"
+						height="11"
+						forecolor="#000000"
+						key="staticText-88"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CAMBIO PROPUESTO:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="9"
+						y="86"
+						width="530"
+						height="11"
+						forecolor="#0000CC"
+						key="textField-46"
+						positionType="Float"
+						isRemoveLineWhenBlank="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mCedulaCambioPropuesto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="9"
+						y="107"
+						width="65"
+						height="11"
+						forecolor="#000000"
+						key="staticText-89"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SE REQUIERE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="9"
+						y="120"
+						width="189"
+						height="11"
+						forecolor="#000000"
+						key="staticText-90"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Número de Hojas Presentada Como Soporte:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="9"
+						y="134"
+						width="220"
+						height="11"
+						key="staticText-91"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[(P)PENDIENTE POR CUANTIFICAR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="108"
+						y="107"
+						width="41"
+						height="11"
+						forecolor="#000000"
+						key="staticText-92"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MONTO:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="150"
+						y="107"
+						width="74"
+						height="11"
+						forecolor="#000099"
+						key="textField-47"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{dCedulaMontoRequerido}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="223"
+						y="107"
+						width="38"
+						height="11"
+						forecolor="#000000"
+						key="staticText-93"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PLAZO:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="262"
+						y="107"
+						width="32"
+						height="11"
+						forecolor="#000099"
+						key="textField-48"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{iCedulaDiasPlazo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="208"
+						y="120"
+						width="50"
+						height="11"
+						forecolor="#000099"
+						key="textField-49"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sCedulaSoporte}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="294"
+						y="107"
+						width="24"
+						height="11"
+						forecolor="#000000"
+						key="staticText-94"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DIAS]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="368"
+						y="107"
+						width="30"
+						height="11"
+						forecolor="#000099"
+						key="textField-50"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{iCedulaDiasProrroga}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="318"
+						y="107"
+						width="50"
+						height="11"
+						forecolor="#000000"
+						key="staticText-95"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PRORROGA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="398"
+						y="107"
+						width="24"
+						height="11"
+						forecolor="#000000"
+						key="staticText-96"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DIAS]]></text>
+				</staticText>
+				</frame>				<frame>					<reportElement
+						style="Default"
+						x="4"
+						y="272"
+						width="545"
+						height="69"
+						key="frame-11"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="10"
+						y="48"
+						width="450"
+						height="11"
+						forecolor="#0033CC"
+						key="textField-51"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mCedulaAccionesPropuestas}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="11"
+						y="35"
+						width="100"
+						height="12"
+						forecolor="#000000"
+						key="staticText-97"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ACCIONES PROPUESTAS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="76"
+						y="20"
+						width="44"
+						height="12"
+						forecolor="#000000"
+						key="staticText-98"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PROCEDE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="10"
+						y="5"
+						width="530"
+						height="12"
+						forecolor="#000000"
+						key="staticText-99"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DETERMINACION A CERCA DE LA PROCEDENCIA DE LA NOTIFICACIÓN DE CAMBIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="185"
+						y="20"
+						width="60"
+						height="12"
+						forecolor="#000000"
+						key="staticText-100"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[NO PROCEDE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="lCedulaSiProcede"
+						mode="Opaque"
+						x="121"
+						y="20"
+						width="9"
+						height="11"
+						key="staticText-105"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="lCedulaNoProcede"
+						mode="Opaque"
+						x="246"
+						y="21"
+						width="9"
+						height="11"
+						key="staticText-106"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				</frame>			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="95"  isSplitAllowed="true" >
+				<frame>					<reportElement
+						style="Default"
+						x="3"
+						y="3"
+						width="545"
+						height="50"
+						key="frame-12"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Default"
+						x="56"
+						y="34"
+						width="180"
+						height="11"
+						forecolor="#0000CC"
+						key="textField-52"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sCedulaAreaResponsable}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="5"
+						y="33"
+						width="50"
+						height="12"
+						forecolor="#000000"
+						key="staticText-101"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[NOMBRE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="5"
+						y="8"
+						width="530"
+						height="25"
+						forecolor="#000000"
+						key="staticText-102"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA["DETERMNA PROCEDENCIA
+AREA RESPONSABLE DE LA EJECUCION DE TRABAJOS"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="Default"
+						x="245"
+						y="33"
+						width="50"
+						height="12"
+						forecolor="#000000"
+						key="staticText-103"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FIRMA:]]></text>
+				</staticText>
+				</frame>				<staticText>
+					<reportElement
+						style="Default"
+						x="3"
+						y="55"
+						width="225"
+						height="30"
+						forecolor="#000000"
+						key="staticText-104"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[C.p.p Área Responsable de la Contratación
+      Área de Programación y Presupuesto]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						style="Default"
+						x="299"
+						y="48"
+						width="235"
+						height="0"
+						key="line-1"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

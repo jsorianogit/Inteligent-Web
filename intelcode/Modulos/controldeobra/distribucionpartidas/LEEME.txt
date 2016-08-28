@@ -1,0 +1,21 @@
+cDistribucionAPartirDeMensual.php
+   -Distribucion de Conceptos / Partidas ( A partir de una Programacion Mensual)
+   -Esta Opcion no toma en cuenta el Numero de Orden, solo el Contrato
+
+oDistribucionAPartirDeMensual.php
+   -Distribucion de Conceptos / Partidas de Ordenes de Trabajo ( A partir de una Distribucion Mensual)
+
+oDistribucionFIniHastaFFin.php
+   -Distribucion de Conceptos / Partidas de Ordenes de Trabajo ( Desde la Fecha de Inicio Hasta la Fecha Final del Conceptos )
+
+cDistribucionDesdeFIniHastaFFin.php
+   -Distribucion de Conceptos / Partidas ( Desde la Fecha de Inicio Hasta la Fecha Final del Conceptos )
+   -Esta Opcion no toma en cuenta el Numero de Orden, solo el Contrato
+
+cDistribucionFIniHastaFFinYDM.php
+   -Distribucion de Conceptos / Partidas ( Desde la Fecha de Inicio Hasta la Fecha Final del Conceptos y crear distribucion mensual )
+   -Esta Opcion no toma en cuenta el Numero de Orden, solo el Contrato
+   -el Acumulado Mensual de cada Partida lo guarda en la tabla anexosmensuales
+
+oDistribucionDesdeFIniHastaFFinYDM.php
+   -Distribucion de Conceptos / Partidas de Ordenes de Trabajo ( Desde la Fecha de Inicio Hasta la Fecha Final del Conceptos y crear distribucion mensual )

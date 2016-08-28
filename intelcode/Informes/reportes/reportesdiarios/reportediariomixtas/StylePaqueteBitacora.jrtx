@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperTemplate PUBLIC "-//JasperReports//DTD Template//EN" "http://jasperreports.sourceforge.net/dtds/jaspertemplate.dtd">
+
+<jasperTemplate>
+	<style name="StylePaqueteBitacora" forecolor="#0000FF" backcolor="#FFFFFF"/>
+	<style name="StyleActividadesBitacora" forecolor="#00FF00"/>
+</jasperTemplate>

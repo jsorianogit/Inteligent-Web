@@ -1,0 +1,26 @@
+<html>
+<head>
+      <style type='text/css'>@import 'estilo1.css';</style>
+      <script language="javascript" src="../../estilos/domtableenhance.js"></script>
+      <link rel="stylesheet" href="../../estilos/emx_nav_left.css" type="text/css" />
+      <title></title>
+</head>
+<body bgcolor="#FFFFFF">
+<center>
+<iframe id="partidaHead" src="consutashead.php" name="partidaHead" frameborder="0" framespacing="0" scrolling="auto" border="1" style="position:absolute; left:20px; top:10px; width:260; height:50; z-index:5"></iframe> 
+<iframe id="partida" src="consutas.php" name="partida" frameborder="0" framespacing="0" scrolling="auto" border="1" style="position:absolute; left:20px; top:60px; width:260; height:160; z-index:5"></iframe> 
+
+<iframe id="fasesHead" src="faseshead.php" name="fasesHead" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:290px; top:10px; width:325; height:160; z-index:5" ></iframe>
+<iframe id="fases" src="fases.php" name="fases" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:290px; top:60px; width:325; height:160; z-index:5" ></iframe>
+
+<iframe id="kardexHead" src="kardexhead.php" name="kardexHead" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:630px; top:10px; width:600; height:160; z-index:5" ></iframe>
+<iframe id="kardex" src="kardex.php" name="kardex" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:630px; top:60px; width:600; height:160; z-index:5" ></iframe>
+
+<iframe id="reportadoHead" src="reportadohead.php" name="reportadoHead" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:20px; top:250px; width:600; height:50; z-index:5" ></iframe>
+<iframe id="reportado" src="reportado.php" name="reportado" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:20px; top:300px; width:600; height:160; z-index:5" ></iframe>
+
+<iframe id="generadoHead" src="generadohead.php" name="generadoHead" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:630px; top:250px; width:600; height:50; z-index:5" ></iframe>
+<iframe id="generado" src="generado.php" name="generado" frameborder="0" framespacing="0" scrolling="auto" border="0" style="position:absolute; left:630px; top:300px; width:600; height:160; z-index:5" ></iframe>
+</center>
+</body>
+</html>

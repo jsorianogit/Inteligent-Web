@@ -1,0 +1,131 @@
+<?php
+require ("../../../../include/formulario.inc.php");
+   echo "\n<style type='text/css'>@import '".$PathEstilos."estilo1.css';</style>";
+   echo "\n<script language='javascript' src='".$PathEstilos."domtableenhance.js'></script>";
+   echo "\n<script language='javascript' src='".$PathInclude."funcionesGen.js'></script>";
+   echo "\n<script type='text/javascript' src='".$PathInclude."acc_calendar/acc_calendar.js'></script>";
+#obtener las variables pasadas desde la captura del reporte diario
+
+if(isset($_REQUEST['fecha']) AND $_REQUEST['fecha']!=""){
+   $fecha=$_REQUEST['fecha'];
+   $_SESSION['fecha']=$fecha;
+   
+} 
+if(isset($_SESSION['fecha'])){
+   $fecha =$_SESSION['fecha'];
+}
+//obtener numero de orden  
+if(isset($_REQUEST['orden']) AND $_REQUEST['orden']!=""){
+   $orden=$_REQUEST['orden'];
+   $_SESSION['orden']=$orden;
+   
+}
+if(isset($_SESSION['orden'])){
+   $orden=$_SESSION['orden'];
+}
+//obtener numero de turno
+   
+if(isset($_REQUEST['turno']) AND $_REQUEST['turno']!=""){
+   $turno=$_REQUEST['turno'];
+   $_SESSION['turno']=$_REQUEST['turno'];
+}  
+if(isset($_SESSION['turno'])){
+   $turno=$_SESSION['turno'];
+}
+
+#Paginar los Resultados
+//Contar el total de registros
+if (!isset($_REQUEST['pag'])) $pag = 1; 
+else $pag = $_REQUEST['pag'];
+
+$result = mysql_query("SELECT COUNT(sIdTurno) FROM jornadasdiarias WHERE sContrato='$sContrato' and dIdFecha='$fecha' and sNumeroOrden='$orden' and sIdTurno='$turno'"); 
+list($total) = mysql_fetch_row($result);
+$tampag = 10;
+$reg1 = ($pag-1) * $tampag;
+
+#Mostrar las jornadas  y tiempos muertos capturados para esa fecha (La anterior)
+$sql="SELECT * FROM jornadasdiarias WHERE sContrato='$sContrato' and dIdFecha='$fecha' and sNumeroOrden='$orden' and sIdTurno='$turno' LIMIT $reg1, $tampag";
+$result = mysql_query($sql);
+echo "<center>";
+?>
+<input type ="button" onClick="document.location='menu.php?Operacion=a'" value="Insertar" title="Inserta Una Jornada o Tiempo Inhabil">
+<!-- <input type ="button" onClick="document.location='../?'" value="Regresar" title="Regresar a Reporte Diario"> -->
+<input type ="button" onClick="document.location='../../../../../frmReporteDiario.php?'" value="Regresar" title="Regresar a Reporte Diario">
+
+<?php
+//echo "<a href='menu.php?Operacion=a' title='Inserta Una Jornada o Tiempo Inhabil'>[Insertar]</a>";
+//echo "<a href='../?' title='Regresa al menu de Captura de Reportes Diario'>[Regresar]</a>";
+echo "<br>".paginar($pag, $total, $tampag, "?pag=")."<br>";
+echo "<table border=1 class='enhancedtablerowhover'>";
+echo "<caption>Jornadas Diarias y Tiempos Inhabiles</caption>";
+echo "<tr>";
+echo "<th></th>";
+echo "<th></th>";
+echo "<th>Fecha</th>";
+echo "<th>Tipo</th>";
+echo "<th>Turno</th>";
+echo "<th>Tipo</th>";
+echo "<th>Descripcion</th>";
+echo "<th>Area</th>";
+echo "<th>Inicio</th>";
+echo "<th>Final</th>";
+echo "<th>Personal</th>";
+echo "<th>Afectado</th>";
+echo "<th>Jornada</th>";
+echo "<th>T.M. Real</th>";
+echo "</tr>";
+while($row = mysql_fetch_array($result)){
+   echo "<tr>";
+   echo "<td>";
+   if($row['sIdTipoMovimiento']!="TMDS")   
+      echo "<a href='menu.php?sContrato=".$row['sContrato']."&sNumeroOrden=".$row['sNumeroOrden']."&dIdFecha=".$row['dIdFecha']."&sIdTurno=".$row['sIdTurno']."&sArea=".$row['sArea']."&sTipo=".$row['sTipo']."&sIdPernocta=".$row['sIdPernocta']."&sIdEmbarcacion=".$row['sIdEmbarcacion']."&sHoraInicio=".$row['sHoraInicio']."&sHoraFinal=".$row['sHoraFinal']."&sHoraSalida=".$row['sHoraSalida']."&Operacion=m' title='Modificar el Registro'> <img src='../../../../imagenes/editar.png'> </a>";
+   else
+      echo "<a href='#' title='Modificar el Registro' onClick=\"alert('No es Posible Modificar Directamente un Tiempo Inactivo por Indisponibilidad del Sitio. Modifique los horarios y descripciones  de las disponibilidades del sitio existentes para que automaticamente se Modifique ese tiempo inactivo')\" > <img src='../../../../imagenes/editar.png'> </a>";
+   echo "</td>";   
+   echo "<td>";   
+   if($row['sIdTipoMovimiento']!="TMDS")   
+      echo "<a href='borrar.php?sContrato=".$row['sContrato']."&sNumeroOrden=".$row['sNumeroOrden']."&dIdFecha=".$row['dIdFecha']."&sIdTurno=".$row['sIdTurno']."&sArea=".$row['sArea']."&sTipo=".$row['sTipo']."&sIdPernocta=".$row['sIdPernocta']."&sIdEmbarcacion=".$row['sIdEmbarcacion']."&sHoraInicio=".$row['sHoraInicio']."&sHoraFinal=".$row['sHoraFinal']."&sHoraSalida=".$row['sHoraSalida']."&Operacion=b' title='Eliminar el Registro'> <img src='../../../../imagenes/eliminar.png'> </a>";
+   else
+      echo "<a href='#' title='Eliminar el Registro' onClick=\"alert('No es Posible Eliminar Directamente un Tiempo Inactivo por Indisponibilidad del Sitio. Modifique los horarios y descripciones  de las disponibilidades del sitio existentes para que automaticamente se Elimine ese tiempo inactivo')\" > <img  src='../../../../imagenes/eliminar.png'> </a>";
+   echo "</td>";
+   echo "<td>";   
+   echo ($row['dIdFecha']=="")?"-":formatoFecha($row['dIdFecha']);
+   echo "</td>";
+   echo "<td>";
+   echo ($row['sTipo']=="")?"-":$row['sTipo'];
+   echo "</td>";
+   echo "<td>";
+   echo ($row['mDescripcion']=="")?"-":$row['mDescripcion'];
+   echo "</td>";
+   echo "<td>";
+   echo ($row['sIdTurno']=="")?"-":$row['sIdTurno'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['sIdTipoMovimiento']=="")?"-":$row['sIdTipoMovimiento'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['sArea']=="")?"-":$row['sArea'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['sHoraInicio']=="")?"00:00":$row['sHoraInicio'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['sHoraFinal']=="")?"00:00":$row['sHoraFinal'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['dPersonal']=="")?"0":$row['dPersonal'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['dFrente']=="")?"0":$row['dFrente'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['sJornada']=="")?"0":$row['sJornada'];
+   echo "</td>";   
+   echo "<td>";   
+   echo ($row['sTiempoMuerto']=="")?"0":$row['sTiempoMuerto'];
+   echo "</td>";   
+   echo "</tr>";   
+}
+echo "</table>";   
+echo "<br>".paginar($pag, $total, $tampag, "?pag=")."<br>";
+?>
